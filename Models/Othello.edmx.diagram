@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="568c1ebcb1074706b99edf58b99d35ba" Name="Diagram1">
+        <EntityTypeShape EntityType="OthelloIGameModel.DetalleJuego" Width="1.5" PointX="5.25" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="OthelloIGameModel.DetalleTorneo" Width="1.5" PointX="10.5" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="OthelloIGameModel.Juego" Width="1.5" PointX="8.25" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="OthelloIGameModel.Rol" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="OthelloIGameModel.TipoJuego" Width="1.5" PointX="6" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="OthelloIGameModel.Torneo" Width="1.5" PointX="5.25" PointY="13" IsExpanded="true" />
+        <EntityTypeShape EntityType="OthelloIGameModel.Usuario" Width="1.5" PointX="3" PointY="4.25" IsExpanded="true" />
+        <AssociationConnector Association="OthelloIGameModel.FK__DetalleJu__Id_ju__412EB0B6" ManuallyRouted="false" />
+        <AssociationConnector Association="OthelloIGameModel.FK__DetalleJu__jugad__4222D4EF" ManuallyRouted="false" />
+        <AssociationConnector Association="OthelloIGameModel.FK__DetalleJu__jugad__4316F928" ManuallyRouted="false" />
+        <AssociationConnector Association="OthelloIGameModel.FK__DetalleJu__perde__440B1D61" ManuallyRouted="false" />
+        <AssociationConnector Association="OthelloIGameModel.FK__DetalleTo__id_ju__4AB81AF0" ManuallyRouted="false" />
+        <AssociationConnector Association="OthelloIGameModel.FK__DetalleTo__id_to__49C3F6B7" ManuallyRouted="false" />
+        <AssociationConnector Association="OthelloIGameModel.FK__Juego__ganador__3E52440B" ManuallyRouted="false" />
+        <AssociationConnector Association="OthelloIGameModel.FK__Juego__tipo_jueg__3D5E1FD2" ManuallyRouted="false" />
+        <AssociationConnector Association="OthelloIGameModel.FK__Usuario__rol__38996AB5" ManuallyRouted="false" />
+        <AssociationConnector Association="OthelloIGameModel.FK__Torneo__ganador___46E78A0C" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

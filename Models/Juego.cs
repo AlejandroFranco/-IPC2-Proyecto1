@@ -14,24 +14,24 @@ namespace _IPC2_IGameOthello.Models
     
     public partial class Juego
     {
-        public int id_juego { get; set; }
-        public int jugador1 { get; set; }
-        public int jugador2 { get; set; }
-        public Nullable<int> perdedor { get; set; }
-        public Nullable<int> ganador { get; set; }
-        public Nullable<bool> empate { get; set; }
-        public Nullable<byte> punteo_jugador1 { get; set; }
-        public Nullable<byte> punteo_jugador2 { get; set; }
-        public Nullable<byte> movs_jugador1 { get; set; }
-        public Nullable<byte> movs_jugador2 { get; set; }
-        public string tipo_partida { get; set; }
-        public Nullable<byte> ronda_torneo { get; set; }
-        public Nullable<int> id_torneo { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Juego()
+        {
+            this.DetalleJuego = new HashSet<DetalleJuego>();
+            this.DetalleTorneo = new HashSet<DetalleTorneo>();
+        }
     
+        public int id_juego { get; set; }
+        public Nullable<int> ganador { get; set; }
+        public Nullable<System.DateTime> fecha_creacionjuego { get; set; }
+        public Nullable<int> tipo_juego { get; set; }
+        public Nullable<bool> empate { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DetalleJuego> DetalleJuego { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DetalleTorneo> DetalleTorneo { get; set; }
         public virtual Usuario Usuario { get; set; }
-        public virtual Torneo Torneo { get; set; }
-        public virtual Usuario Usuario1 { get; set; }
-        public virtual Usuario Usuario2 { get; set; }
-        public virtual Usuario Usuario3 { get; set; }
+        public virtual TipoJuego TipoJuego { get; set; }
     }
 }

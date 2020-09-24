@@ -16,7 +16,7 @@ namespace _IPC2_IGameOthello
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "LoginController", action = "login", id = UrlParameter.Optional }
+                defaults: new { controller = "LoginController", action = "Login", id = UrlParameter.Optional }
             );
         }
     }

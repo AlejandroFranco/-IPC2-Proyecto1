@@ -12,21 +12,18 @@ namespace _IPC2_IGameOthello.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Torneo
+    public partial class TipoJuego
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Torneo()
+        public TipoJuego()
         {
-            this.DetalleTorneo = new HashSet<DetalleTorneo>();
+            this.Juego = new HashSet<Juego>();
         }
     
-        public int id_torneo { get; set; }
-        public string nombre_torneo { get; set; }
-        public Nullable<int> ganador_torneo { get; set; }
-        public Nullable<System.DateTime> fecha_creacion { get; set; }
+        public int id_tipoJuego { get; set; }
+        public string descripcion_tipo { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DetalleTorneo> DetalleTorneo { get; set; }
-        public virtual Usuario Usuario { get; set; }
+        public virtual ICollection<Juego> Juego { get; set; }
     }
 }

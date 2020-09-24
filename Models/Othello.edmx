@@ -1,0 +1,620 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="OthelloIGameModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="DetalleJuego">
+          <Key>
+            <PropertyRef Name="id_detalleJuego" />
+          </Key>
+          <Property Name="id_detalleJuego" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_juego" Type="int" />
+          <Property Name="jugador1" Type="int" Nullable="false" />
+          <Property Name="jugador2" Type="int" Nullable="false" />
+          <Property Name="perdedor" Type="int" />
+          <Property Name="punteo_jugador1" Type="tinyint" />
+          <Property Name="punteo_jugador2" Type="tinyint" />
+          <Property Name="movs_jugador1" Type="tinyint" />
+          <Property Name="movs_jugador2" Type="tinyint" />
+        </EntityType>
+        <EntityType Name="DetalleTorneo">
+          <Key>
+            <PropertyRef Name="id_detalleTorneo" />
+          </Key>
+          <Property Name="id_detalleTorneo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ronda_torneo" Type="tinyint" />
+          <Property Name="id_juego" Type="int" />
+          <Property Name="id_torneo" Type="int" />
+        </EntityType>
+        <EntityType Name="Juego">
+          <Key>
+            <PropertyRef Name="id_juego" />
+          </Key>
+          <Property Name="id_juego" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ganador" Type="int" />
+          <Property Name="fecha_creacionjuego" Type="datetime" />
+          <Property Name="tipo_juego" Type="int" />
+          <Property Name="empate" Type="bit" />
+        </EntityType>
+        <EntityType Name="Rol">
+          <Key>
+            <PropertyRef Name="id_rol" />
+          </Key>
+          <Property Name="id_rol" Type="int" Nullable="false" />
+          <Property Name="nombre_rol" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TipoJuego">
+          <Key>
+            <PropertyRef Name="id_tipoJuego" />
+          </Key>
+          <Property Name="id_tipoJuego" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descripcion_tipo" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Torneo">
+          <Key>
+            <PropertyRef Name="id_torneo" />
+          </Key>
+          <Property Name="id_torneo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre_torneo" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="ganador_torneo" Type="int" />
+          <Property Name="fecha_creacion" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="id_usuario" />
+          </Key>
+          <Property Name="id_usuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="rol" Type="int" Nullable="false" />
+          <Property Name="pnombre_usuario" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="snombre_usuario" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="apellido_usuario" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="nombre_usuario" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="palabra_secreta" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="fecha_nacimiento" Type="date" Nullable="false" />
+          <Property Name="pais" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="correo_electronico" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__DetalleJu__Id_ju__412EB0B6">
+          <End Role="Juego" Type="Self.Juego" Multiplicity="0..1" />
+          <End Role="DetalleJuego" Type="Self.DetalleJuego" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Juego">
+              <PropertyRef Name="id_juego" />
+            </Principal>
+            <Dependent Role="DetalleJuego">
+              <PropertyRef Name="Id_juego" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DetalleJu__jugad__4222D4EF">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="DetalleJuego" Type="Self.DetalleJuego" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="DetalleJuego">
+              <PropertyRef Name="jugador1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DetalleJu__jugad__4316F928">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="DetalleJuego" Type="Self.DetalleJuego" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="DetalleJuego">
+              <PropertyRef Name="jugador2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DetalleJu__perde__440B1D61">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="DetalleJuego" Type="Self.DetalleJuego" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="DetalleJuego">
+              <PropertyRef Name="perdedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DetalleTo__id_ju__4AB81AF0">
+          <End Role="Juego" Type="Self.Juego" Multiplicity="0..1" />
+          <End Role="DetalleTorneo" Type="Self.DetalleTorneo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Juego">
+              <PropertyRef Name="id_juego" />
+            </Principal>
+            <Dependent Role="DetalleTorneo">
+              <PropertyRef Name="id_juego" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DetalleTo__id_to__49C3F6B7">
+          <End Role="Torneo" Type="Self.Torneo" Multiplicity="0..1" />
+          <End Role="DetalleTorneo" Type="Self.DetalleTorneo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Torneo">
+              <PropertyRef Name="id_torneo" />
+            </Principal>
+            <Dependent Role="DetalleTorneo">
+              <PropertyRef Name="id_torneo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Juego__ganador__3E52440B">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="Juego" Type="Self.Juego" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="Juego">
+              <PropertyRef Name="ganador" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Juego__tipo_jueg__3D5E1FD2">
+          <End Role="TipoJuego" Type="Self.TipoJuego" Multiplicity="0..1" />
+          <End Role="Juego" Type="Self.Juego" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoJuego">
+              <PropertyRef Name="id_tipoJuego" />
+            </Principal>
+            <Dependent Role="Juego">
+              <PropertyRef Name="tipo_juego" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Torneo__ganador___46E78A0C">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="Torneo" Type="Self.Torneo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="Torneo">
+              <PropertyRef Name="ganador_torneo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__rol__38996AB5">
+          <End Role="Rol" Type="Self.Rol" Multiplicity="1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rol">
+              <PropertyRef Name="id_rol" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="rol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="OthelloIGameModelStoreContainer">
+          <EntitySet Name="DetalleJuego" EntityType="Self.DetalleJuego" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DetalleTorneo" EntityType="Self.DetalleTorneo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Juego" EntityType="Self.Juego" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rol" EntityType="Self.Rol" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TipoJuego" EntityType="Self.TipoJuego" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Torneo" EntityType="Self.Torneo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__DetalleJu__Id_ju__412EB0B6" Association="Self.FK__DetalleJu__Id_ju__412EB0B6">
+            <End Role="Juego" EntitySet="Juego" />
+            <End Role="DetalleJuego" EntitySet="DetalleJuego" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DetalleJu__jugad__4222D4EF" Association="Self.FK__DetalleJu__jugad__4222D4EF">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="DetalleJuego" EntitySet="DetalleJuego" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DetalleJu__jugad__4316F928" Association="Self.FK__DetalleJu__jugad__4316F928">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="DetalleJuego" EntitySet="DetalleJuego" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DetalleJu__perde__440B1D61" Association="Self.FK__DetalleJu__perde__440B1D61">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="DetalleJuego" EntitySet="DetalleJuego" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DetalleTo__id_ju__4AB81AF0" Association="Self.FK__DetalleTo__id_ju__4AB81AF0">
+            <End Role="Juego" EntitySet="Juego" />
+            <End Role="DetalleTorneo" EntitySet="DetalleTorneo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DetalleTo__id_to__49C3F6B7" Association="Self.FK__DetalleTo__id_to__49C3F6B7">
+            <End Role="Torneo" EntitySet="Torneo" />
+            <End Role="DetalleTorneo" EntitySet="DetalleTorneo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Juego__ganador__3E52440B" Association="Self.FK__Juego__ganador__3E52440B">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Juego" EntitySet="Juego" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Juego__tipo_jueg__3D5E1FD2" Association="Self.FK__Juego__tipo_jueg__3D5E1FD2">
+            <End Role="TipoJuego" EntitySet="TipoJuego" />
+            <End Role="Juego" EntitySet="Juego" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Torneo__ganador___46E78A0C" Association="Self.FK__Torneo__ganador___46E78A0C">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Torneo" EntitySet="Torneo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__rol__38996AB5" Association="Self.FK__Usuario__rol__38996AB5">
+            <End Role="Rol" EntitySet="Rol" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="OthelloIGameModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="DetalleJuego">
+          <Key>
+            <PropertyRef Name="id_detalleJuego" />
+          </Key>
+          <Property Name="id_detalleJuego" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id_juego" Type="Int32" />
+          <Property Name="jugador1" Type="Int32" Nullable="false" />
+          <Property Name="jugador2" Type="Int32" Nullable="false" />
+          <Property Name="perdedor" Type="Int32" />
+          <Property Name="punteo_jugador1" Type="Byte" />
+          <Property Name="punteo_jugador2" Type="Byte" />
+          <Property Name="movs_jugador1" Type="Byte" />
+          <Property Name="movs_jugador2" Type="Byte" />
+          <NavigationProperty Name="Juego" Relationship="Self.FK__DetalleJu__Id_ju__412EB0B6" FromRole="DetalleJuego" ToRole="Juego" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK__DetalleJu__jugad__4222D4EF" FromRole="DetalleJuego" ToRole="Usuario" />
+          <NavigationProperty Name="Usuario1" Relationship="Self.FK__DetalleJu__jugad__4316F928" FromRole="DetalleJuego" ToRole="Usuario" />
+          <NavigationProperty Name="Usuario2" Relationship="Self.FK__DetalleJu__perde__440B1D61" FromRole="DetalleJuego" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="DetalleTorneo">
+          <Key>
+            <PropertyRef Name="id_detalleTorneo" />
+          </Key>
+          <Property Name="id_detalleTorneo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ronda_torneo" Type="Byte" />
+          <Property Name="id_juego" Type="Int32" />
+          <Property Name="id_torneo" Type="Int32" />
+          <NavigationProperty Name="Juego" Relationship="Self.FK__DetalleTo__id_ju__4AB81AF0" FromRole="DetalleTorneo" ToRole="Juego" />
+          <NavigationProperty Name="Torneo" Relationship="Self.FK__DetalleTo__id_to__49C3F6B7" FromRole="DetalleTorneo" ToRole="Torneo" />
+        </EntityType>
+        <EntityType Name="Juego">
+          <Key>
+            <PropertyRef Name="id_juego" />
+          </Key>
+          <Property Name="id_juego" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ganador" Type="Int32" />
+          <Property Name="fecha_creacionjuego" Type="DateTime" Precision="3" />
+          <Property Name="tipo_juego" Type="Int32" />
+          <Property Name="empate" Type="Boolean" />
+          <NavigationProperty Name="DetalleJuego" Relationship="Self.FK__DetalleJu__Id_ju__412EB0B6" FromRole="Juego" ToRole="DetalleJuego" />
+          <NavigationProperty Name="DetalleTorneo" Relationship="Self.FK__DetalleTo__id_ju__4AB81AF0" FromRole="Juego" ToRole="DetalleTorneo" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK__Juego__ganador__3E52440B" FromRole="Juego" ToRole="Usuario" />
+          <NavigationProperty Name="TipoJuego" Relationship="Self.FK__Juego__tipo_jueg__3D5E1FD2" FromRole="Juego" ToRole="TipoJuego" />
+        </EntityType>
+        <EntityType Name="Rol">
+          <Key>
+            <PropertyRef Name="id_rol" />
+          </Key>
+          <Property Name="id_rol" Type="Int32" Nullable="false" />
+          <Property Name="nombre_rol" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK__Usuario__rol__38996AB5" FromRole="Rol" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="TipoJuego">
+          <Key>
+            <PropertyRef Name="id_tipoJuego" />
+          </Key>
+          <Property Name="id_tipoJuego" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descripcion_tipo" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Juego" Relationship="Self.FK__Juego__tipo_jueg__3D5E1FD2" FromRole="TipoJuego" ToRole="Juego" />
+        </EntityType>
+        <EntityType Name="Torneo">
+          <Key>
+            <PropertyRef Name="id_torneo" />
+          </Key>
+          <Property Name="id_torneo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre_torneo" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ganador_torneo" Type="Int32" />
+          <Property Name="fecha_creacion" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="DetalleTorneo" Relationship="Self.FK__DetalleTo__id_to__49C3F6B7" FromRole="Torneo" ToRole="DetalleTorneo" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK__Torneo__ganador___46E78A0C" FromRole="Torneo" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="id_usuario" />
+          </Key>
+          <Property Name="id_usuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="rol" Type="Int32" Nullable="false" />
+          <Property Name="pnombre_usuario" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="snombre_usuario" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apellido_usuario" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombre_usuario" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="palabra_secreta" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fecha_nacimiento" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="pais" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="correo_electronico" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="DetalleJuego" Relationship="Self.FK__DetalleJu__jugad__4222D4EF" FromRole="Usuario" ToRole="DetalleJuego" />
+          <NavigationProperty Name="DetalleJuego1" Relationship="Self.FK__DetalleJu__jugad__4316F928" FromRole="Usuario" ToRole="DetalleJuego" />
+          <NavigationProperty Name="DetalleJuego2" Relationship="Self.FK__DetalleJu__perde__440B1D61" FromRole="Usuario" ToRole="DetalleJuego" />
+          <NavigationProperty Name="Juego" Relationship="Self.FK__Juego__ganador__3E52440B" FromRole="Usuario" ToRole="Juego" />
+          <NavigationProperty Name="Rol1" Relationship="Self.FK__Usuario__rol__38996AB5" FromRole="Usuario" ToRole="Rol" />
+          <NavigationProperty Name="Torneo" Relationship="Self.FK__Torneo__ganador___46E78A0C" FromRole="Usuario" ToRole="Torneo" />
+        </EntityType>
+        <Association Name="FK__DetalleJu__Id_ju__412EB0B6">
+          <End Role="Juego" Type="Self.Juego" Multiplicity="0..1" />
+          <End Role="DetalleJuego" Type="Self.DetalleJuego" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Juego">
+              <PropertyRef Name="id_juego" />
+            </Principal>
+            <Dependent Role="DetalleJuego">
+              <PropertyRef Name="Id_juego" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DetalleJu__jugad__4222D4EF">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="DetalleJuego" Type="Self.DetalleJuego" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="DetalleJuego">
+              <PropertyRef Name="jugador1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DetalleJu__jugad__4316F928">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="DetalleJuego" Type="Self.DetalleJuego" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="DetalleJuego">
+              <PropertyRef Name="jugador2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DetalleJu__perde__440B1D61">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="DetalleJuego" Type="Self.DetalleJuego" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="DetalleJuego">
+              <PropertyRef Name="perdedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DetalleTo__id_ju__4AB81AF0">
+          <End Role="Juego" Type="Self.Juego" Multiplicity="0..1" />
+          <End Role="DetalleTorneo" Type="Self.DetalleTorneo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Juego">
+              <PropertyRef Name="id_juego" />
+            </Principal>
+            <Dependent Role="DetalleTorneo">
+              <PropertyRef Name="id_juego" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DetalleTo__id_to__49C3F6B7">
+          <End Role="Torneo" Type="Self.Torneo" Multiplicity="0..1" />
+          <End Role="DetalleTorneo" Type="Self.DetalleTorneo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Torneo">
+              <PropertyRef Name="id_torneo" />
+            </Principal>
+            <Dependent Role="DetalleTorneo">
+              <PropertyRef Name="id_torneo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Juego__ganador__3E52440B">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="Juego" Type="Self.Juego" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="Juego">
+              <PropertyRef Name="ganador" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Juego__tipo_jueg__3D5E1FD2">
+          <End Role="TipoJuego" Type="Self.TipoJuego" Multiplicity="0..1" />
+          <End Role="Juego" Type="Self.Juego" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoJuego">
+              <PropertyRef Name="id_tipoJuego" />
+            </Principal>
+            <Dependent Role="Juego">
+              <PropertyRef Name="tipo_juego" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__rol__38996AB5">
+          <End Role="Rol" Type="Self.Rol" Multiplicity="1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rol">
+              <PropertyRef Name="id_rol" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="rol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Torneo__ganador___46E78A0C">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="Torneo" Type="Self.Torneo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="Torneo">
+              <PropertyRef Name="ganador_torneo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="OthelloIGameEntities3" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="DetalleJuego" EntityType="Self.DetalleJuego" />
+          <EntitySet Name="DetalleTorneo" EntityType="Self.DetalleTorneo" />
+          <EntitySet Name="Juego" EntityType="Self.Juego" />
+          <EntitySet Name="Rol" EntityType="Self.Rol" />
+          <EntitySet Name="TipoJuego" EntityType="Self.TipoJuego" />
+          <EntitySet Name="Torneo" EntityType="Self.Torneo" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" />
+          <AssociationSet Name="FK__DetalleJu__Id_ju__412EB0B6" Association="Self.FK__DetalleJu__Id_ju__412EB0B6">
+            <End Role="Juego" EntitySet="Juego" />
+            <End Role="DetalleJuego" EntitySet="DetalleJuego" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DetalleJu__jugad__4222D4EF" Association="Self.FK__DetalleJu__jugad__4222D4EF">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="DetalleJuego" EntitySet="DetalleJuego" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DetalleJu__jugad__4316F928" Association="Self.FK__DetalleJu__jugad__4316F928">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="DetalleJuego" EntitySet="DetalleJuego" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DetalleJu__perde__440B1D61" Association="Self.FK__DetalleJu__perde__440B1D61">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="DetalleJuego" EntitySet="DetalleJuego" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DetalleTo__id_ju__4AB81AF0" Association="Self.FK__DetalleTo__id_ju__4AB81AF0">
+            <End Role="Juego" EntitySet="Juego" />
+            <End Role="DetalleTorneo" EntitySet="DetalleTorneo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DetalleTo__id_to__49C3F6B7" Association="Self.FK__DetalleTo__id_to__49C3F6B7">
+            <End Role="Torneo" EntitySet="Torneo" />
+            <End Role="DetalleTorneo" EntitySet="DetalleTorneo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Juego__ganador__3E52440B" Association="Self.FK__Juego__ganador__3E52440B">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Juego" EntitySet="Juego" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Juego__tipo_jueg__3D5E1FD2" Association="Self.FK__Juego__tipo_jueg__3D5E1FD2">
+            <End Role="TipoJuego" EntitySet="TipoJuego" />
+            <End Role="Juego" EntitySet="Juego" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__rol__38996AB5" Association="Self.FK__Usuario__rol__38996AB5">
+            <End Role="Rol" EntitySet="Rol" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Torneo__ganador___46E78A0C" Association="Self.FK__Torneo__ganador___46E78A0C">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Torneo" EntitySet="Torneo" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="OthelloIGameModelStoreContainer" CdmEntityContainer="OthelloIGameEntities3">
+          <EntitySetMapping Name="DetalleJuego">
+            <EntityTypeMapping TypeName="OthelloIGameModel.DetalleJuego">
+              <MappingFragment StoreEntitySet="DetalleJuego">
+                <ScalarProperty Name="id_detalleJuego" ColumnName="id_detalleJuego" />
+                <ScalarProperty Name="Id_juego" ColumnName="Id_juego" />
+                <ScalarProperty Name="jugador1" ColumnName="jugador1" />
+                <ScalarProperty Name="jugador2" ColumnName="jugador2" />
+                <ScalarProperty Name="perdedor" ColumnName="perdedor" />
+                <ScalarProperty Name="punteo_jugador1" ColumnName="punteo_jugador1" />
+                <ScalarProperty Name="punteo_jugador2" ColumnName="punteo_jugador2" />
+                <ScalarProperty Name="movs_jugador1" ColumnName="movs_jugador1" />
+                <ScalarProperty Name="movs_jugador2" ColumnName="movs_jugador2" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DetalleTorneo">
+            <EntityTypeMapping TypeName="OthelloIGameModel.DetalleTorneo">
+              <MappingFragment StoreEntitySet="DetalleTorneo">
+                <ScalarProperty Name="id_detalleTorneo" ColumnName="id_detalleTorneo" />
+                <ScalarProperty Name="ronda_torneo" ColumnName="ronda_torneo" />
+                <ScalarProperty Name="id_juego" ColumnName="id_juego" />
+                <ScalarProperty Name="id_torneo" ColumnName="id_torneo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Juego">
+            <EntityTypeMapping TypeName="OthelloIGameModel.Juego">
+              <MappingFragment StoreEntitySet="Juego">
+                <ScalarProperty Name="id_juego" ColumnName="id_juego" />
+                <ScalarProperty Name="ganador" ColumnName="ganador" />
+                <ScalarProperty Name="fecha_creacionjuego" ColumnName="fecha_creacionjuego" />
+                <ScalarProperty Name="tipo_juego" ColumnName="tipo_juego" />
+                <ScalarProperty Name="empate" ColumnName="empate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rol">
+            <EntityTypeMapping TypeName="OthelloIGameModel.Rol">
+              <MappingFragment StoreEntitySet="Rol">
+                <ScalarProperty Name="id_rol" ColumnName="id_rol" />
+                <ScalarProperty Name="nombre_rol" ColumnName="nombre_rol" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipoJuego">
+            <EntityTypeMapping TypeName="OthelloIGameModel.TipoJuego">
+              <MappingFragment StoreEntitySet="TipoJuego">
+                <ScalarProperty Name="id_tipoJuego" ColumnName="id_tipoJuego" />
+                <ScalarProperty Name="descripcion_tipo" ColumnName="descripcion_tipo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Torneo">
+            <EntityTypeMapping TypeName="OthelloIGameModel.Torneo">
+              <MappingFragment StoreEntitySet="Torneo">
+                <ScalarProperty Name="id_torneo" ColumnName="id_torneo" />
+                <ScalarProperty Name="nombre_torneo" ColumnName="nombre_torneo" />
+                <ScalarProperty Name="ganador_torneo" ColumnName="ganador_torneo" />
+                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuario">
+            <EntityTypeMapping TypeName="OthelloIGameModel.Usuario">
+              <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+                <ScalarProperty Name="rol" ColumnName="rol" />
+                <ScalarProperty Name="pnombre_usuario" ColumnName="pnombre_usuario" />
+                <ScalarProperty Name="snombre_usuario" ColumnName="snombre_usuario" />
+                <ScalarProperty Name="apellido_usuario" ColumnName="apellido_usuario" />
+                <ScalarProperty Name="nombre_usuario" ColumnName="nombre_usuario" />
+                <ScalarProperty Name="palabra_secreta" ColumnName="palabra_secreta" />
+                <ScalarProperty Name="fecha_nacimiento" ColumnName="fecha_nacimiento" />
+                <ScalarProperty Name="pais" ColumnName="pais" />
+                <ScalarProperty Name="correo_electronico" ColumnName="correo_electronico" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

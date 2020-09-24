@@ -1,0 +1,165 @@
+﻿@{
+    Layout = null;
+}
+
+@using _IPC2_IGameOthello.Models
+@model Usuario
+
+<!Doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Pablo Franco">
+    <link href="~/Content/EstiloRegistro.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@1,700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="contenedor">
+            <div class="tarjeta">
+                <form>
+
+                    <!--Registro-->
+                    <div class="fila">
+                        <div class="col-lg-12">
+                            <p style="font-size: 25pt;"> Registro</p>
+                        </div>
+                    </div>
+
+                    <!--Nombres completo-->
+                    <div class="fila">
+                        <div class="col-lg-6">
+                            @Html.LabelFor(model => model.pnombre_usuario, htmlAttributes: new { @class = "control-label col-md-2" })
+                        </div>
+                        <div class="col-lg-6">
+                            @Html.EditorFor(model => model.pnombre_usuario, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.pnombre_usuario, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+                    <div class="fila">
+                        <div class="col-lg-6">
+                            @Html.LabelFor(model => model.snombre_usuario, htmlAttributes: new { @class = "control-label col-md-2" })
+                        </div>
+                        <div class="col-lg-6">
+                            @Html.EditorFor(model => model.snombre_usuario, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.snombre_usuario, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="fila">
+                        <div class="col-lg-6">
+                            @Html.LabelFor(model => model.apellido_usuario, htmlAttributes: new { @class = "control-label col-md-2" })
+                        </div>
+                        <div class="col-lg-6">
+                            @Html.EditorFor(model => model.apellido_usuario, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.apellido_usuario, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <!-- Username-->
+                    <div class="fila">
+                        <div class="col-lg-6">
+                            @Html.LabelFor(model => model.nombre_usuario, htmlAttributes: new { @class = "control-label col-md-2" })
+                        </div>
+                        <div class="col-lg-6">
+                            @Html.EditorFor(model => model.nombre_usuario, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.nombre_usuario, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <!--Contraseña-->
+
+                    <div class="fila">
+                        <div class="col-lg-6">
+                            @Html.LabelFor(model => model.palabra_secreta, htmlAttributes: new { @class = "control-label col-md-2" })   
+                        </div>
+                        <div class="col-lg-6">
+                            @Html.EditorFor(model => model.palabra_secreta, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.palabra_secreta, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <!--Fecha de nacimiento-->
+                    <div class="fila">
+                        <div class="col-lg-6">
+                            @Html.LabelFor(model => model.fecha_nacimiento, htmlAttributes: new { @class = "control-label col-md-2" })    
+                        </div>
+                        <div class="col-lg-6">
+                            @Html.TextBoxFor(model => model.fecha_nacimiento, "{0:yy/MM/dd}")
+                        </div>
+                    </div>
+
+                    <!--Pais-->
+                    <div class="fila">
+                        <div class="col-lg-6">
+                            @Html.LabelFor(model => model.pais, htmlAttributes: new { @class = "control-label col-md-2" })  
+                        </div>
+                        <div class="col-lg-6">
+                            @Html.DropDownListFor(model => model.pais, new SelectList(new string[] { "Guatemala", "Alemania", "Estados Unidos","Japon","Camerún" }))
+                        </div>
+                    </div>
+
+                    <!--Correo electronico-->
+                    <div class="fila">
+                        <div class="col-lg-6">
+                            @Html.LabelFor(model => model.correo_electronico, htmlAttributes: new { @class = "control-label col-md-2" })  
+                        </div>
+                        <div class="col-lg-6">
+                            @Html.EditorFor(model => model.correo_electronico, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.correo_electronico, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <!--Registrarse-->
+
+                    <div class="fila">
+                        <div class="col-lg-2">
+
+                        </div>
+                        <div class="col-lg-8">
+                            <button>Registrarse</button>
+                        </div>
+                        <div class="col-lg-2">
+
+                        </div>
+                    </div>
+
+                    <hr class="separador-redondo">
+
+                    <!--Registro alternativo-->
+                    <div class="fila">
+                        <div class="col-lg-12">
+                            <p> Registrate con Google, Facebook o Outlook</p>
+                        </div>
+
+                    </div>
+
+                    <!--Imagenes registro externo-->
+                    <div class="fila">
+                        <div class="col-lg-4">
+                            <img src="~/Imagenes/facebook.png" alt="Avatar" style="width:100%">
+                        </div>
+
+                        <div class="col-lg-4">
+                            <img src="~/Imagenes/google.png" alt="Avatar" style="width:100%">
+                        </div>
+
+                        <div class="col-lg-4">
+                            <img src="~/Imagenes/outlook.png" alt="Avatar" style="width:100%">
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    }
+
+</body>
+</html>

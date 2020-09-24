@@ -13,7 +13,7 @@ namespace _IPC2_IGameOthello.Controllers
         public OthelloIGameEntities2 db = new OthelloIGameEntities2();
 
         // GET: Login
-        public ActionResult Index()
+        public ActionResult Login()
         {
             return View();
         }
@@ -55,12 +55,11 @@ namespace _IPC2_IGameOthello.Controllers
             {
                 if (id == 1)
                 {
-                    return RedirectToAction("../administrador/DashboardAdmin");
+                    return RedirectToAction("../Views/administrador/DashboardAdmin");
                 }
                 else
                 {
-
-                    return RedirectToAction("../usuario/DashboardUsuario");
+                    return RedirectToAction("../usuario/Dashboard");
                 }
             }
             else

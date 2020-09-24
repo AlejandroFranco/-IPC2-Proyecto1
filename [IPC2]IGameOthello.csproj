@@ -135,33 +135,45 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\DetalleJuego.cs">
+      <DependentUpon>Othello.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DetalleTorneo.cs">
+      <DependentUpon>Othello.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Juego.cs">
-      <DependentUpon>OthelloModel.tt</DependentUpon>
+      <DependentUpon>Othello.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\OthelloModel.Context.cs">
+    <Compile Include="Models\Othello.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>OthelloModel.Context.tt</DependentUpon>
+      <DependentUpon>Othello.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\OthelloModel.cs">
+    <Compile Include="Models\Othello.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>OthelloModel.tt</DependentUpon>
+      <DependentUpon>Othello.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\OthelloModel.Designer.cs">
+    <Compile Include="Models\Othello.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>OthelloModel.edmx</DependentUpon>
+      <DependentUpon>Othello.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Rol.cs">
-      <DependentUpon>OthelloModel.tt</DependentUpon>
+      <DependentUpon>Othello.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TipoJuego.cs">
+      <DependentUpon>Othello.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Torneo.cs">
-      <DependentUpon>OthelloModel.tt</DependentUpon>
+      <DependentUpon>Othello.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Usuario.cs">
-      <DependentUpon>OthelloModel.tt</DependentUpon>
+      <DependentUpon>Othello.tt</DependentUpon>
     </Compile>
+    <Compile Include="Othello\Ficha.cs" />
+    <Compile Include="Othello\Jugador.cs" />
+    <Compile Include="Othello\Othello.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -176,26 +188,29 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Imagenes\facebook.png" />
+    <Content Include="Imagenes\FichaBlanca.png" />
+    <Content Include="Imagenes\FichaNegra.png" />
     <Content Include="Imagenes\google.png" />
     <Content Include="Imagenes\outlook.png" />
-    <Content Include="Models\OthelloModel.Context.tt">
+    <Content Include="Imagenes\Tablero.png" />
+    <Content Include="Models\Othello.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>OthelloModel.edmx</DependentUpon>
-      <LastGenOutput>OthelloModel.Context.cs</LastGenOutput>
+      <DependentUpon>Othello.edmx</DependentUpon>
+      <LastGenOutput>Othello.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\OthelloModel.tt">
+    <Content Include="Models\Othello.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>OthelloModel.edmx</DependentUpon>
-      <LastGenOutput>OthelloModel.cs</LastGenOutput>
+      <DependentUpon>Othello.edmx</DependentUpon>
+      <LastGenOutput>Othello.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="Models\OthelloModel.edmx">
+    <EntityDeploy Include="Models\Othello.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>OthelloModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>Othello.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\OthelloModel.edmx.diagram">
-      <DependentUpon>OthelloModel.edmx</DependentUpon>
+    <Content Include="Models\Othello.edmx.diagram">
+      <DependentUpon>Othello.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.4.1-vsdoc.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -220,14 +235,13 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
-    <Content Include="Views\Login\registro.cshtml" />
-    <Content Include="Views\usuario\DashboardUsuario.cshtml" />
+    <Content Include="Views\registro\Registro.cshtml" />
     <Content Include="Views\administrador\DashboardAdmin.cshtml" />
+    <Content Include="Views\usuario\Dashboard.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\juego\" />
-    <Folder Include="Views\registro\" />
     <Folder Include="Views\torneo\" />
   </ItemGroup>
   <ItemGroup>

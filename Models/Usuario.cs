@@ -17,10 +17,10 @@ namespace _IPC2_IGameOthello.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Usuario()
         {
+            this.DetalleJuego = new HashSet<DetalleJuego>();
+            this.DetalleJuego1 = new HashSet<DetalleJuego>();
+            this.DetalleJuego2 = new HashSet<DetalleJuego>();
             this.Juego = new HashSet<Juego>();
-            this.Juego1 = new HashSet<Juego>();
-            this.Juego2 = new HashSet<Juego>();
-            this.Juego3 = new HashSet<Juego>();
             this.Torneo = new HashSet<Torneo>();
         }
     
@@ -36,13 +36,13 @@ namespace _IPC2_IGameOthello.Models
         public string correo_electronico { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DetalleJuego> DetalleJuego { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DetalleJuego> DetalleJuego1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DetalleJuego> DetalleJuego2 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Juego> Juego { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Juego> Juego1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Juego> Juego2 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Juego> Juego3 { get; set; }
         public virtual Rol Rol1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Torneo> Torneo { get; set; }

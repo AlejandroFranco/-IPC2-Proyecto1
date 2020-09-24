@@ -13,10 +13,10 @@ namespace _IPC2_IGameOthello.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class OthelloIGameEntities2 : DbContext
+    public partial class OthelloIGameEntities3 : DbContext
     {
-        public OthelloIGameEntities2()
-            : base("name=OthelloIGameEntities2")
+        public OthelloIGameEntities3()
+            : base("name=OthelloIGameEntities3")
         {
         }
     
@@ -25,8 +25,11 @@ namespace _IPC2_IGameOthello.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<DetalleJuego> DetalleJuego { get; set; }
+        public virtual DbSet<DetalleTorneo> DetalleTorneo { get; set; }
         public virtual DbSet<Juego> Juego { get; set; }
         public virtual DbSet<Rol> Rol { get; set; }
+        public virtual DbSet<TipoJuego> TipoJuego { get; set; }
         public virtual DbSet<Torneo> Torneo { get; set; }
         public virtual DbSet<Usuario> Usuario { get; set; }
     }

@@ -24,6 +24,7 @@ namespace _IPC2_IGameOthello.Controllers
         {
             if (ModelState.IsValid)
             {
+
                 Rol rol = db.Rol.FirstOrDefault(r => r.id_rol == 2);
                 usuario.rol = rol.id_rol;
                 db.Usuario.Add(usuario);

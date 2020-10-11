@@ -57,8 +57,6 @@ namespace _IPC2_IGameOthello.Controllers
             });
 
             ViewBag.items = items;
-            
-
             return View();  
 
         }

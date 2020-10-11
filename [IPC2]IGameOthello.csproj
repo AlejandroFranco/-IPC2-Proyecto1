@@ -173,6 +173,7 @@
     <Compile Include="Models\Usuario.cs">
       <DependentUpon>Othello.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ViewModels\DropdownViewModel.cs" />
     <Compile Include="Othello\Ficha.cs" />
     <Compile Include="Othello\Jugador.cs" />
     <Compile Include="Othello\Othello.cs" />
@@ -248,7 +249,6 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Scripts\Othello.js" />
     <Content Include="Scripts\popper-utils.js" />
     <Content Include="Scripts\popper-utils.min.js" />
     <Content Include="Scripts\popper.js" />
@@ -363,6 +363,7 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
+    <TypeScriptCompile Include="Scripts\Othello.ts" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

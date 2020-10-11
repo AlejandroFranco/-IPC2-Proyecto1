@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Xml.Schema;
 using _IPC2_IGameOthello.Models;
+using _IPC2_IGameOthello.Models.ViewModels;
 using _IPC2_IGameOthello.Othello;
 
 
@@ -34,20 +35,31 @@ namespace _IPC2_IGameOthello.Controllers
             return _random.Next(min, max);
         }
 
-        [HttpPost]
+        [HttpGet]
         public ActionResult Dashboard(Usuario usuario)
         {
-            int id;
-            var usr = db.Usuario.FirstOrDefault(u => u.nombre_usuario == usuario.nombre_usuario);
-            if (usr != null)
+            List<Models.ViewModels.DropdownViewModel> lst = null; 
+                lst = (from d in db.Usuario
+                 select new DropdownViewModel
+                 {
+                     id_usuario = d.id_usuario,
+                     nombre_usuario = d.nombre_usuario
+                 }).ToList();
+
+            List<SelectListItem> items = lst.ConvertAll(x =>
             {
-                ViewBag.usuario2 = usr.nombre_usuario;
-            }
-            else
-            {
-                ModelState.AddModelError("", "Verifique sus credenciales");
-            }
-            return View();
+                return new SelectListItem()
+                {
+                    Text = x.nombre_usuario,
+                    Value = x.id_usuario.ToString(),
+                    Selected = false
+                };
+            });
+
+            ViewBag.items = items;
+            
+
+            return View();  
 
         }
     }

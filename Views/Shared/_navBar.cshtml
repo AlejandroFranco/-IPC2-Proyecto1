@@ -1,13 +1,15 @@
 ﻿<!--Esta es la barra de navgación compartida-->
 <script>
-
     var usuario = '@ViewBag.usuario';
     var usuario2 = '@ViewBag.usuario2';
 </script>
 
 @model _IPC2_IGameOthello.Models.Usuario
 
+@{
+    List<SelectListItem> items = (List<SelectListItem>)ViewBag.items;
 
+}
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -38,7 +40,7 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <button class="dropdown-item" type="button" value="IA" onclick="modoJuego(this.value)">Jugar vs IA</button>
-                    <button class="dropdown-item" type="button"  data-toggle="modal" data-target="#modaBusquedaJugador">Jugador vs jugador</button>
+                    <button class="dropdown-item" type="button" data-toggle="modal" data-target="#modaBusquedaJugador" value="Vs" onclick="modoJuego(this.value)">Jugador vs jugador</button>
                     <button class="dropdown-item" type="button" value="Torneo" onclick="modoJuego(this.value)">Modo torneo</button>
                     <button class="dropdown-item" type="button" value="Limpiar" onclick="modoJuego(this.value)">Limpiar tablero</button>
                 </div>
@@ -60,11 +62,16 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    @Html.EditorFor(model => model.nombre_usuario, new { htmlAttributes = new { @class = "form-control" } })
+
+                    <div class="form-group">
+                        <div class="col-md-10">
+                            @Html.DropDownList("datos",items,"Seleccionar un usuario", new { @class = "form-control" })
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-primary" value="Vs" onclick="modoJuego(this.value)">Jugar</button>
+                    <button type="submit" class="btn btn-primary">Jugar</button>
                 </div>
             </div>
         </div>

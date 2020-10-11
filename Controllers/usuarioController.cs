@@ -12,7 +12,7 @@ namespace _IPC2_IGameOthello.Controllers
     public class usuarioController : Controller
     {
 
-        public OthelloIGameEntities2 db = new OthelloIGameEntities2();
+        public OthelloIGameEntities3 db = new OthelloIGameEntities3();
 
         // GET: usuario
         public ActionResult Dashboard()

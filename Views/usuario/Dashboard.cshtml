@@ -1,8 +1,29 @@
-﻿@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Othello IGameGT</title>
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/Othello")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    @Html.Partial("_navBar")
 
+    <div class="container">
+        <div class="grid"></div>
+    </div>
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year -Othello IGameGT</p>
+        </footer>
+    
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/Othello")
 
-<div class="text-center" style="padding:100px;">
-    <img src="~/Imagenes/Tablero.png" class="img-fluid" alt="Responsive image">
-</div>
+</body>
+</html>

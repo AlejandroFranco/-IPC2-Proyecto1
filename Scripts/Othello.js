@@ -16,7 +16,6 @@
                 cuadrado.classList.add("celda")
                 grid.appendChild(cuadrado)
                 cuadrados.push(cuadrado)
-                  contador++
                 //click normal
                 cuadrado.addEventListener('click', function (e) {
                     click(cuadrado)
@@ -59,6 +58,15 @@
     }
 })
 
+function turnos(){
+    var fichas = ["negras", "blancas"]
+    //El jugador 1 siempre va a ser el jugador loggeado
+    //con este codigo decido quien mueve primero las fichas negras
+
+    console.log(usuario)
+}
+
+
 function colocarTablero() {
     celda28 = document.getElementById('28')
     celda29 = document.getElementById('29')
@@ -70,6 +78,10 @@ function colocarTablero() {
     fichanegra.src = "../Imagenes/FichaNegra.png"
     celda28.appendChild(fichablanca)
     celda29.appendChild(fichanegra)
+    fichanegra = document.createElement("img")
+    fichablanca = document.createElement("img")
+    fichablanca.src = "../Imagenes/FichaBlanca.png"
+    fichanegra.src = "../Imagenes/FichaNegra.png"
     celda36.appendChild(fichanegra)
     celda37.appendChild(fichablanca)
 }
@@ -79,11 +91,23 @@ function modoJuego(val) {
 
     }
     else if (val == "Vs") {
+        document.getElementById('lblJugador2').innerHTML = usuario2
+        console.log(usuario2)
         colocarTablero()
+        turnos()
+    }
+    else if (val =="Torneo") {
+
     }
     else {
-
+    limpiarTablero()
     }
+}
 
+function limpiarTablero() {
+    var imagenes = document.getElementsByTagName('img')
+    while (imagenes.length > 0) {
+        imagenes[0].parentNode.removeChild(imagenes[0]);
+    }
 }
 

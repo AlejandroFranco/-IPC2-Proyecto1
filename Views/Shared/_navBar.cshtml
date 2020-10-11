@@ -1,4 +1,13 @@
 ﻿<!--Esta es la barra de navgación compartida-->
+<script>
+
+    var usuario = '@ViewBag.usuario';
+    var usuario2 = '@ViewBag.usuario2';
+</script>
+
+@model _IPC2_IGameOthello.Models.Usuario
+
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -29,10 +38,35 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <button class="dropdown-item" type="button" value="IA" onclick="modoJuego(this.value)">Jugar vs IA</button>
-                    <button class="dropdown-item" type="button" value="Vs" onclick="modoJuego(this.value)">Jugador vs jugador</button>
+                    <button class="dropdown-item" type="button"  data-toggle="modal" data-target="#modaBusquedaJugador">Jugador vs jugador</button>
                     <button class="dropdown-item" type="button" value="Torneo" onclick="modoJuego(this.value)">Modo torneo</button>
+                    <button class="dropdown-item" type="button" value="Limpiar" onclick="modoJuego(this.value)">Limpiar tablero</button>
                 </div>
             </li>
         </ul>
     </div>
 </nav>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <!-- Modal -->
+    <div class="modal fade" id="modaBusquedaJugador" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @Html.EditorFor(model => model.nombre_usuario, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" value="Vs" onclick="modoJuego(this.value)">Jugar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}

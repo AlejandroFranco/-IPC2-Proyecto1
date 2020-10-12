@@ -19,7 +19,6 @@ namespace _IPC2_IGameOthello.Controllers
         // GET: usuario
         public ActionResult Dashboard()
         {
-            ViewBag.usuario = Session["username"];
          //   int idUsuario = (int)Session["idUsuario"];
             /*  var totalFilas = db.Usuario.Where(x => x.rol == 2 ).ToList();
               int aleatorio = numeroRandom(0,totalFilas.Count);
@@ -38,6 +37,7 @@ namespace _IPC2_IGameOthello.Controllers
         [HttpGet]
         public ActionResult Dashboard(Usuario usuario)
         {
+            ViewBag.usuario = Session["username"];
             List<Models.ViewModels.DropdownViewModel> lst = null; 
                 lst = (from d in db.Usuario
                  select new DropdownViewModel
@@ -57,8 +57,8 @@ namespace _IPC2_IGameOthello.Controllers
             });
 
             ViewBag.items = items;
-            return View();  
-
+  
+            return View();     
         }
     }
 }

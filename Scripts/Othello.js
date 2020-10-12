@@ -4,8 +4,6 @@ document.addEventListener('DOMContentLoaded', function () {
     var ancho = 8;
     var cuadrados = [];
     var finJuego = false;
-    var turnoJugador1 = true;
-    var turnoJugador2 = false;
     //create Board
     function crearTablero() {
         console.log("En el metodo");
@@ -30,33 +28,43 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
     crearTablero();
-    function click(cuadrado) {
-        if (turnoJugador1 == true) {
-            var ficha = document.createElement("img");
-            ficha.src = "../Imagenes/FichaNegra.png";
-            if (cuadrado.hasChildNodes()) {
-            }
-            else {
-                cuadrado.appendChild(ficha);
-                turnoJugador1 = false;
-                turnoJugador2 = true;
-            }
+});
+function actualizarNombres() {
+    var e = document.getElementById('dropdown');
+    var valSel = e.selectedIndex;
+    var opc = e.options[valSel];
+    var usuario = opc.text;
+    console.log(usuario);
+}
+var turnoJugador1 = true;
+var turnoJugador2 = false;
+function click(cuadrado) {
+    if (turnoJugador1 == true) {
+        var ficha = document.createElement("img");
+        ficha.src = "../Imagenes/FichaNegra.png";
+        if (cuadrado.hasChildNodes()) {
         }
         else {
-            var ficha = document.createElement("img");
-            ficha.src = "../Imagenes/FichaBlanca.png";
-            if (cuadrado.hasChildNodes()) {
-            }
-            else {
-                cuadrado.appendChild(ficha);
-                turnoJugador1 = true;
-                turnoJugador2 = false;
-            }
+            cuadrado.appendChild(ficha);
+            turnoJugador1 = false;
+            turnoJugador2 = true;
         }
     }
-});
+    else {
+        var ficha = document.createElement("img");
+        ficha.src = "../Imagenes/FichaBlanca.png";
+        if (cuadrado.hasChildNodes()) {
+        }
+        else {
+            cuadrado.appendChild(ficha);
+            turnoJugador1 = true;
+            turnoJugador2 = false;
+        }
+    }
+}
 function turnos() {
     var fichas = ["negras", "blancas"];
+    var jugador2 = document.getElementById("dropdown");
     //El jugador 1 siempre va a ser el jugador loggeado
     //con este codigo decido quien mueve primero las fichas negras
 }

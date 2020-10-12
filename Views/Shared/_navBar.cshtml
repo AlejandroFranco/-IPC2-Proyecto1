@@ -1,6 +1,6 @@
 ﻿<!--Esta es la barra de navgación compartida-->
 <script>
-    var usuario = '@ViewBag.usuario';
+    var usuario  = '@ViewBag.usuario';
     var usuario2 = '@ViewBag.usuario2';
 </script>
 
@@ -64,7 +64,7 @@
 
                     <div class="form-group">
                         <div class="col-md-10">
-                            @Html.DropDownList("items", items, "Seleccione otro jugador", new { @class = "form-control" })
+                            @Html.DropDownList("items", items, "Seleccione otro jugador", new { @class = "form-control", @id ="dropdown", @onChange = "actualizarNombres()" })
                         </div>
                     </div>
                 </div>

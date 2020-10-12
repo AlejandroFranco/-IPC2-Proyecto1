@@ -1,11 +1,9 @@
 ﻿document.addEventListener('DOMContentLoaded', () => {
     const grid = document.querySelector('.grid')
     //esto es el numero de cuadros de ancho que tiene el tablero
-    let ancho:number = 8
+    let ancho: number = 8
     let cuadrados = []
-    let finJuego:boolean = false
-    let turnoJugador1:boolean = true
-    let turnoJugador2:boolean = false
+    let finJuego: boolean = false
     //create Board
     function crearTablero() {
         console.log("En el metodo")
@@ -30,8 +28,21 @@
         }
 
     }
-
     crearTablero()
+})
+
+function actualizarNombres() {
+    var e = document.getElementById('dropdown') as HTMLSelectElement
+    var valSel = e.selectedIndex
+    var opc = e.options[valSel]
+
+    var usuario =opc.text;
+        console.log(usuario)
+    }
+
+let turnoJugador1: boolean = true
+let turnoJugador2: boolean = false
+
     function click(cuadrado) {
         if (turnoJugador1 == true) {
             var ficha = document.createElement("img");
@@ -56,10 +67,12 @@
         }
 
     }
-})
+
 
 function turnos() {
     var fichas = ["negras", "blancas"]
+    var jugador2 = document.getElementById("dropdown")
+
     //El jugador 1 siempre va a ser el jugador loggeado
     //con este codigo decido quien mueve primero las fichas negras
 
@@ -89,7 +102,7 @@ function modoJuego(modo:string) {
     if (modo == "IA") {
 
     }
-    else if (modo == "Vs"){
+    else if (modo == "Vs") {
         colocarTablero()
         turnos()
     }

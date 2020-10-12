@@ -21,7 +21,7 @@ div {
     font-family: 'Roboto Mono', monospace;
 }
 
-.celda {
+.celda, .pared {
     height: 50px;
     width: 50px;
     border: 2px solid;

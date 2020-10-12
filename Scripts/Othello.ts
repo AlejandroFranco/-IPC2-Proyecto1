@@ -11,7 +11,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const cuadrado = document.createElement('div');
             //este es el identificador unico para mis 64 divs
             cuadrado.setAttribute('id', String(i + 1));
-            cuadrado.classList.add("celda");
+            if (rangoPared(i+1)) {
+           cuadrado.classList.add("pared");
+            }else
+            {
+                cuadrado.classList.add("celda");
+            }
+
             grid.appendChild(cuadrado);
             cuadrados.push(cuadrado);
             //click normal
@@ -32,18 +38,17 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function rangoPared(x: number): boolean {
-   let  lista1: number[] = [9, 17, 25, 33, 41, 49, 57];
+   let  lista1: number[] = [1, 9, 17, 25, 33, 41, 49, 57];
    let  lista2: number[] = [8, 16, 24, 32, 40, 48, 56, 64];
-
-   if (1 <= x && x <= 8) {
+    if ((x >= 1) && (x <= 8)) {
         return true;
    }
-    else if (57 <= x && x <= 64) {
+    else if ((x >= 57) && (x <= 64)) {
         return true;
    }
-    else if (lista1.indexOf(x) > -1 ||lista2.indexOf(x)>-1) {
-    return true;
-   }
+    else if ((lista1.indexOf(x) > -1) || (lista2.indexOf(x) > -1)) {
+        return true;
+    }
     else {
         return false;
     }

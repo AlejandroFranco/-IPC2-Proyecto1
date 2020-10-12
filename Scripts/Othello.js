@@ -33,8 +33,8 @@ function actualizarNombres() {
     var e = document.getElementById('dropdown');
     var valSel = e.selectedIndex;
     var opc = e.options[valSel];
-    var usuario = opc.text;
-    console.log(usuario);
+    var texto = document.getElementById("lblJugador2").innerText;
+    document.getElementById("lblJugador2").innerText = (texto + opc.text);
 }
 var turnoJugador1 = true;
 var turnoJugador2 = false;

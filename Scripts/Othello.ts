@@ -35,9 +35,8 @@ function actualizarNombres() {
     var e = document.getElementById('dropdown') as HTMLSelectElement
     var valSel = e.selectedIndex
     var opc = e.options[valSel]
-
-    var usuario =opc.text;
-        console.log(usuario)
+    var texto = document.getElementById("lblJugador2").innerText
+    document.getElementById("lblJugador2").innerText =  (texto + opc.text)
     }
 
 let turnoJugador1: boolean = true

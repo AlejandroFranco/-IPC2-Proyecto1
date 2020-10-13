@@ -28,25 +28,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     crearTablero();
 });
-/*
-function rangoPared(x: number): boolean {
-   let  lista1: number[] = [1, 9, 17, 25, 33, 41, 49, 57];
-   let  lista2: number[] = [8, 16, 24, 32, 40, 48, 56, 64];
-    if ((x >= 1) && (x <= 8)) {
-        return true;
-   }
-    else if ((x >= 57) && (x <= 64)) {
-        return true;
-   }
-    else if ((lista1.indexOf(x) > -1) || (lista2.indexOf(x) > -1)) {
-        return true;
-    }
-    else {
-        return false;
-    }
-}
-
-*/
 function actualizarNombres() {
     var e = document.getElementById('dropdown');
     var valSel = e.selectedIndex;
@@ -61,18 +42,70 @@ function esMovValido(cuadrado, ficha) {
     var numCuadrado = +cuadrado.id;
     numCuadrado -= 1;
     if (ficha.className === "Negra") {
-        for (var i = numCuadrado - 1; i < cuadrados.length; i++) {
+        for (var i = 0; i < cuadrados.length; i++) {
             var esBordeDe = (i % 8 === 0);
             var esBordeIz = (i % 8 === 8 - 1);
-            //reviso a la derecha
-            if (cuadrados[i].childNodes.length !== 0 && cuadrados[i].childNodes[0].className === "Blanca") {
+            if (cuadrados[i].childNodes.length !== 0 && cuadrados[i].childNodes[0].className === "  Blanca") {
+                //lado derecho
+                if (!esBordeDe && cuadrados[i + 1].childNodes[0].className === "Negra")
+                    return true;
+                //lado izquierdo
                 if (!esBordeIz && cuadrados[i - 1].childNodes[0].className === "Negra")
+                    return true;
+                //hacia el noreste
+                if (!esBordeDe && cuadrados[i + 1 - 8].childNodes[0].className === "Negra")
+                    return true;
+                //hacia arriba
+                if (cuadrados[i - 8].childNodes[0].className === "Negra")
+                    return true;
+                //hacie el noroeste
+                if (!esBordeIz && cuadrados[i - 1 - 8].childNodes[0].className === "Negra")
+                    return true;
+                //hacia el suroeste
+                if (!esBordeIz && cuadrados[i - 1 + 8].childNodes[0].className === "Negra")
+                    return true;
+                // hacia el sureste
+                if (!esBordeDe && cuadrados[i + 1 + 8].childNodes[0].className === "Negra")
+                    return true;
+                //hacia abajo
+                if (!esBordeDe && cuadrados[i + 8].childNodes[0].className === "Negra")
                     return true;
             }
         }
     }
     else {
-        console.log("ficha blanca");
+        for (var i = 0; i < cuadrados.length; i++) {
+            var esBordeDe = (i % 8 === 0);
+            var esBordeIz = (i % 8 === 8 - 1);
+            //reviso a la derecha
+            console.log(i);
+            if (cuadrados[i].childNodes.length !== 0 && cuadrados[i].childNodes[0].className === "Negra") {
+                //lado derecho
+                if (!esBordeDe && cuadrados[i + 1].childNodes[0].className === "Blanca")
+                    return true;
+                //lado izquierdo
+                if (!esBordeIz && cuadrados[i - 1].childNodes[0].className === "Blanca")
+                    return true;
+                //hacia el noreste
+                if (!esBordeDe && cuadrados[i + 1 - 8].childNodes[0].className === "Blanca")
+                    return true;
+                //hacia arriba
+                if (cuadrados[i - 8].childNodes[0].className === "Blanca")
+                    return true;
+                //hacie el noroeste
+                if (!esBordeIz && cuadrados[i - 1 - 8].childNodes[0].className === "Blanca")
+                    return true;
+                //hacia el suroeste
+                if (!esBordeIz && cuadrados[i - 1 + 8].childNodes[0].className === "Blanca")
+                    return true;
+                // hacia el sureste
+                if (!esBordeDe && cuadrados[i + 1 + 8].childNodes[0].className === "Blanca")
+                    return true;
+                //hacia abajo
+                if (!esBordeDe && cuadrados[i + 8].childNodes[0].className === "Blanca")
+                    return true;
+            }
+        }
     }
     return true;
 }
@@ -91,9 +124,7 @@ function click(cuadrado) {
         var ficha = document.createElement("img");
         ficha.src = "../Imagenes/FichaBlanca.png";
         ficha.className = "Blanca";
-        if (cuadrado.hasChildNodes()) {
-        }
-        else {
+        if (!cuadrado.hasChildNodes() && esMovValido(cuadrado, ficha)) {
             cuadrado.appendChild(ficha);
             turnoJugador1 = true;
             turnoJugador2 = false;

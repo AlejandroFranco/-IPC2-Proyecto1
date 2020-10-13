@@ -64,21 +64,22 @@ function esMovValido(cuadrado: HTMLDivElement, ficha:HTMLImageElement): boolean 
     //reviso horizontalmente
   var numCuadrado: number = +cuadrado.id;
   numCuadrado -= 1;
-  if (ficha.className === "Negra") {
-    for (let i = numCuadrado-1; i < cuadrados.length; i++) {
-      const esBordeDe = (i % 8 === 0);
-      const esBordeIz = (i % 8 === 8-1);
-      //reviso a la derecha
-      if (cuadrados[i].childNodes.length !== 0 && cuadrados[i].childNodes[0].className ===  "Blanca") {
-        if (!esBordeIz  && cuadrados[i - 1].childNodes[0].className=== "Negra") return true
- 
+    if (ficha.className === "Negra") {
+        for (let i = numCuadrado - 1; i < cuadrados.length; i++) {
+            const esBordeDe = (i % 8 === 0);
+            const esBordeIz = (i % 8 === 8 - 1);
+            //reviso a la derecha
+            if (cuadrados[i].childNodes.length !== 0 && cuadrados[i].childNodes[0].className === "Blanca") {
+                if (!esBordeIz && cuadrados[i - 1].childNodes[0].className === "Negra") return true
 
 
 
-      }
-      }
+
+            }
+        }
+    }
   else {
-
+    console.log("ficha blanca")
     }
     return true;
 }

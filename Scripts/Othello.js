@@ -66,14 +66,13 @@ function esMovValido(cuadrado, ficha) {
             var esBordeIz = (i % 8 === 8 - 1);
             //reviso a la derecha
             if (cuadrados[i].childNodes.length !== 0 && cuadrados[i].childNodes[0].className === "Blanca") {
-                //reviso en las 8 direcciones para ver si el movimiento es valido
-                if (!esBordeIz && cuadrados[i - 1].childNodes[0].className === "Negra") {
-                    console.log("cierto");
-                }
+                if (!esBordeIz && cuadrados[i - 1].childNodes[0].className === "Negra")
+                    return true;
             }
         }
     }
     else {
+        console.log("ficha blanca");
     }
     return true;
 }

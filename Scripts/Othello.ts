@@ -49,25 +49,24 @@ function esMovValido(cuadrado: HTMLDivElement, ficha:HTMLImageElement): boolean 
         for (let i = 0; i < cuadrados.length; i++) {
             const esBordeDe = (i % 8 === 0);
             const esBordeIz = (i % 8 === 8 - 1);
-          
 
-            if (cuadrados[i].childNodes.length !== 0 && cuadrados[i].childNodes[0].className === "  Blanca") {
-                     //lado derecho
-                if (!esBordeDe && cuadrados[i + 1].childNodes[0].className === "Negra") return true 
-                    //lado izquierdo
-                if (!esBordeIz && cuadrados[i - 1].childNodes[0].className === "Negra") return true 
-                     //hacia el noreste
-                if (!esBordeDe && cuadrados[i + 1 - 8].childNodes[0].className === "Negra") return true 
-                     //hacia arriba
-                if (cuadrados[i - 8].childNodes[0].className === "Negra")    return true 
-                     //hacie el noroeste
-                if (!esBordeIz && cuadrados[i - 1 - 8].childNodes[0].className === "Negra") return true
-                     //hacia el suroeste
-                if (!esBordeIz && cuadrados[i - 1 + 8].childNodes[0].className === "Negra") return true
-                      // hacia el sureste
-                if (!esBordeDe && cuadrados[i + 1 + 8].childNodes[0].className === "Negra")  return true
-                     //hacia abajo
-                if (!esBordeDe && cuadrados[i + 8].childNodes[0].className === "Negra")  return true
+            if (cuadrados[i].childNodes.length !== 0   &&  cuadrados[i].childNodes[0].className === "  Blanca") {
+                //lado derecho
+                if (!esBordeDe && cuadrados[i + 1].children.length > 0 && cuadrados[i + 1].childNodes[0].className === "Negra") return true
+                //lado izquierdo
+                if (!esBordeIz && cuadrados[i - 1].children.length > 0 && cuadrados[i - 1].childNodes[0].className === "Negra") return true
+                //hacia el noreste
+                if (!esBordeDe && cuadrados[i + 1 - 8].children.length > 0 && cuadrados[i + 1 - 8].childNodes[0].className === "Negra") return true
+                //hacia arriba
+                if (cuadrados[i - 8].children.length > 0 && cuadrados[i - 8].childNodes[0].className === "Negra") return true
+                //hacie el noroeste
+                if (!esBordeIz && cuadrados[i - 1 - 8].children.length > 0 && cuadrados[i - 1 - 8].childNodes[0].className === "Negra") return true
+                //hacia el suroeste
+                if (!esBordeIz && cuadrados[i - 1 + 8].children.length > 0 && cuadrados[i - 1 + 8].childNodes[0].className === "Negra") return true
+                // hacia el sureste
+                if (!esBordeDe && cuadrados[i + 1 + 8].children.length > 0 && cuadrados[i + 1 + 8].childNodes[0].className === "Negra") return true
+                //hacia abajo
+                if (!esBordeDe && cuadrados[i + 8].children.length > 0 && cuadrados[i + 8].childNodes[0].className === "Negra") return true
 
             }
         }
@@ -77,24 +76,23 @@ function esMovValido(cuadrado: HTMLDivElement, ficha:HTMLImageElement): boolean 
             const esBordeDe = (i % 8 === 0);
             const esBordeIz = (i % 8 === 8 - 1);
             //reviso a la derecha
-            console.log(i)
             if (cuadrados[i].childNodes.length !== 0 && cuadrados[i].childNodes[0].className === "Negra") {
                 //lado derecho
-                if (!esBordeDe && cuadrados[i + 1].childNodes[0].className === "Blanca") return true
+                if (!esBordeDe && cuadrados[i + 1].children.length>0 &&cuadrados[i + 1].childNodes[0].className === "Blanca") return true
                 //lado izquierdo
-                if (!esBordeIz && cuadrados[i - 1].childNodes[0].className === "Blanca") return true 
+                if (!esBordeIz && cuadrados[i - 1].children.length > 0 && cuadrados[i - 1].childNodes[0].className === "Blanca") return true 
                 //hacia el noreste
-                if (!esBordeDe && cuadrados[i + 1 - 8].childNodes[0].className === "Blanca") return true 
+                if (!esBordeDe && cuadrados[i + 1 - 8].children.length > 0 && cuadrados[i + 1 - 8].childNodes[0].className === "Blanca") return true 
                 //hacia arriba
-                if (cuadrados[i - 8].childNodes[0].className === "Blanca") return true
+                if (cuadrados[i - 8].children.length > 0 &&cuadrados[i - 8].childNodes[0].className === "Blanca") return true
                 //hacie el noroeste
-                if (!esBordeIz && cuadrados[i - 1 - 8].childNodes[0].className === "Blanca") return true
+                if (!esBordeIz && cuadrados[i - 1 - 8].children.length > 0 && cuadrados[i - 1 - 8].childNodes[0].className === "Blanca") return true
                 //hacia el suroeste
-                if (!esBordeIz && cuadrados[i - 1 + 8].childNodes[0].className === "Blanca") return true
+                if (!esBordeIz && cuadrados[i - 1 + 8].children.length > 0 &&cuadrados[i - 1 + 8].childNodes[0].className === "Blanca") return true
                 // hacia el sureste
-                if (!esBordeDe && cuadrados[i + 1 + 8].childNodes[0].className === "Blanca") return true
+                if (!esBordeDe && cuadrados[i + 1 + 8].children.length > 0  && cuadrados[i + 1 + 8].childNodes[0].className === "Blanca") return true
                 //hacia abajo
-                if (!esBordeDe && cuadrados[i + 8].childNodes[0].className === "Blanca") return true
+                if (!esBordeDe && cuadrados[i + 8].children.length > 0&&cuadrados[i + 8].childNodes[0].className === "Blanca") return true
             }
         }
     }
@@ -145,13 +143,17 @@ function esMovValido(cuadrado: HTMLDivElement, ficha:HTMLImageElement): boolean 
         var fichanegra = document.createElement("img");
         var fichablanca = document.createElement("img");
         fichablanca.src = "../Imagenes/FichaBlanca.png";
+        fichablanca.className = "Blanca";
         fichanegra.src = "../Imagenes/FichaNegra.png";
+        fichanegra.className = "Negra";
         celda28.appendChild(fichablanca);
         celda29.appendChild(fichanegra);
         fichanegra = document.createElement("img");
         fichablanca = document.createElement("img");
         fichablanca.src = "../Imagenes/FichaBlanca.png";
+        fichablanca.className = "Blanca";
         fichanegra.src = "../Imagenes/FichaNegra.png";
+        fichanegra.className = "Negra"
         celda36.appendChild(fichanegra);
         celda37.appendChild(fichablanca);
     }

@@ -1,9 +1,8 @@
 var cuadrados = [];
+var ancho = 8;
 document.addEventListener('DOMContentLoaded', function () {
     var grid = document.querySelector('.grid');
     //esto es el numero de cuadros de ancho que tiene el tablero
-    var ancho = 8;
-    var finJuego = false;
     //create Board
     function crearTablero() {
         console.log("En el metodo");
@@ -11,12 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
             var cuadrado = document.createElement('div');
             //este es el identificador unico para mis 64 divs
             cuadrado.setAttribute('id', String(i + 1));
-            if (rangoPared(i + 1)) {
-                cuadrado.classList.add("pared");
-            }
-            else {
-                cuadrado.classList.add("celda");
-            }
+            cuadrado.classList.add("celda");
             grid.appendChild(cuadrado);
             cuadrados.push(cuadrado);
             //click normal
@@ -34,15 +28,16 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     crearTablero();
 });
-function rangoPared(x) {
-    var lista1 = [1, 9, 17, 25, 33, 41, 49, 57];
-    var lista2 = [8, 16, 24, 32, 40, 48, 56, 64];
+/*
+function rangoPared(x: number): boolean {
+   let  lista1: number[] = [1, 9, 17, 25, 33, 41, 49, 57];
+   let  lista2: number[] = [8, 16, 24, 32, 40, 48, 56, 64];
     if ((x >= 1) && (x <= 8)) {
         return true;
-    }
+   }
     else if ((x >= 57) && (x <= 64)) {
         return true;
-    }
+   }
     else if ((lista1.indexOf(x) > -1) || (lista2.indexOf(x) > -1)) {
         return true;
     }
@@ -50,6 +45,8 @@ function rangoPared(x) {
         return false;
     }
 }
+
+*/
 function actualizarNombres() {
     var e = document.getElementById('dropdown');
     var valSel = e.selectedIndex;
@@ -59,40 +56,36 @@ function actualizarNombres() {
 }
 var turnoJugador1 = true;
 var turnoJugador2 = false;
-/*
-function esMovValido(cuadrado: HTMLDivElement): boolean {
+function esMovValido(cuadrado, ficha) {
     //reviso horizontalmente
-    var numCuadrado: number = +cuadrado.id
-    var colorOriginal =   cuadrado.className
-    //reviso a la derecha del cuadrado
-    if (colorOriginal == "Negra") {
-    //reviso si el movimiento es valido a la derecha a partir de esa posicion
-        for (let i = 0; i < cuadrados.length; i++) {
-            if (cuadrados[numCuadrado + 1].hasChildNodes() && cuadrados[1].children[0].className == "Blanca") {
-                        
+    var numCuadrado = +cuadrado.id;
+    numCuadrado -= 1;
+    if (ficha.className === "Negra") {
+        for (var i = numCuadrado - 1; i < cuadrados.length; i++) {
+            var esBordeDe = (i % 8 === 0);
+            var esBordeIz = (i % 8 === 8 - 1);
+            //reviso a la derecha
+            if (cuadrados[i].childNodes.length !== 0 && cuadrados[i].childNodes[0].className === "Blanca") {
+                //reviso en las 8 direcciones para ver si el movimiento es valido
+                if (!esBordeIz && cuadrados[i - 1].childNodes[0].className === "Negra") {
+                    console.log("cierto");
+                }
             }
         }
     }
-        else {
-
-        }
-        return true
+    else {
     }
-}*/
+    return true;
+}
 function click(cuadrado) {
     if (turnoJugador1 == true) {
         var ficha = document.createElement("img");
         ficha.src = "../Imagenes/FichaNegra.png";
         ficha.className = "Negra";
-        if (cuadrado.hasChildNodes()) {
-        }
-        else {
-            /* if (esMovValido(cuadrado)) {
-                 cuadrado.appendChild(ficha)
-                 turnoJugador1 = false
-                 turnoJugador2 = true
-             } else {
-             }*/
+        if (!cuadrado.hasChildNodes() && esMovValido(cuadrado, ficha)) {
+            cuadrado.appendChild(ficha);
+            turnoJugador1 = false;
+            turnoJugador2 = true;
         }
     }
     else {

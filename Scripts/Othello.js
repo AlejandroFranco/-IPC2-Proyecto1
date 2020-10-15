@@ -35,79 +35,6 @@ function actualizarNombres() {
     var texto = document.getElementById("lblJugador2").innerText;
     document.getElementById("lblJugador2").innerText = (texto + opc.text);
 }
-var turnoJugador1 = true;
-var turnoJugador2 = false;
-function esMovValido(cuadrado, ficha) {
-    //reviso horizontalmente
-    var numCuadrado = +cuadrado.id;
-    numCuadrado -= 1;
-    if (ficha.className === "Negra") {
-        for (var i = 0; i < cuadrados.length; i++) {
-            var esBordeDe = (i % 8 === 0);
-            var esBordeIz = (i % 8 === 8 - 1);
-            if (cuadrados[i].childNodes.length !== 0 && cuadrados[i].childNodes[0].className === "  Blanca") {
-                //lado derecho
-                if (!esBordeDe && cuadrados[i + 1].children.length > 0 && cuadrados[i + 1].childNodes[0].className === "Negra")
-                    return true;
-                //lado izquierdo
-                if (!esBordeIz && cuadrados[i - 1].children.length > 0 && cuadrados[i - 1].childNodes[0].className === "Negra")
-                    return true;
-                //hacia el noreste
-                if (!esBordeDe && cuadrados[i + 1 - 8].children.length > 0 && cuadrados[i + 1 - 8].childNodes[0].className === "Negra")
-                    return true;
-                //hacia arriba
-                if (cuadrados[i - 8].children.length > 0 && cuadrados[i - 8].childNodes[0].className === "Negra")
-                    return true;
-                //hacie el noroeste
-                if (!esBordeIz && cuadrados[i - 1 - 8].children.length > 0 && cuadrados[i - 1 - 8].childNodes[0].className === "Negra")
-                    return true;
-                //hacia el suroeste
-                if (!esBordeIz && cuadrados[i - 1 + 8].children.length > 0 && cuadrados[i - 1 + 8].childNodes[0].className === "Negra")
-                    return true;
-                // hacia el sureste
-                if (!esBordeDe && cuadrados[i + 1 + 8].children.length > 0 && cuadrados[i + 1 + 8].childNodes[0].className === "Negra")
-                    return true;
-                //hacia abajo
-                if (!esBordeDe && cuadrados[i + 8].children.length > 0 && cuadrados[i + 8].childNodes[0].className === "Negra")
-                    return true;
-            }
-        }
-    }
-    else {
-        for (var i = 0; i < cuadrados.length; i++) {
-            var esBordeDe = (i % 8 === 0);
-            var esBordeIz = (i % 8 === 8 - 1);
-            //reviso a la derecha
-            if (cuadrados[i].childNodes.length !== 0 && cuadrados[i].childNodes[0].className === "Negra") {
-                //lado derecho
-                if (!esBordeDe && cuadrados[i + 1].children.length > 0 && cuadrados[i + 1].childNodes[0].className === "Blanca")
-                    return true;
-                //lado izquierdo
-                if (!esBordeIz && cuadrados[i - 1].children.length > 0 && cuadrados[i - 1].childNodes[0].className === "Blanca")
-                    return true;
-                //hacia el noreste
-                if (!esBordeDe && cuadrados[i + 1 - 8].children.length > 0 && cuadrados[i + 1 - 8].childNodes[0].className === "Blanca")
-                    return true;
-                //hacia arriba
-                if (cuadrados[i - 8].children.length > 0 && cuadrados[i - 8].childNodes[0].className === "Blanca")
-                    return true;
-                //hacie el noroeste
-                if (!esBordeIz && cuadrados[i - 1 - 8].children.length > 0 && cuadrados[i - 1 - 8].childNodes[0].className === "Blanca")
-                    return true;
-                //hacia el suroeste
-                if (!esBordeIz && cuadrados[i - 1 + 8].children.length > 0 && cuadrados[i - 1 + 8].childNodes[0].className === "Blanca")
-                    return true;
-                // hacia el sureste
-                if (!esBordeDe && cuadrados[i + 1 + 8].children.length > 0 && cuadrados[i + 1 + 8].childNodes[0].className === "Blanca")
-                    return true;
-                //hacia abajo
-                if (!esBordeDe && cuadrados[i + 8].children.length > 0 && cuadrados[i + 8].childNodes[0].className === "Blanca")
-                    return true;
-            }
-        }
-    }
-    return true;
-}
 function click(cuadrado) {
     if (turnoJugador1 == true) {
         var ficha = document.createElement("img");
@@ -127,6 +54,226 @@ function click(cuadrado) {
             cuadrado.appendChild(ficha);
             turnoJugador1 = true;
             turnoJugador2 = false;
+        }
+    }
+}
+var turnoJugador1 = true;
+var turnoJugador2 = false;
+//el patron se completa como negra blanca blanca ...negra o al revés
+function patronCompletado(ficha, contador) {
+    var encontrado = false;
+    if (ficha.className === "Negra") {
+        for (var i = contador; i < cuadrados.length; i++) {
+            var esBordeDe = (i % 8 === 0);
+            var esBordeIz = (i % 8 === 8 - 1);
+            //lado derecho
+            if (i < 64 && !esBordeDe && cuadrados[i + 1].children.length > 0 && cuadrados[i + 1].childNodes[0].className === "Blanca") {
+                continue;
+            }
+            else if (i < 64 && !esBordeDe && cuadrados[i + 1].children.length > 0 && cuadrados[i + 1].childNodes[0].className === "Negra") {
+                return true;
+            }
+            //lado izquierdo
+            else if (i > 1 && !esBordeIz && cuadrados[i - 1].children.length > 0 && cuadrados[i - 1].childNodes[0].className === "Blanca") {
+                continue;
+            }
+            else if (i > 1 && !esBordeIz && cuadrados[i - 1].children.length > 0 && cuadrados[i - 1].childNodes[0].className === "Negra") {
+                return true;
+            }
+            //hacia el noreste
+            else if (i > 8 && !esBordeDe && cuadrados[i + 1 - 8].children.length > 0 && cuadrados[i + 1 - 8].childNodes[0].className === "Blanca") {
+                continue;
+            }
+            else if (i > 8 && !esBordeDe && cuadrados[i + 1 - 8].children.length > 0 && cuadrados[i + 1 - 8].childNodes[0].className === "Negra") {
+                return true;
+            }
+            //hacia arriba
+            else if (i > 8 && cuadrados[i - 8].children.length > 0 && cuadrados[i - 8].childNodes[0].className === "Blanca") {
+                continue;
+            }
+            else if (i > 8 && cuadrados[i - 8].children.length > 0 && cuadrados[i - 8].childNodes[0].className === "Negra") {
+                return true;
+            }
+            //hacie el noroeste
+            else if (i > 9 && !esBordeIz && cuadrados[i - 1 - 8].children.length > 0 && cuadrados[i - 1 - 8].childNodes[0].className === "Blanca") {
+                continue;
+            }
+            else if (i > 9 && !esBordeIz && cuadrados[i - 1 - 8].children.length > 0 && cuadrados[i - 1 - 8].childNodes[0].className === "Negra") {
+                return true;
+            }
+            //hacia el suroeste
+            else if (i < 57 && !esBordeIz && cuadrados[i - 1 + 8].children.length > 0 && cuadrados[i - 1 + 8].childNodes[0].className === "Blanca") {
+                continue;
+            }
+            else if (i < 57 && !esBordeIz && cuadrados[i - 1 + 8].children.length > 0 && cuadrados[i - 1 + 8].childNodes[0].className === "Negra") {
+                return true;
+            }
+            // hacia el sureste
+            else if (i < 56 && !esBordeDe && cuadrados[i + 1 + 8].children.length > 0 && cuadrados[i + 1 + 8].childNodes[0].className === "Blanca") {
+                continue;
+            }
+            else if (i < 56 && !esBordeDe && cuadrados[i + 1 + 8].children.length > 0 && cuadrados[i + 1 + 8].childNodes[0].className === "Negra") {
+                return true;
+            }
+            //hacia abajo
+            else if (i < 57 && !esBordeDe && cuadrados[i + 8].children.length > 0 && cuadrados[i + 8].childNodes[0].className === "Blanca") {
+                continue;
+            }
+            else if (i < 57 && !esBordeDe && cuadrados[i + 8].children.length > 0 && cuadrados[i + 8].childNodes[0].className === "Negra") {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+    }
+    else {
+        for (var i = contador; i < cuadrados.length; i++) {
+            var esBordeDe = (i % 8 === 0);
+            var esBordeIz = (i % 8 === 8 - 1);
+            //lado derecho
+            if (i < 64 && !esBordeDe && cuadrados[i + 1].children.length > 0 && cuadrados[i + 1].childNodes[0].className === "Negra") {
+                continue;
+            }
+            else if (i < 64 && !esBordeDe && cuadrados[i + 1].children.length > 0 && cuadrados[i + 1].childNodes[0].className === "Blanca") {
+                return true;
+            }
+            //lado izquierdo
+            else if (i > 1 && !esBordeIz && cuadrados[i - 1].children.length > 0 && cuadrados[i - 1].childNodes[0].className === "Negra") {
+                continue;
+            }
+            else if (i > 1 && !esBordeIz && cuadrados[i - 1].children.length > 0 && cuadrados[i - 1].childNodes[0].className === "Blanca") {
+                return true;
+            }
+            //hacia el noreste
+            else if (i > 8 && !esBordeDe && cuadrados[i + 1 - 8].children.length > 0 && cuadrados[i + 1 - 8].childNodes[0].className === "Negra") {
+                continue;
+            }
+            else if (i > 8 && !esBordeDe && cuadrados[i + 1 - 8].children.length > 0 && cuadrados[i + 1 - 8].childNodes[0].className === "Blanca") {
+                return true;
+            }
+            //hacia arriba
+            else if (i > 8 && cuadrados[i - 8].children.length > 0 && cuadrados[i - 8].childNodes[0].className === "Negra") {
+                continue;
+            }
+            else if (i > 8 && cuadrados[i - 8].children.length > 0 && cuadrados[i - 8].childNodes[0].className === "Blanca") {
+                return true;
+            }
+            //hacie el noroeste
+            else if (i > 9 && !esBordeIz && cuadrados[i - 1 - 8].children.length > 0 && cuadrados[i - 1 - 8].childNodes[0].className === "Negra") {
+                continue;
+            }
+            else if (i > 9 && !esBordeIz && cuadrados[i - 1 - 8].children.length > 0 && cuadrados[i - 1 - 8].childNodes[0].className === "Blanca") {
+                return true;
+            }
+            //hacia el suroeste
+            else if (i < 57 && !esBordeIz && cuadrados[i - 1 + 8].children.length > 0 && cuadrados[i - 1 + 8].childNodes[0].className === "Negra") {
+                continue;
+            }
+            else if (i < 57 && !esBordeIz && cuadrados[i - 1 + 8].children.length > 0 && cuadrados[i - 1 + 8].childNodes[0].className === "Blanca") {
+                return true;
+            }
+            // hacia el sureste
+            else if (i < 56 && !esBordeDe && cuadrados[i + 1 + 8].children.length > 0 && cuadrados[i + 1 + 8].childNodes[0].className === "Negra") {
+                continue;
+            }
+            else if (i < 56 && !esBordeDe && cuadrados[i + 1 + 8].children.length > 0 && cuadrados[i + 1 + 8].childNodes[0].className === "Blanca") {
+                return true;
+            }
+            //hacia abajo
+            else if (i < 57 && !esBordeDe && cuadrados[i + 8].children.length > 0 && cuadrados[i + 8].childNodes[0].className === "Negra") {
+                continue;
+            }
+            else if (i < 57 && !esBordeDe && cuadrados[i + 8].children.length > 0 && cuadrados[i + 8].childNodes[0].className === "Blanca") {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+    }
+}
+function esMovValido(cuadrado, ficha) {
+    //reviso horizontalmente
+    var numCuadrado = +cuadrado.id;
+    numCuadrado -= 1;
+    if (ficha.className === "Negra") {
+        for (var i = numCuadrado; i < cuadrados.length; i++) {
+            var esBordeDe = (i % 8 === 0);
+            var esBordeIz = (i % 8 === 8 - 1);
+            //lado derecho
+            if (i < 63 && !esBordeDe && cuadrados[i + 1].children.length > 0 && cuadrados[i + 1].childNodes[0].className === "Blanca") {
+                return patronCompletado(ficha, i + 1);
+            }
+            //lado izquierdo
+            if (i > 1 && !esBordeIz && cuadrados[i - 1].children.length > 0 && cuadrados[i - 1].childNodes[0].className === "Blanca") {
+                return patronCompletado(ficha, i - 1);
+            }
+            //hacia el noreste
+            if (i > 8 && !esBordeDe && cuadrados[i + 1 - 8].children.length > 0 && cuadrados[i + 1 - 8].childNodes[0].className === "Blanca") {
+                return patronCompletado(ficha, i + 1 - 8);
+            }
+            //hacia arriba
+            if (i > 8 && cuadrados[i - 8].children.length > 0 && cuadrados[i - 8].childNodes[0].className === "Blanca") {
+                return patronCompletado(ficha, i - 8);
+            }
+            //hacie el noroeste
+            if (i > 9 && !esBordeIz && cuadrados[i - 1 - 8].children.length > 0 && cuadrados[i - 1 - 8].childNodes[0].className === "Blanca") {
+                return patronCompletado(ficha, i - 1 - 8);
+            }
+            //hacia el suroeste
+            if (i < 57 && !esBordeIz && cuadrados[i - 1 + 8].children.length > 0 && cuadrados[i - 1 + 8].childNodes[0].className === "Blanca") {
+                return patronCompletado(ficha, i - 1 + 8);
+            }
+            // hacia el sureste
+            if (i < 56 && !esBordeDe && cuadrados[i + 1 + 8].children.length > 0 && cuadrados[i + 1 + 8].childNodes[0].className === "Blanca") {
+                return patronCompletado(ficha, i + 1 + 8);
+            }
+            //hacia abajo
+            if (i < 57 && !esBordeDe && cuadrados[i + 8].children.length > 0 && cuadrados[i + 8].childNodes[0].className === "Blanca") {
+                return patronCompletado(ficha, i + 8);
+            }
+            else {
+                return false;
+            }
+        }
+    }
+    else {
+        for (var i = numCuadrado; i < cuadrados.length; i++) {
+            var esBordeDe = (i % 8 === 0);
+            var esBordeIz = (i % 8 === 8 - 1);
+            //lado derecho
+            if (i < 64 && !esBordeDe && cuadrados[i + 1].children.length > 0 && cuadrados[i + 1].childNodes[0].className === "Negra") {
+                return patronCompletado(ficha, i + 1);
+            }
+            //lado izquierdo
+            if (i > 1 && !esBordeIz && cuadrados[i - 1].children.length > 0 && cuadrados[i - 1].childNodes[0].className === "Negra") {
+                return patronCompletado(ficha, i - 1);
+            }
+            //hacia el noreste
+            if (i > 8 && !esBordeDe && cuadrados[i + 1 - 8].children.length > 0 && cuadrados[i + 1 - 8].childNodes[0].className === "Negra") {
+                return patronCompletado(ficha, i + 1 - 8);
+            }
+            //hacia arriba
+            if (i > 8 && cuadrados[i - 8].children.length > 0 && cuadrados[i - 8].childNodes[0].className === "Negra") {
+                return patronCompletado(ficha, i - 8);
+            }
+            //hacie el noroeste
+            if (i > 9 && !esBordeIz && cuadrados[i - 1 - 8].children.length > 0 && cuadrados[i - 1 - 8].childNodes[0].className === "Negra") {
+                return patronCompletado(ficha, i - 1 - 8);
+            }
+            //hacia el suroeste
+            if (i < 57 && !esBordeIz && cuadrados[i - 1 + 8].children.length > 0 && cuadrados[i - 1 + 8].childNodes[0].className === "Negra") {
+                return patronCompletado(ficha, i - 1 + 8);
+            }
+            // hacia el sureste
+            if (i < 56 && !esBordeDe && cuadrados[i + 1 + 8].children.length > 0 && cuadrados[i + 1 + 8].childNodes[0].className === "Negra") {
+                return patronCompletado(ficha, i + 1 + 8);
+            }
+            //hacia abajo
+            if (i < 57 && !esBordeDe && cuadrados[i + 8].children.length > 0 && cuadrados[i + 8].childNodes[0].className === "Negra") {
+                return patronCompletado(ficha, i + 8);
+            }
         }
     }
 }
@@ -176,3 +323,4 @@ function limpiarTablero() {
         imagenes[0].parentNode.removeChild(imagenes[0]);
     }
 }
+//# sourceMappingURL=Othello.js.map

@@ -70,7 +70,7 @@ function voltearFichas(fichasVoltear, color) {
         }
     }
     else {
-        for (var i = fichasVoltear.length; i < length; i++) {
+        for (var i = 0; i < fichasVoltear.length; i++) {
             var img = cuadrados[fichasVoltear[i]].children[0];
             img.src = "../Imagenes/FichaBlanca.png";
             fichasBlancas++;
@@ -465,4 +465,3 @@ function limpiarTablero() {
         imagenes[0].parentNode.removeChild(imagenes[0]);
     }
 }
-//# sourceMappingURL=Othello.js.map

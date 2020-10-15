@@ -78,7 +78,7 @@ function voltearFichas(fichasVoltear: number[], color: string) {
 
         }
     } else {
-        for (var i = fichasVoltear.length; i < length; i++) {
+        for (var i = 0; i < fichasVoltear.length; i++) {
             var img = cuadrados[fichasVoltear[i]].children[0] as HTMLImageElement;
             img.src = "../Imagenes/FichaBlanca.png";
             fichasBlancas++;

@@ -45,6 +45,8 @@ function click(cuadrado: HTMLDivElement) {
         ficha.className = "Negra";
         if (!cuadrado.hasChildNodes() && esMovValido(cuadrado, ficha)) {
             cuadrado.appendChild(ficha);
+            fichasNegras++; 
+            ficha.setAttribute('id',"img"+ String(contadoridsFichas++));
             turnoJugador1 = false;
             turnoJugador2 = true;
         }
@@ -55,6 +57,8 @@ function click(cuadrado: HTMLDivElement) {
         ficha.className = "Blanca";
         if (!cuadrado.hasChildNodes() && esMovValido(cuadrado, ficha)) {
             cuadrado.appendChild(ficha);
+            ficha.setAttribute('id',"img"+ String(contadoridsFichas++));
+            fichasBlancas++;
             turnoJugador1 = true;
             turnoJugador2 = false;
 
@@ -67,14 +71,17 @@ function click(cuadrado: HTMLDivElement) {
 function voltearFichas(fichasVoltear: number[], color: string) {
     if(color === "Negra") {
 
-        for (var i = fichasVoltear.length; i < length; i++) {
-            var img = document.getElementById(i.toString()) as HTMLImageElement;
+        for (var i = 0; i < fichasVoltear.length; i++) {
+            var img = cuadrados[fichasVoltear[i]].children[0] as HTMLImageElement;
             img.src = "../Imagenes/FichaNegra.png";
+            fichasNegras++;
+
         }
     } else {
         for (var i = fichasVoltear.length; i < length; i++) {
-            var img = document.getElementById(i.toString()) as HTMLImageElement;
+            var img = cuadrados[fichasVoltear[i]].children[0] as HTMLImageElement;
             img.src = "../Imagenes/FichaBlanca.png";
+            fichasBlancas++;
         }
     }
 
@@ -82,7 +89,9 @@ function voltearFichas(fichasVoltear: number[], color: string) {
 
 let turnoJugador1: boolean = true;
 let turnoJugador2: boolean = false;
-
+var fichasNegras: number
+var fichasBlancas: number
+var contadoridsFichas:number = 1
 
 //el patron se completa como negra blanca blanca ...negra o al revés
 function patronCompletado(ficha: HTMLImageElement, contador: number, dir: string): boolean{
@@ -277,6 +286,10 @@ function esMovValido(cuadrado: HTMLDivElement, ficha: HTMLImageElement): boolean
         let celda37 = document.getElementById('37');
         var fichanegra = document.createElement("img");
         var fichablanca = document.createElement("img");
+        fichanegra.setAttribute('id',"img"+ String(contadoridsFichas++));
+        fichablanca.setAttribute('id',"img" + String(contadoridsFichas++));
+        fichasNegras++;
+        fichasBlancas++;
         fichablanca.src = "../Imagenes/FichaBlanca.png";
         fichablanca.className = "Blanca";
         fichanegra.src = "../Imagenes/FichaNegra.png";
@@ -285,12 +298,16 @@ function esMovValido(cuadrado: HTMLDivElement, ficha: HTMLImageElement): boolean
         celda29.appendChild(fichanegra);
         fichanegra = document.createElement("img");
         fichablanca = document.createElement("img");
+        fichanegra.setAttribute('id',"img"+ String(contadoridsFichas++));
+        fichablanca.setAttribute('id', "img"+String(contadoridsFichas++));
         fichablanca.src = "../Imagenes/FichaBlanca.png";
         fichablanca.className = "Blanca";
         fichanegra.src = "../Imagenes/FichaNegra.png";
         fichanegra.className = "Negra"
         celda36.appendChild(fichanegra);
         celda37.appendChild(fichablanca);
+        fichasNegras++;
+        fichasBlancas++;
     }
 
     function modoJuego(modo: string) {

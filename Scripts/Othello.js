@@ -42,6 +42,8 @@ function click(cuadrado) {
         ficha.className = "Negra";
         if (!cuadrado.hasChildNodes() && esMovValido(cuadrado, ficha)) {
             cuadrado.appendChild(ficha);
+            fichasNegras++;
+            ficha.setAttribute('id', "img" + String(contadoridsFichas++));
             turnoJugador1 = false;
             turnoJugador2 = true;
         }
@@ -52,6 +54,8 @@ function click(cuadrado) {
         ficha.className = "Blanca";
         if (!cuadrado.hasChildNodes() && esMovValido(cuadrado, ficha)) {
             cuadrado.appendChild(ficha);
+            ficha.setAttribute('id', "img" + String(contadoridsFichas++));
+            fichasBlancas++;
             turnoJugador1 = true;
             turnoJugador2 = false;
         }
@@ -59,20 +63,25 @@ function click(cuadrado) {
 }
 function voltearFichas(fichasVoltear, color) {
     if (color === "Negra") {
-        for (var i = fichasVoltear.length; i < length; i++) {
-            var img = document.getElementById(i.toString());
+        for (var i = 0; i < fichasVoltear.length; i++) {
+            var img = cuadrados[fichasVoltear[i]].children[0];
             img.src = "../Imagenes/FichaNegra.png";
+            fichasNegras++;
         }
     }
     else {
         for (var i = fichasVoltear.length; i < length; i++) {
-            var img = document.getElementById(i.toString());
+            var img = cuadrados[fichasVoltear[i]].children[0];
             img.src = "../Imagenes/FichaBlanca.png";
+            fichasBlancas++;
         }
     }
 }
 var turnoJugador1 = true;
 var turnoJugador2 = false;
+var fichasNegras;
+var fichasBlancas;
+var contadoridsFichas = 1;
 //el patron se completa como negra blanca blanca ...negra o al revés
 function patronCompletado(ficha, contador, dir) {
     var fichasVoltear = [];
@@ -414,6 +423,10 @@ function colocarTablero() {
     var celda37 = document.getElementById('37');
     var fichanegra = document.createElement("img");
     var fichablanca = document.createElement("img");
+    fichanegra.setAttribute('id', "img" + String(contadoridsFichas++));
+    fichablanca.setAttribute('id', "img" + String(contadoridsFichas++));
+    fichasNegras++;
+    fichasBlancas++;
     fichablanca.src = "../Imagenes/FichaBlanca.png";
     fichablanca.className = "Blanca";
     fichanegra.src = "../Imagenes/FichaNegra.png";
@@ -422,12 +435,16 @@ function colocarTablero() {
     celda29.appendChild(fichanegra);
     fichanegra = document.createElement("img");
     fichablanca = document.createElement("img");
+    fichanegra.setAttribute('id', "img" + String(contadoridsFichas++));
+    fichablanca.setAttribute('id', "img" + String(contadoridsFichas++));
     fichablanca.src = "../Imagenes/FichaBlanca.png";
     fichablanca.className = "Blanca";
     fichanegra.src = "../Imagenes/FichaNegra.png";
     fichanegra.className = "Negra";
     celda36.appendChild(fichanegra);
     celda37.appendChild(fichablanca);
+    fichasNegras++;
+    fichasBlancas++;
 }
 function modoJuego(modo) {
     if (modo == "IA") {

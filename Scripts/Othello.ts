@@ -64,66 +64,83 @@ function click(cuadrado: HTMLDivElement) {
 
 }
 
+function voltearFichas(fichasVoltear: number[], color: string) {
+    if(color === "Negra") {
+
+        for (var i = fichasVoltear.length; i < length; i++) {
+            var img = document.getElementById(i.toString()) as HTMLImageElement;
+            img.src = "../Imagenes/FichaNegra.png";
+        }
+    } else {
+        for (var i = fichasVoltear.length; i < length; i++) {
+            var img = document.getElementById(i.toString()) as HTMLImageElement;
+            img.src = "../Imagenes/FichaBlanca.png";
+        }
+    }
+
+}
 
 let turnoJugador1: boolean = true;
 let turnoJugador2: boolean = false;
 
 
 //el patron se completa como negra blanca blanca ...negra o al revés
-function patronCompletado(ficha:HTMLImageElement,contador:number,dir:string): boolean{
+function patronCompletado(ficha: HTMLImageElement, contador: number, dir: string): boolean{
+    var fichasVoltear: number[] = []
+    fichasVoltear.push(contador)
     if (ficha.className === "Negra") {
         for (let i = contador; i < cuadrados.length; i++) {
             const esBordeDe = (i % 8 === 0);
             const esBordeIz = (i % 8 === 8 - 1);
             if (dir === "a") {
                    //hacia arriba
-                 if (i > 8 && cuadrados[i - 8].children.length > 0 && cuadrados[i - 8].childNodes[0].className === "Blanca") { continue }
-                 else if (i > 8 && cuadrados[i - 8].children.length > 0 && cuadrados[i - 8].childNodes[0].className === "Negra") { return true }
+                if (i > 8 && cuadrados[i - 8].children.length > 0 && cuadrados[i - 8].childNodes[0].className === "Blanca") { fichasVoltear.push(i - 8); continue }
+                else if (i > 8 && cuadrados[i - 8].children.length > 0 && cuadrados[i - 8].childNodes[0].className === "Negra") { voltearFichas(fichasVoltear, "Negra"); return true }
                  else { return false }
 
             } else if (dir === "ab") {
                 //hacia abajo
-                if (i < 57 && !esBordeDe && cuadrados[i + 8].children.length > 0 && cuadrados[i + 8].childNodes[0].className === "Blanca") { continue }
-                else if (i < 57 && !esBordeDe && cuadrados[i + 8].children.length > 0 && cuadrados[i + 8].childNodes[0].className === "Negra") { return true }
+                if (i < 57 && !esBordeDe && cuadrados[i + 8].children.length > 0 && cuadrados[i + 8].childNodes[0].className === "Blanca") { fichasVoltear.push(i + 8); continue }
+                else if (i < 57 && !esBordeDe && cuadrados[i + 8].children.length > 0 && cuadrados[i + 8].childNodes[0].className === "Negra") { voltearFichas(fichasVoltear, "Negra"); return true }
                 else { return false }
 
 
             }  if (dir === "de") {
                 //lado derecho 
-                if (i < 64 && !esBordeDe && cuadrados[i + 1].children.length > 0 && cuadrados[i + 1].childNodes[0].className === "Blanca") { continue }
-                else if (i < 64 && !esBordeDe && cuadrados[i + 1].children.length > 0 && cuadrados[i + 1].childNodes[0].className === "Negra") { return true }
+                if (i < 64 && !esBordeDe && cuadrados[i + 1].children.length > 0 && cuadrados[i + 1].childNodes[0].className === "Blanca") { fichasVoltear.push(i+1); continue }
+                else if (i < 64 && !esBordeDe && cuadrados[i + 1].children.length > 0 && cuadrados[i + 1].childNodes[0].className === "Negra") { voltearFichas(fichasVoltear, "Negra"); return true }
                 else { return false }
             }
              if (dir === "iz") {
                   //lado izquierdo
-                 if (i > 1 && !esBordeIz && cuadrados[i - 1].children.length > 0 && cuadrados[i - 1].childNodes[0].className === "Blanca") { continue }
-                 else if (i > 1 && !esBordeIz && cuadrados[i - 1].children.length > 0 && cuadrados[i - 1].childNodes[0].className === "Negra") { return true }
+                 if (i > 1 && !esBordeIz && cuadrados[i - 1].children.length > 0 && cuadrados[i - 1].childNodes[0].className === "Blanca") { fichasVoltear.push(i - 1); continue }
+                 else if (i > 1 && !esBordeIz && cuadrados[i - 1].children.length > 0 && cuadrados[i - 1].childNodes[0].className === "Negra") { voltearFichas(fichasVoltear, "Negra");  return true }
                  else { return false }
             }
             else if (dir === "ne") {
                  //hacia el noreste
-                 if (i > 8 && !esBordeDe && cuadrados[i + 1 - 8].children.length > 0 && cuadrados[i + 1 - 8].childNodes[0].className === "Blanca") { continue }
-                 else if (i > 8 && !esBordeDe && cuadrados[i + 1 - 8].children.length > 0 && cuadrados[i + 1 - 8].childNodes[0].className === "Negra") { return true }
+                 if (i > 8 && !esBordeDe && cuadrados[i + 1 - 8].children.length > 0 && cuadrados[i + 1 - 8].childNodes[0].className === "Blanca") { fichasVoltear.push(i+1-8); continue }
+                 else if (i > 8 && !esBordeDe && cuadrados[i + 1 - 8].children.length > 0 && cuadrados[i + 1 - 8].childNodes[0].className === "Negra") { voltearFichas(fichasVoltear, "Negra");  return true }
                  else { return false }
             }
              if (dir === "no") {
                 //hacie el noroeste
-                 if (i > 9 && !esBordeIz && cuadrados[i - 1 - 8].children.length > 0 && cuadrados[i - 1 - 8].childNodes[0].className === "Blanca") { continue }
-                 else if (i > 9 && !esBordeIz && cuadrados[i - 1 - 8].children.length > 0 && cuadrados[i - 1 - 8].childNodes[0].className === "Negra") { return true }
+                 if (i > 9 && !esBordeIz && cuadrados[i - 1 - 8].children.length > 0 && cuadrados[i - 1 - 8].childNodes[0].className === "Blanca") { fichasVoltear.push(i-1-8); continue }
+                 else if (i > 9 && !esBordeIz && cuadrados[i - 1 - 8].children.length > 0 && cuadrados[i - 1 - 8].childNodes[0].className === "Negra") { voltearFichas(fichasVoltear, "Negra"); return true }
                  else { return false }
                  }
 
             else if (dir === "se") {
                  // hacia el sureste
-                 if (i < 56 && !esBordeDe && cuadrados[i + 1 + 8].children.length > 0 && cuadrados[i + 1 + 8].childNodes[0].className === "Blanca") { continue }
-                 else if (i < 56 && !esBordeDe && cuadrados[i + 1 + 8].children.length > 0 && cuadrados[i + 1 + 8].childNodes[0].className === "Negra") { return true }
+                 if (i < 56 && !esBordeDe && cuadrados[i + 1 + 8].children.length > 0 && cuadrados[i + 1 + 8].childNodes[0].className === "Blanca") { fichasVoltear.push(i+1+8); continue }
+                 else if (i < 56 && !esBordeDe && cuadrados[i + 1 + 8].children.length > 0 && cuadrados[i + 1 + 8].childNodes[0].className === "Negra") { voltearFichas(fichasVoltear, "Negra");  return true }
                  else { return false }
                 }
 
             if (dir === "so") {
                 //hacia el suroeste
-                if (i < 57 && !esBordeIz && cuadrados[i - 1 + 8].children.length > 0 && cuadrados[i - 1 + 8].childNodes[0].className === "Blanca") { continue }
-                else if (i < 57 && !esBordeIz && cuadrados[i - 1 + 8].children.length > 0 && cuadrados[i - 1 + 8].childNodes[0].className === "Negra") { return true }
+                if (i < 57 && !esBordeIz && cuadrados[i - 1 + 8].children.length > 0 && cuadrados[i - 1 + 8].childNodes[0].className === "Blanca") { fichasVoltear.push(i-1+8); continue }
+                else if (i < 57 && !esBordeIz && cuadrados[i - 1 + 8].children.length > 0 && cuadrados[i - 1 + 8].childNodes[0].className === "Negra") { voltearFichas(fichasVoltear, "Negra"); return true }
                 else { return false }
             }
  
@@ -135,54 +152,54 @@ function patronCompletado(ficha:HTMLImageElement,contador:number,dir:string): bo
                 //lado derecho
                 if (dir === "a") {
                     //hacia arriba
-                    if (i > 8 && cuadrados[i - 8].children.length > 0 && cuadrados[i - 8].childNodes[0].className === "Negra") { continue }
-                    else if (i > 8 && cuadrados[i - 8].children.length > 0 && cuadrados[i - 8].childNodes[0].className === "Blanca") { return true }
+                    if (i > 8 && cuadrados[i - 8].children.length > 0 && cuadrados[i - 8].childNodes[0].className === "Negra") { fichasVoltear.push(i-8); continue }
+                    else if (i > 8 && cuadrados[i - 8].children.length > 0 && cuadrados[i - 8].childNodes[0].className === "Blanca") { voltearFichas(fichasVoltear, "Blanca");  return true }
                     else { return false }
 
                 } else if (dir === "ab") {
                     //hacia abajo
-                    if (i < 57 && !esBordeDe && cuadrados[i + 8].children.length > 0 && cuadrados[i + 8].childNodes[0].className === "Negra") { continue }
-                    else if (i < 57 && !esBordeDe && cuadrados[i + 8].children.length > 0 && cuadrados[i + 8].childNodes[0].className === "Blanca") { return true }
+                    if (i < 57 && !esBordeDe && cuadrados[i + 8].children.length > 0 && cuadrados[i + 8].childNodes[0].className === "Negra") { fichasVoltear.push(i+8); continue }
+                    else if (i < 57 && !esBordeDe && cuadrados[i + 8].children.length > 0 && cuadrados[i + 8].childNodes[0].className === "Blanca") { voltearFichas(fichasVoltear, "Blanca");return true }
                     else { return false }
 
 
                 } if (dir === "de") {
                     //lado derecho 
-                    if (i < 64 && !esBordeDe && cuadrados[i + 1].children.length > 0 && cuadrados[i + 1].childNodes[0].className === "Negra") { continue }
-                    else if (i < 64 && !esBordeDe && cuadrados[i + 1].children.length > 0 && cuadrados[i + 1].childNodes[0].className === "Blanca") { return true }
+                    if (i < 64 && !esBordeDe && cuadrados[i + 1].children.length > 0 && cuadrados[i + 1].childNodes[0].className === "Negra") { fichasVoltear.push(i+1); continue }
+                    else if (i < 64 && !esBordeDe && cuadrados[i + 1].children.length > 0 && cuadrados[i + 1].childNodes[0].className === "Blanca") { voltearFichas(fichasVoltear, "Blanca");  return true }
                     else { return false }
                 }
                 if (dir === "iz") {
                     //lado izquierdo
-                    if (i > 1 && !esBordeIz && cuadrados[i - 1].children.length > 0 && cuadrados[i - 1].childNodes[0].className === "Negra") { continue }
-                    else if (i > 1 && !esBordeIz && cuadrados[i - 1].children.length > 0 && cuadrados[i - 1].childNodes[0].className === "Blanca") { return true }
+                    if (i > 1 && !esBordeIz && cuadrados[i - 1].children.length > 0 && cuadrados[i - 1].childNodes[0].className === "Negra") { fichasVoltear.push(i-1); continue }
+                    else if (i > 1 && !esBordeIz && cuadrados[i - 1].children.length > 0 && cuadrados[i - 1].childNodes[0].className === "Blanca") { voltearFichas(fichasVoltear, "Blanca"); return true }
                     else { return false }
                 }
                 else if (dir === "ne") {
                     //hacia el noreste
-                    if (i > 8 && !esBordeDe && cuadrados[i + 1 - 8].children.length > 0 && cuadrados[i + 1 - 8].childNodes[0].className === "Negra") { continue }
-                    else if (i > 8 && !esBordeDe && cuadrados[i + 1 - 8].children.length > 0 && cuadrados[i + 1 - 8].childNodes[0].className === "Blanca") { return true }
+                    if (i > 8 && !esBordeDe && cuadrados[i + 1 - 8].children.length > 0 && cuadrados[i + 1 - 8].childNodes[0].className === "Negra") { fichasVoltear.push(i+1-8); continue }
+                    else if (i > 8 && !esBordeDe && cuadrados[i + 1 - 8].children.length > 0 && cuadrados[i + 1 - 8].childNodes[0].className === "Blanca") { voltearFichas(fichasVoltear, "Blanca");  return true }
                     else { return false }
                 }
                 if (dir === "no") {
 
                     //hacie el noroeste
-                    if (i > 9 && !esBordeIz && cuadrados[i - 1 - 8].children.length > 0 && cuadrados[i - 1 - 8].childNodes[0].className === "Negra") { continue }
-                    else if (i > 9 && !esBordeIz && cuadrados[i - 1 - 8].children.length > 0 && cuadrados[i - 1 - 8].childNodes[0].className === "Blanca") { return true }
+                    if (i > 9 && !esBordeIz && cuadrados[i - 1 - 8].children.length > 0 && cuadrados[i - 1 - 8].childNodes[0].className === "Negra") { fichasVoltear.push(i-1-8); continue }
+                    else if (i > 9 && !esBordeIz && cuadrados[i - 1 - 8].children.length > 0 && cuadrados[i - 1 - 8].childNodes[0].className === "Blanca") { voltearFichas(fichasVoltear, "Blanca");  return true }
                     else { return false }
                 }
 
                 else if (dir === "se") {
                     // hacia el sureste
-                    if (i < 56 && !esBordeDe && cuadrados[i + 1 + 8].children.length > 0 && cuadrados[i + 1 + 8].childNodes[0].className === "Negra") { continue }
-                    else if (i < 56 && !esBordeDe && cuadrados[i + 1 + 8].children.length > 0 && cuadrados[i + 1 + 8].childNodes[0].className === "Blanca") { return true }
+                    if (i < 56 && !esBordeDe && cuadrados[i + 1 + 8].children.length > 0 && cuadrados[i + 1 + 8].childNodes[0].className === "Negra") { fichasVoltear.push(i+1+8); continue }
+                    else if (i < 56 && !esBordeDe && cuadrados[i + 1 + 8].children.length > 0 && cuadrados[i + 1 + 8].childNodes[0].className === "Blanca") { voltearFichas(fichasVoltear, "Blanca");  return true }
                     else { return false }
                 }
 
                 if (dir === "so") {
                     //hacia el suroeste
-                    if (i < 57 && !esBordeIz && cuadrados[i - 1 + 8].children.length > 0 && cuadrados[i - 1 + 8].childNodes[0].className === "Blanca") { continue }
-                    else if (i < 57 && !esBordeIz && cuadrados[i - 1 + 8].children.length > 0 && cuadrados[i - 1 + 8].childNodes[0].className === "Negra") { return true }
+                    if (i < 57 && !esBordeIz && cuadrados[i - 1 + 8].children.length > 0 && cuadrados[i - 1 + 8].childNodes[0].className === "Blanca") { fichasVoltear.push(i-1+8); continue }
+                    else if (i < 57 && !esBordeIz && cuadrados[i - 1 + 8].children.length > 0 && cuadrados[i - 1 + 8].childNodes[0].className === "Negra") { voltearFichas(fichasVoltear, "Blanca");  return true }
                     else { return false }
                 }
 

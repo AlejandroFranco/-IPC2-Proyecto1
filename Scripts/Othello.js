@@ -57,10 +57,26 @@ function click(cuadrado) {
         }
     }
 }
+function voltearFichas(fichasVoltear, color) {
+    if (color === "Negra") {
+        for (var i = fichasVoltear.length; i < length; i++) {
+            var img = document.getElementById(i.toString());
+            img.src = "../Imagenes/FichaNegra.png";
+        }
+    }
+    else {
+        for (var i = fichasVoltear.length; i < length; i++) {
+            var img = document.getElementById(i.toString());
+            img.src = "../Imagenes/FichaBlanca.png";
+        }
+    }
+}
 var turnoJugador1 = true;
 var turnoJugador2 = false;
 //el patron se completa como negra blanca blanca ...negra o al revés
 function patronCompletado(ficha, contador, dir) {
+    var fichasVoltear = [];
+    fichasVoltear.push(contador);
     if (ficha.className === "Negra") {
         for (var i = contador; i < cuadrados.length; i++) {
             var esBordeDe = (i % 8 === 0);
@@ -68,9 +84,11 @@ function patronCompletado(ficha, contador, dir) {
             if (dir === "a") {
                 //hacia arriba
                 if (i > 8 && cuadrados[i - 8].children.length > 0 && cuadrados[i - 8].childNodes[0].className === "Blanca") {
+                    fichasVoltear.push(i - 8);
                     continue;
                 }
                 else if (i > 8 && cuadrados[i - 8].children.length > 0 && cuadrados[i - 8].childNodes[0].className === "Negra") {
+                    voltearFichas(fichasVoltear, "Negra");
                     return true;
                 }
                 else {
@@ -80,9 +98,11 @@ function patronCompletado(ficha, contador, dir) {
             else if (dir === "ab") {
                 //hacia abajo
                 if (i < 57 && !esBordeDe && cuadrados[i + 8].children.length > 0 && cuadrados[i + 8].childNodes[0].className === "Blanca") {
+                    fichasVoltear.push(i + 8);
                     continue;
                 }
                 else if (i < 57 && !esBordeDe && cuadrados[i + 8].children.length > 0 && cuadrados[i + 8].childNodes[0].className === "Negra") {
+                    voltearFichas(fichasVoltear, "Negra");
                     return true;
                 }
                 else {
@@ -92,9 +112,11 @@ function patronCompletado(ficha, contador, dir) {
             if (dir === "de") {
                 //lado derecho 
                 if (i < 64 && !esBordeDe && cuadrados[i + 1].children.length > 0 && cuadrados[i + 1].childNodes[0].className === "Blanca") {
+                    fichasVoltear.push(i + 1);
                     continue;
                 }
                 else if (i < 64 && !esBordeDe && cuadrados[i + 1].children.length > 0 && cuadrados[i + 1].childNodes[0].className === "Negra") {
+                    voltearFichas(fichasVoltear, "Negra");
                     return true;
                 }
                 else {
@@ -104,9 +126,11 @@ function patronCompletado(ficha, contador, dir) {
             if (dir === "iz") {
                 //lado izquierdo
                 if (i > 1 && !esBordeIz && cuadrados[i - 1].children.length > 0 && cuadrados[i - 1].childNodes[0].className === "Blanca") {
+                    fichasVoltear.push(i - 1);
                     continue;
                 }
                 else if (i > 1 && !esBordeIz && cuadrados[i - 1].children.length > 0 && cuadrados[i - 1].childNodes[0].className === "Negra") {
+                    voltearFichas(fichasVoltear, "Negra");
                     return true;
                 }
                 else {
@@ -116,9 +140,11 @@ function patronCompletado(ficha, contador, dir) {
             else if (dir === "ne") {
                 //hacia el noreste
                 if (i > 8 && !esBordeDe && cuadrados[i + 1 - 8].children.length > 0 && cuadrados[i + 1 - 8].childNodes[0].className === "Blanca") {
+                    fichasVoltear.push(i + 1 - 8);
                     continue;
                 }
                 else if (i > 8 && !esBordeDe && cuadrados[i + 1 - 8].children.length > 0 && cuadrados[i + 1 - 8].childNodes[0].className === "Negra") {
+                    voltearFichas(fichasVoltear, "Negra");
                     return true;
                 }
                 else {
@@ -128,9 +154,11 @@ function patronCompletado(ficha, contador, dir) {
             if (dir === "no") {
                 //hacie el noroeste
                 if (i > 9 && !esBordeIz && cuadrados[i - 1 - 8].children.length > 0 && cuadrados[i - 1 - 8].childNodes[0].className === "Blanca") {
+                    fichasVoltear.push(i - 1 - 8);
                     continue;
                 }
                 else if (i > 9 && !esBordeIz && cuadrados[i - 1 - 8].children.length > 0 && cuadrados[i - 1 - 8].childNodes[0].className === "Negra") {
+                    voltearFichas(fichasVoltear, "Negra");
                     return true;
                 }
                 else {
@@ -140,9 +168,11 @@ function patronCompletado(ficha, contador, dir) {
             else if (dir === "se") {
                 // hacia el sureste
                 if (i < 56 && !esBordeDe && cuadrados[i + 1 + 8].children.length > 0 && cuadrados[i + 1 + 8].childNodes[0].className === "Blanca") {
+                    fichasVoltear.push(i + 1 + 8);
                     continue;
                 }
                 else if (i < 56 && !esBordeDe && cuadrados[i + 1 + 8].children.length > 0 && cuadrados[i + 1 + 8].childNodes[0].className === "Negra") {
+                    voltearFichas(fichasVoltear, "Negra");
                     return true;
                 }
                 else {
@@ -152,9 +182,11 @@ function patronCompletado(ficha, contador, dir) {
             if (dir === "so") {
                 //hacia el suroeste
                 if (i < 57 && !esBordeIz && cuadrados[i - 1 + 8].children.length > 0 && cuadrados[i - 1 + 8].childNodes[0].className === "Blanca") {
+                    fichasVoltear.push(i - 1 + 8);
                     continue;
                 }
                 else if (i < 57 && !esBordeIz && cuadrados[i - 1 + 8].children.length > 0 && cuadrados[i - 1 + 8].childNodes[0].className === "Negra") {
+                    voltearFichas(fichasVoltear, "Negra");
                     return true;
                 }
                 else {
@@ -171,9 +203,11 @@ function patronCompletado(ficha, contador, dir) {
             if (dir === "a") {
                 //hacia arriba
                 if (i > 8 && cuadrados[i - 8].children.length > 0 && cuadrados[i - 8].childNodes[0].className === "Negra") {
+                    fichasVoltear.push(i - 8);
                     continue;
                 }
                 else if (i > 8 && cuadrados[i - 8].children.length > 0 && cuadrados[i - 8].childNodes[0].className === "Blanca") {
+                    voltearFichas(fichasVoltear, "Blanca");
                     return true;
                 }
                 else {
@@ -183,9 +217,11 @@ function patronCompletado(ficha, contador, dir) {
             else if (dir === "ab") {
                 //hacia abajo
                 if (i < 57 && !esBordeDe && cuadrados[i + 8].children.length > 0 && cuadrados[i + 8].childNodes[0].className === "Negra") {
+                    fichasVoltear.push(i + 8);
                     continue;
                 }
                 else if (i < 57 && !esBordeDe && cuadrados[i + 8].children.length > 0 && cuadrados[i + 8].childNodes[0].className === "Blanca") {
+                    voltearFichas(fichasVoltear, "Blanca");
                     return true;
                 }
                 else {
@@ -195,9 +231,11 @@ function patronCompletado(ficha, contador, dir) {
             if (dir === "de") {
                 //lado derecho 
                 if (i < 64 && !esBordeDe && cuadrados[i + 1].children.length > 0 && cuadrados[i + 1].childNodes[0].className === "Negra") {
+                    fichasVoltear.push(i + 1);
                     continue;
                 }
                 else if (i < 64 && !esBordeDe && cuadrados[i + 1].children.length > 0 && cuadrados[i + 1].childNodes[0].className === "Blanca") {
+                    voltearFichas(fichasVoltear, "Blanca");
                     return true;
                 }
                 else {
@@ -207,9 +245,11 @@ function patronCompletado(ficha, contador, dir) {
             if (dir === "iz") {
                 //lado izquierdo
                 if (i > 1 && !esBordeIz && cuadrados[i - 1].children.length > 0 && cuadrados[i - 1].childNodes[0].className === "Negra") {
+                    fichasVoltear.push(i - 1);
                     continue;
                 }
                 else if (i > 1 && !esBordeIz && cuadrados[i - 1].children.length > 0 && cuadrados[i - 1].childNodes[0].className === "Blanca") {
+                    voltearFichas(fichasVoltear, "Blanca");
                     return true;
                 }
                 else {
@@ -219,9 +259,11 @@ function patronCompletado(ficha, contador, dir) {
             else if (dir === "ne") {
                 //hacia el noreste
                 if (i > 8 && !esBordeDe && cuadrados[i + 1 - 8].children.length > 0 && cuadrados[i + 1 - 8].childNodes[0].className === "Negra") {
+                    fichasVoltear.push(i + 1 - 8);
                     continue;
                 }
                 else if (i > 8 && !esBordeDe && cuadrados[i + 1 - 8].children.length > 0 && cuadrados[i + 1 - 8].childNodes[0].className === "Blanca") {
+                    voltearFichas(fichasVoltear, "Blanca");
                     return true;
                 }
                 else {
@@ -231,9 +273,11 @@ function patronCompletado(ficha, contador, dir) {
             if (dir === "no") {
                 //hacie el noroeste
                 if (i > 9 && !esBordeIz && cuadrados[i - 1 - 8].children.length > 0 && cuadrados[i - 1 - 8].childNodes[0].className === "Negra") {
+                    fichasVoltear.push(i - 1 - 8);
                     continue;
                 }
                 else if (i > 9 && !esBordeIz && cuadrados[i - 1 - 8].children.length > 0 && cuadrados[i - 1 - 8].childNodes[0].className === "Blanca") {
+                    voltearFichas(fichasVoltear, "Blanca");
                     return true;
                 }
                 else {
@@ -243,9 +287,11 @@ function patronCompletado(ficha, contador, dir) {
             else if (dir === "se") {
                 // hacia el sureste
                 if (i < 56 && !esBordeDe && cuadrados[i + 1 + 8].children.length > 0 && cuadrados[i + 1 + 8].childNodes[0].className === "Negra") {
+                    fichasVoltear.push(i + 1 + 8);
                     continue;
                 }
                 else if (i < 56 && !esBordeDe && cuadrados[i + 1 + 8].children.length > 0 && cuadrados[i + 1 + 8].childNodes[0].className === "Blanca") {
+                    voltearFichas(fichasVoltear, "Blanca");
                     return true;
                 }
                 else {
@@ -255,9 +301,11 @@ function patronCompletado(ficha, contador, dir) {
             if (dir === "so") {
                 //hacia el suroeste
                 if (i < 57 && !esBordeIz && cuadrados[i - 1 + 8].children.length > 0 && cuadrados[i - 1 + 8].childNodes[0].className === "Blanca") {
+                    fichasVoltear.push(i - 1 + 8);
                     continue;
                 }
                 else if (i < 57 && !esBordeIz && cuadrados[i - 1 + 8].children.length > 0 && cuadrados[i - 1 + 8].childNodes[0].className === "Negra") {
+                    voltearFichas(fichasVoltear, "Blanca");
                     return true;
                 }
                 else {
@@ -400,3 +448,4 @@ function limpiarTablero() {
         imagenes[0].parentNode.removeChild(imagenes[0]);
     }
 }
+//# sourceMappingURL=Othello.js.map

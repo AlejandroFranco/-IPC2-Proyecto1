@@ -73,6 +73,9 @@ function patronCompletado(ficha, contador, dir) {
                 else if (i > 8 && cuadrados[i - 8].children.length > 0 && cuadrados[i - 8].childNodes[0].className === "Negra") {
                     return true;
                 }
+                else {
+                    return false;
+                }
             }
             else if (dir === "ab") {
                 //hacia abajo
@@ -142,6 +145,9 @@ function patronCompletado(ficha, contador, dir) {
                 else if (i < 56 && !esBordeDe && cuadrados[i + 1 + 8].children.length > 0 && cuadrados[i + 1 + 8].childNodes[0].className === "Negra") {
                     return true;
                 }
+                else {
+                    return false;
+                }
             }
             if (dir === "so") {
                 //hacia el suroeste
@@ -169,6 +175,9 @@ function patronCompletado(ficha, contador, dir) {
                 }
                 else if (i > 8 && cuadrados[i - 8].children.length > 0 && cuadrados[i - 8].childNodes[0].className === "Blanca") {
                     return true;
+                }
+                else {
+                    return false;
                 }
             }
             else if (dir === "ab") {
@@ -238,6 +247,9 @@ function patronCompletado(ficha, contador, dir) {
                 }
                 else if (i < 56 && !esBordeDe && cuadrados[i + 1 + 8].children.length > 0 && cuadrados[i + 1 + 8].childNodes[0].className === "Blanca") {
                     return true;
+                }
+                else {
+                    return false;
                 }
             }
             if (dir === "so") {
@@ -388,4 +400,3 @@ function limpiarTablero() {
         imagenes[0].parentNode.removeChild(imagenes[0]);
     }
 }
-//# sourceMappingURL=Othello.js.map

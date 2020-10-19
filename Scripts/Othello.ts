@@ -43,10 +43,10 @@ function click(cuadrado: HTMLDivElement) {
         var ficha = document.createElement("img");
         ficha.src = "../Imagenes/FichaNegra.png";
         ficha.className = "Negra";
-        if (!cuadrado.hasChildNodes() && esMovValido(cuadrado, ficha)) {
+        if (!cuadrado.hasChildNodes() && esMovimientoValido(cuadrado, ficha)) {
             cuadrado.appendChild(ficha);
             fichasNegras++; 
-            ficha.setAttribute('id',"img"+ String(contadoridsFichas++));
+            ficha.setAttribute('id',"img"+ String(contadorIdsFichas++));
             turnoJugador1 = false;
             turnoJugador2 = true;
         }
@@ -55,9 +55,9 @@ function click(cuadrado: HTMLDivElement) {
         var ficha = document.createElement("img");
         ficha.src = "../Imagenes/FichaBlanca.png";
         ficha.className = "Blanca";
-        if (!cuadrado.hasChildNodes() && esMovValido(cuadrado, ficha)) {
+        if (!cuadrado.hasChildNodes() && esMovimientoValido(cuadrado, ficha)) {
             cuadrado.appendChild(ficha);
-            ficha.setAttribute('id',"img"+ String(contadoridsFichas++));
+            ficha.setAttribute('id',"img"+ String(contadorIdsFichas++));
             fichasBlancas++;
             turnoJugador1 = true;
             turnoJugador2 = false;
@@ -74,6 +74,7 @@ function voltearFichas(fichasVoltear: number[], color: string) {
         for (var i = 0; i < fichasVoltear.length; i++) {
             var img = cuadrados[fichasVoltear[i]].children[0] as HTMLImageElement;
             img.src = "../Imagenes/FichaNegra.png";
+            img.className = "Negra";
             fichasNegras++;
 
         }
@@ -81,6 +82,7 @@ function voltearFichas(fichasVoltear: number[], color: string) {
         for (var i = 0; i < fichasVoltear.length; i++) {
             var img = cuadrados[fichasVoltear[i]].children[0] as HTMLImageElement;
             img.src = "../Imagenes/FichaBlanca.png";
+            img.className = "Blanca";
             fichasBlancas++;
         }
     }
@@ -91,179 +93,206 @@ let turnoJugador1: boolean = true;
 let turnoJugador2: boolean = false;
 var fichasNegras: number
 var fichasBlancas: number
-var contadoridsFichas:number = 1
+var contadorIdsFichas:number = 1
 
 //el patron se completa como negra blanca blanca ...negra o al revés
-function patronCompletado(ficha: HTMLImageElement, contador: number, dir: string): boolean{
+function patronCompletado(ficha: HTMLImageElement, contador: number, direccion: string): boolean{
     var fichasVoltear: number[] = []
     fichasVoltear.push(contador)
     if (ficha.className === "Negra") {
-        for (let i = contador; i < cuadrados.length; i++) {
-            const esBordeDe = (i % 8 === 0);
-            const esBordeIz = (i % 8 === 8 - 1);
-            if (dir === "a") {
-                   //hacia arriba
-                if (i > 8 && cuadrados[i - 8].children.length > 0 && cuadrados[i - 8].childNodes[0].className === "Blanca") { fichasVoltear.push(i - 8); continue }
-                else if (i > 8 && cuadrados[i - 8].children.length > 0 && cuadrados[i - 8].childNodes[0].className === "Negra") { voltearFichas(fichasVoltear, "Negra"); return true }
-                 else { return false }
+        var patronEncontrado: boolean = true
+        while (patronEncontrado) {
+            const esBordeDe = (contador % 8 === 0);
+            const esBordeIz = (contador % 8 === 8 - 1);
+            if (direccion === "a") {
+                //hacia arriba
+                contador = contador - 8
+                if (contador > 8 && cuadrados[contador].children.length > 0 && cuadrados[contador].childNodes[0].className === "Blanca") { fichasVoltear.push(contador ); continue }
+                else if (contador > 8 && cuadrados[contador].children.length > 0 && cuadrados[contador].childNodes[0].className === "Negra") { voltearFichas(fichasVoltear, "Negra"); return true }
+                else { return false }
 
-            } else if (dir === "ab") {
+            } else if (direccion === "ab") {
                 //hacia abajo
-                if (i < 57 && !esBordeDe && cuadrados[i + 8].children.length > 0 && cuadrados[i + 8].childNodes[0].className === "Blanca") { fichasVoltear.push(i + 8); continue }
-                else if (i < 57 && !esBordeDe && cuadrados[i + 8].children.length > 0 && cuadrados[i + 8].childNodes[0].className === "Negra") { voltearFichas(fichasVoltear, "Negra"); return true }
+                contador = contador+8
+                if (contador < 57 && !esBordeDe && cuadrados[contador].children.length > 0 && cuadrados[contador ].childNodes[0].className === "Blanca") { fichasVoltear.push(contador ); continue }
+                else if (contador < 57 && !esBordeDe && cuadrados[contador].children.length > 0 && cuadrados[contador ].childNodes[0].className === "Negra") { voltearFichas(fichasVoltear, "Negra"); return true }
                 else { return false }
 
 
-            }  if (dir === "de") {
+            } if (direccion === "de") {
                 //lado derecho 
-                if (i < 64 && !esBordeDe && cuadrados[i + 1].children.length > 0 && cuadrados[i + 1].childNodes[0].className === "Blanca") { fichasVoltear.push(i+1); continue }
-                else if (i < 64 && !esBordeDe && cuadrados[i + 1].children.length > 0 && cuadrados[i + 1].childNodes[0].className === "Negra") { voltearFichas(fichasVoltear, "Negra"); return true }
+                contador = contador+1
+                if (contador < 64 && !esBordeDe && cuadrados[contador].children.length > 0 && cuadrados[contador].childNodes[0].className === "Blanca") { fichasVoltear.push(contador ); continue }
+                else if (contador < 64 && !esBordeDe && cuadrados[contador].children.length > 0 && cuadrados[contador].childNodes[0].className === "Negra") { voltearFichas(fichasVoltear, "Negra"); return true }
                 else { return false }
             }
-             if (dir === "iz") {
-                  //lado izquierdo
-                 if (i > 1 && !esBordeIz && cuadrados[i - 1].children.length > 0 && cuadrados[i - 1].childNodes[0].className === "Blanca") { fichasVoltear.push(i - 1); continue }
-                 else if (i > 1 && !esBordeIz && cuadrados[i - 1].children.length > 0 && cuadrados[i - 1].childNodes[0].className === "Negra") { voltearFichas(fichasVoltear, "Negra");  return true }
-                 else { return false }
+            if (direccion === "iz") {
+                //lado izquierdo
+                contador = contador-1
+                if (contador > 1 && !esBordeIz && cuadrados[contador].children.length > 0 && cuadrados[contador].childNodes[0].className === "Blanca") { fichasVoltear.push(contador); continue }
+                else if (contador > 1 && !esBordeIz && cuadrados[contador].children.length > 0 && cuadrados[contador].childNodes[0].className === "Negra") { voltearFichas(fichasVoltear, "Negra"); return true }
+                else { return false }
             }
-            else if (dir === "ne") {
-                 //hacia el noreste
-                 if (i > 8 && !esBordeDe && cuadrados[i + 1 - 8].children.length > 0 && cuadrados[i + 1 - 8].childNodes[0].className === "Blanca") { fichasVoltear.push(i+1-8); continue }
-                 else if (i > 8 && !esBordeDe && cuadrados[i + 1 - 8].children.length > 0 && cuadrados[i + 1 - 8].childNodes[0].className === "Negra") { voltearFichas(fichasVoltear, "Negra");  return true }
-                 else { return false }
+            else if (direccion === "ne") {
+                //hacia el noreste
+                contador = contador+1-8
+                if (contador > 8 && !esBordeDe && cuadrados[contador].children.length > 0 && cuadrados[contador].childNodes[0].className === "Blanca") { fichasVoltear.push(contador); continue }
+                else if (contador > 8 && !esBordeDe && cuadrados[contador].children.length > 0 && cuadrados[contador].childNodes[0].className === "Negra") { voltearFichas(fichasVoltear, "Negra"); return true }
+                else { return false }
             }
-             if (dir === "no") {
+            if (direccion === "no") {
                 //hacie el noroeste
-                 if (i > 9 && !esBordeIz && cuadrados[i - 1 - 8].children.length > 0 && cuadrados[i - 1 - 8].childNodes[0].className === "Blanca") { fichasVoltear.push(i-1-8); continue }
-                 else if (i > 9 && !esBordeIz && cuadrados[i - 1 - 8].children.length > 0 && cuadrados[i - 1 - 8].childNodes[0].className === "Negra") { voltearFichas(fichasVoltear, "Negra"); return true }
-                 else { return false }
-                 }
-
-            else if (dir === "se") {
-                 // hacia el sureste
-                 if (i < 56 && !esBordeDe && cuadrados[i + 1 + 8].children.length > 0 && cuadrados[i + 1 + 8].childNodes[0].className === "Blanca") { fichasVoltear.push(i+1+8); continue }
-                 else if (i < 56 && !esBordeDe && cuadrados[i + 1 + 8].children.length > 0 && cuadrados[i + 1 + 8].childNodes[0].className === "Negra") { voltearFichas(fichasVoltear, "Negra");  return true }
-                 else { return false }
-                }
-
-            if (dir === "so") {
-                //hacia el suroeste
-                if (i < 57 && !esBordeIz && cuadrados[i - 1 + 8].children.length > 0 && cuadrados[i - 1 + 8].childNodes[0].className === "Blanca") { fichasVoltear.push(i-1+8); continue }
-                else if (i < 57 && !esBordeIz && cuadrados[i - 1 + 8].children.length > 0 && cuadrados[i - 1 + 8].childNodes[0].className === "Negra") { voltearFichas(fichasVoltear, "Negra"); return true }
+                contador = contador-1-8
+                if (contador > 9 && !esBordeIz && cuadrados[contador].children.length > 0 && cuadrados[contador].childNodes[0].className === "Blanca") { fichasVoltear.push(contador ); continue }
+                else if (contador > 9 && !esBordeIz && cuadrados[contador].children.length > 0 && cuadrados[contador ].childNodes[0].className === "Negra") { voltearFichas(fichasVoltear, "Negra"); return true }
                 else { return false }
             }
- 
+
+            else if (direccion === "se") {
+                // hacia el sureste
+                contador = contador+1+8
+                if (contador < 56 && !esBordeDe && cuadrados[contador].children.length > 0 && cuadrados[contador].childNodes[0].className === "Blanca") { fichasVoltear.push(contador); continue }
+                else if (contador < 56 && !esBordeDe && cuadrados[contador].children.length > 0 && cuadrados[contador ].childNodes[0].className === "Negra") { voltearFichas(fichasVoltear, "Negra"); return true }
+                else { return false }
+            }
+
+            if (direccion === "so") {
+                //hacia el suroeste
+                contador = contador-1+8
+                if (contador < 57 && !esBordeIz && cuadrados[contador].children.length > 0 && cuadrados[contador ].childNodes[0].className === "Blanca") { fichasVoltear.push(contador ); continue }
+                else if (contador < 57 && !esBordeIz && cuadrados[contador].children.length > 0 && cuadrados[contador].childNodes[0].className === "Negra") { voltearFichas(fichasVoltear, "Negra"); return true }
+                else { return false }
+            }
+
         }
     }else {
-            for (let i = contador; i < cuadrados.length; i++) {
-                const esBordeDe = (i % 8 === 0);
-                const esBordeIz = (i % 8 === 8 - 1);
+    var patronEncontrado:boolean = true
+        while (patronEncontrado) {
+                const esBordeDe = (contador % 8 === 0);
+                const esBordeIz = (contador % 8 === 8 - 1);
                 //lado derecho
-                if (dir === "a") {
+                if (direccion === "a") {
                     //hacia arriba
-                    if (i > 8 && cuadrados[i - 8].children.length > 0 && cuadrados[i - 8].childNodes[0].className === "Negra") { fichasVoltear.push(i-8); continue }
-                    else if (i > 8 && cuadrados[i - 8].children.length > 0 && cuadrados[i - 8].childNodes[0].className === "Blanca") { voltearFichas(fichasVoltear, "Blanca");  return true }
+                    contador = contador - 8;
+                    if (contador > 8 && cuadrados[contador].children.length > 0 && cuadrados[contador - 8].childNodes[0].className === "Negra") { fichasVoltear.push(contador); continue }
+                    else if (contador > 8 && cuadrados[contador].children.length > 0 && cuadrados[contador - 8].childNodes[0].className === "Blanca") { voltearFichas(fichasVoltear, "Blanca");  return true }
                     else { return false }
 
-                } else if (dir === "ab") {
+                } else if (direccion === "ab") {
                     //hacia abajo
-                    if (i < 57 && !esBordeDe && cuadrados[i + 8].children.length > 0 && cuadrados[i + 8].childNodes[0].className === "Negra") { fichasVoltear.push(i+8); continue }
-                    else if (i < 57 && !esBordeDe && cuadrados[i + 8].children.length > 0 && cuadrados[i + 8].childNodes[0].className === "Blanca") { voltearFichas(fichasVoltear, "Blanca");return true }
+                    contador = contador + 8;
+                    if (contador < 57 && !esBordeDe && cuadrados[contador].children.length > 0 && cuadrados[contador + 8].childNodes[0].className === "Negra") { fichasVoltear.push(contador); continue }
+                    else if (contador < 57 && !esBordeDe && cuadrados[contador].children.length > 0 && cuadrados[contador + 8].childNodes[0].className ===   "Blanca") { voltearFichas(fichasVoltear, "Blanca");return true }
                     else { return false }
 
 
-                } if (dir === "de") {
+                } if (direccion === "de") {
                     //lado derecho 
-                    if (i < 64 && !esBordeDe && cuadrados[i + 1].children.length > 0 && cuadrados[i + 1].childNodes[0].className === "Negra") { fichasVoltear.push(i+1); continue }
-                    else if (i < 64 && !esBordeDe && cuadrados[i + 1].children.length > 0 && cuadrados[i + 1].childNodes[0].className === "Blanca") { voltearFichas(fichasVoltear, "Blanca");  return true }
+                    contador = contador + 1;
+                    if (contador < 64 && !esBordeDe && cuadrados[contador].children.length > 0 && cuadrados[contador].childNodes[0].className === "Negra") { fichasVoltear.push(contador); continue }
+                    else if (contador < 64 && !esBordeDe && cuadrados[contador].children.length > 0 && cuadrados[contador].childNodes[0].className === "Blanca") { voltearFichas(fichasVoltear, "Blanca");  return true }
                     else { return false }
                 }
-                if (dir === "iz") {
+                if (direccion === "iz") {
                     //lado izquierdo
-                    if (i > 1 && !esBordeIz && cuadrados[i - 1].children.length > 0 && cuadrados[i - 1].childNodes[0].className === "Negra") { fichasVoltear.push(i-1); continue }
-                    else if (i > 1 && !esBordeIz && cuadrados[i - 1].children.length > 0 && cuadrados[i - 1].childNodes[0].className === "Blanca") { voltearFichas(fichasVoltear, "Blanca"); return true }
+                    contador = contador -1
+                    if (contador > 1 && !esBordeIz && cuadrados[contador].children.length > 0 && cuadrados[contador].childNodes[0].className === "Negra") { fichasVoltear.push(contador); continue }
+                    else if (contador > 1 && !esBordeIz && cuadrados[contador].children.length > 0 && cuadrados[contador].childNodes[0].className === "Blanca") { voltearFichas(fichasVoltear, "Blanca"); return true }
                     else { return false }
                 }
-                else if (dir === "ne") {
+                else if (direccion === "ne") {
                     //hacia el noreste
-                    if (i > 8 && !esBordeDe && cuadrados[i + 1 - 8].children.length > 0 && cuadrados[i + 1 - 8].childNodes[0].className === "Negra") { fichasVoltear.push(i+1-8); continue }
-                    else if (i > 8 && !esBordeDe && cuadrados[i + 1 - 8].children.length > 0 && cuadrados[i + 1 - 8].childNodes[0].className === "Blanca") { voltearFichas(fichasVoltear, "Blanca");  return true }
+                    contador = contador + 1 - 8
+                    if (contador > 8 && !esBordeDe && cuadrados[contador].children.length > 0 && cuadrados[contador].childNodes[0].className === "Negra") { fichasVoltear.push(contador); continue }
+                    else if (contador > 8 && !esBordeDe && cuadrados[contador].children.length > 0 && cuadrados[contador].childNodes[0].className === "Blanca") { voltearFichas(fichasVoltear, "Blanca");  return true }
                     else { return false }
                 }
-                if (dir === "no") {
+                if (direccion === "no") {
 
                     //hacie el noroeste
-                    if (i > 9 && !esBordeIz && cuadrados[i - 1 - 8].children.length > 0 && cuadrados[i - 1 - 8].childNodes[0].className === "Negra") { fichasVoltear.push(i-1-8); continue }
-                    else if (i > 9 && !esBordeIz && cuadrados[i - 1 - 8].children.length > 0 && cuadrados[i - 1 - 8].childNodes[0].className === "Blanca") { voltearFichas(fichasVoltear, "Blanca");  return true }
+                    contador = contador - 1 - 8
+                    if (contador > 9 && !esBordeIz && cuadrados[contador].children.length > 0 && cuadrados[contador].childNodes[0].className === "Negra") { fichasVoltear.push(contador); continue }
+                    else if (contador > 9 && !esBordeIz && cuadrados[contador].children.length > 0 && cuadrados[contador].childNodes[0].className === "Blanca") { voltearFichas(fichasVoltear, "Blanca");  return true }
                     else { return false }
                 }
 
-                else if (dir === "se") {
+                else if (direccion === "se") {
+                    contador = contador + 1 + 8
                     // hacia el sureste
-                    if (i < 56 && !esBordeDe && cuadrados[i + 1 + 8].children.length > 0 && cuadrados[i + 1 + 8].childNodes[0].className === "Negra") { fichasVoltear.push(i+1+8); continue }
-                    else if (i < 56 && !esBordeDe && cuadrados[i + 1 + 8].children.length > 0 && cuadrados[i + 1 + 8].childNodes[0].className === "Blanca") { voltearFichas(fichasVoltear, "Blanca");  return true }
+                    if (contador < 56 && !esBordeDe && cuadrados[contador].children.length > 0 && cuadrados[contador].childNodes[0].className === "Negra") { fichasVoltear.push(contador); continue }
+                    else if (contador < 56 && !esBordeDe && cuadrados[contador + 1 + 8].children.length > 0 && cuadrados[contador ].childNodes[0].className === "Blanca") { voltearFichas(fichasVoltear, "Blanca");  return true }
                     else { return false }
                 }
 
-                if (dir === "so") {
+                if (direccion === "so") {
                     //hacia el suroeste
-                    if (i < 57 && !esBordeIz && cuadrados[i - 1 + 8].children.length > 0 && cuadrados[i - 1 + 8].childNodes[0].className === "Blanca") { fichasVoltear.push(i-1+8); continue }
-                    else if (i < 57 && !esBordeIz && cuadrados[i - 1 + 8].children.length > 0 && cuadrados[i - 1 + 8].childNodes[0].className === "Negra") { voltearFichas(fichasVoltear, "Blanca");  return true }
+                    contador = contador - 1 + 8
+                    if (contador < 57 && !esBordeIz && cuadrados[contador].children.length > 0 && cuadrados[contador].childNodes[0].className === "Negra") { fichasVoltear.push(contador); continue }
+                    else if (contador < 57 && !esBordeIz && cuadrados[contador].children.length > 0 && cuadrados[contador].childNodes[0].className === "Blanca") { voltearFichas(fichasVoltear, "Blanca");  return true }
                     else { return false }
                 }
-
+           }
         }
     }
-}
 
-
-function esMovValido(cuadrado: HTMLDivElement, ficha: HTMLImageElement): boolean {
+function esMovimientoValido(cuadrado: HTMLDivElement, ficha: HTMLImageElement): boolean {
     //reviso horizontalmente
     var numCuadrado: number = +cuadrado.id;
+    var sonMovimientoValidos: boolean[] = []
     numCuadrado -= 1;
     if (ficha.className === "Negra") {
             for (let i = numCuadrado; i < cuadrados.length; i++) {
                 const esBordeDe = (i % 8 === 0);
                 const esBordeIz = (i % 8 === 8 - 1);
                 //lado derecho
-                if (i < 63 && !esBordeDe && cuadrados[i + 1].children.length > 0 && cuadrados[i + 1].childNodes[0].className === "Blanca") { return patronCompletado(ficha, i + 1,"de") }
+                if (i < 63 && !esBordeDe && cuadrados[i + 1].children.length > 0 && cuadrados[i + 1].childNodes[0].className === "Blanca") { sonMovimientoValidos.push(  patronCompletado(ficha, i + 1,"de")) }
                 //lado izquierdo
-                else  if (i > 1 && !esBordeIz && cuadrados[i - 1].children.length > 0 && cuadrados[i - 1].childNodes[0].className === "Blanca") { return patronCompletado(ficha, i - 1,"iz") }
+                else if (i > 1 && !esBordeIz && cuadrados[i - 1].children.length > 0 && cuadrados[i - 1].childNodes[0].className === "Blanca") { sonMovimientoValidos.push ( patronCompletado(ficha, i - 1,"iz") )}
                 //hacia el noreste
-                else  if (i > 8 && !esBordeDe && cuadrados[i + 1 - 8].children.length > 0 && cuadrados[i + 1 - 8].childNodes[0].className === "Blanca") { return patronCompletado(ficha, i + 1-8,"ne") }
+                else if (i > 8 && !esBordeDe && cuadrados[i + 1 - 8].children.length > 0 && cuadrados[i + 1 - 8].childNodes[0].className === "Blanca") { sonMovimientoValidos.push (patronCompletado(ficha, i + 1-8,"ne") )}
                 //hacia arriba
-                else  if (i > 8 && cuadrados[i - 8].children.length > 0 && cuadrados[i - 8].childNodes[0].className === "Blanca") { return patronCompletado(ficha, i -8,"a") }
+                else if (i > 8 && cuadrados[i - 8].children.length > 0 && cuadrados[i - 8].childNodes[0].className === "Blanca") { sonMovimientoValidos.push( patronCompletado(ficha, i -8,"a") )}
                 //hacie el noroeste
-                else if (i > 9 && !esBordeIz && cuadrados[i - 1 - 8].children.length > 0 && cuadrados[i - 1 - 8].childNodes[0].className === "Blanca") { return patronCompletado(ficha, i - 1-8,"no") }
+                else if (i > 9 && !esBordeIz && cuadrados[i - 1 - 8].children.length > 0 && cuadrados[i - 1 - 8].childNodes[0].className === "Blanca") { sonMovimientoValidos.push( patronCompletado(ficha, i - 1-8,"no") )}
                 //hacia el suroeste
-                else if (i < 57 && !esBordeIz && cuadrados[i - 1 + 8].children.length > 0 && cuadrados[i - 1 + 8].childNodes[0].className === "Blanca") { return patronCompletado(ficha, i -1+8,"so") }
+                else if (i < 57 && !esBordeIz && cuadrados[i - 1 + 8].children.length > 0 && cuadrados[i - 1 + 8].childNodes[0].className === "Blanca") { sonMovimientoValidos.push( patronCompletado(ficha, i -1+8,"so") )}
                 // hacia el sureste
-                else  if (i < 56 && !esBordeDe && cuadrados[i + 1 + 8].children.length > 0 && cuadrados[i + 1 + 8].childNodes[0].className === "Blanca") { return patronCompletado(ficha, i + 1+8,"se") }
+                else if (i < 56 && !esBordeDe && cuadrados[i + 1 + 8].children.length > 0 && cuadrados[i + 1 + 8].childNodes[0].className === "Blanca") { sonMovimientoValidos.push(patronCompletado(ficha, i + 1+8,"se")) }
                 //hacia abajo
-               else if (i < 57 && !esBordeDe && cuadrados[i + 8].children.length > 0 && cuadrados[i + 8].childNodes[0].className === "Blanca") { return patronCompletado(ficha, i + 8,"a") }
-                else { return false }
+                else if (i < 57 && !esBordeDe && cuadrados[i + 8].children.length > 0 && cuadrados[i + 8].childNodes[0].className === "Blanca") { sonMovimientoValidos.push( patronCompletado(ficha, i + 8,"ab") )}
+                else { sonMovimientoValidos.push(false); break }
+        }
+        if (sonMovimientoValidos.indexOf(true)>-1) {
+        return true
+        } else {
+        return false
         }
     } else {
         for (let i = numCuadrado; i < cuadrados.length; i++) {
             const esBordeDe = (i % 8 === 0);
             const esBordeIz = (i % 8 === 8 - 1);
             //lado derecho
-            if (i < 64 && !esBordeDe && cuadrados[i + 1].children.length > 0 && cuadrados[i + 1].childNodes[0].className === "Negra") { return patronCompletado(ficha, i+1,"de") }
+            if (i < 64 && !esBordeDe && cuadrados[i + 1].children.length > 0 && cuadrados[i + 1].childNodes[0].className === "Negra") { sonMovimientoValidos.push( patronCompletado(ficha, i+1,"de") )}
             //lado izquierdo
-           else if (i > 1 && !esBordeIz && cuadrados[i - 1].children.length > 0 && cuadrados[i - 1].childNodes[0].className === "Negra") { return patronCompletado(ficha, i-1,"iz") }
+            else if (i > 1 && !esBordeIz && cuadrados[i - 1].children.length > 0 && cuadrados[i - 1].childNodes[0].className === "Negra") { sonMovimientoValidos.push( patronCompletado(ficha, i-1,"iz") )}
             //hacia el noreste
-            else if (i > 8 && !esBordeDe && cuadrados[i + 1 - 8].children.length > 0 && cuadrados[i + 1 - 8].childNodes[0].className === "Negra") { return patronCompletado(ficha, i+1-8,"ne") }
+            else if (i > 8 && !esBordeDe && cuadrados[i + 1 - 8].children.length > 0 && cuadrados[i + 1 - 8].childNodes[0].className === "Negra") { sonMovimientoValidos.push( patronCompletado(ficha, i+1-8,"ne") )}
             //hacia arriba
-            else if (i > 8 && cuadrados[i - 8].children.length > 0 && cuadrados[i - 8].childNodes[0].className === "Negra") { return patronCompletado(ficha, i-8,"a") }
+            else if (i > 8 && cuadrados[i - 8].children.length > 0 && cuadrados[i - 8].childNodes[0].className === "Negra") { sonMovimientoValidos.push( patronCompletado(ficha, i-8,"a")) }
             //hacie el noroeste
-            else if (i > 9 && !esBordeIz && cuadrados[i - 1 - 8].children.length > 0 && cuadrados[i - 1 - 8].childNodes[0].className === "Negra") { return patronCompletado(ficha, i-1-8,"no") }
+            else if (i > 9 && !esBordeIz && cuadrados[i - 1 - 8].children.length > 0 && cuadrados[i - 1 - 8].childNodes[0].className === "Negra") { sonMovimientoValidos.push( patronCompletado(ficha, i-1-8,"no") )}
             //hacia el suroeste
-            else if (i < 57 && !esBordeIz && cuadrados[i - 1 + 8].children.length > 0 && cuadrados[i - 1 + 8].childNodes[0].className === "Negra") { return patronCompletado(ficha, i-1+8,"so") }
+            else if (i < 57 && !esBordeIz && cuadrados[i - 1 + 8].children.length > 0 && cuadrados[i - 1 + 8].childNodes[0].className === "Negra") { sonMovimientoValidos.push( patronCompletado(ficha, i-1+8,"so") )}
             // hacia el sureste
-            else if (i < 56 && !esBordeDe && cuadrados[i + 1 + 8].children.length > 0 && cuadrados[i + 1 + 8].childNodes[0].className === "Negra") { return patronCompletado(ficha, i+1+8,"se") }
+            else if (i < 56 && !esBordeDe && cuadrados[i + 1 + 8].children.length > 0 && cuadrados[i + 1 + 8].childNodes[0].className === "Negra") { sonMovimientoValidos[i] = patronCompletado(ficha, i+1+8,"se") }
             //hacia abajo
-            else if (i < 57 && !esBordeDe && cuadrados[i + 8].children.length > 0 && cuadrados[i + 8].childNodes[0].className === "Negra") { return patronCompletado(ficha, i + 8,"a") }
-            else { return false}
+            else if (i < 57 && !esBordeDe && cuadrados[i + 8].children.length > 0 && cuadrados[i + 8].childNodes[0].className === "Negra") { sonMovimientoValidos.push( patronCompletado(ficha, i + 8,"ab")) }
+            else { sonMovimientoValidos.push(false); break}
+        }
+        if (sonMovimientoValidos.indexOf(true) > -1) {
+            return true
+        } else {
+            return false
         }
     }
 }
@@ -286,8 +315,8 @@ function esMovValido(cuadrado: HTMLDivElement, ficha: HTMLImageElement): boolean
         let celda37 = document.getElementById('37');
         var fichanegra = document.createElement("img");
         var fichablanca = document.createElement("img");
-        fichanegra.setAttribute('id',"img"+ String(contadoridsFichas++));
-        fichablanca.setAttribute('id',"img" + String(contadoridsFichas++));
+        fichanegra.setAttribute('id',"img"+ String(contadorIdsFichas++));
+        fichablanca.setAttribute('id',"img" + String(contadorIdsFichas++));
         fichasNegras++;
         fichasBlancas++;
         fichablanca.src = "../Imagenes/FichaBlanca.png";
@@ -298,8 +327,8 @@ function esMovValido(cuadrado: HTMLDivElement, ficha: HTMLImageElement): boolean
         celda29.appendChild(fichanegra);
         fichanegra = document.createElement("img");
         fichablanca = document.createElement("img");
-        fichanegra.setAttribute('id',"img"+ String(contadoridsFichas++));
-        fichablanca.setAttribute('id', "img"+String(contadoridsFichas++));
+        fichanegra.setAttribute('id',"img"+ String(contadorIdsFichas++));
+        fichablanca.setAttribute('id', "img"+String(contadorIdsFichas++));
         fichablanca.src = "../Imagenes/FichaBlanca.png";
         fichablanca.className = "Blanca";
         fichanegra.src = "../Imagenes/FichaNegra.png";

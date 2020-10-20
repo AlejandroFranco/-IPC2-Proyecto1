@@ -78,6 +78,7 @@ function voltearFichas(fichasVoltear: number[], color: string) {
             fichasNegras++;
 
         }
+        fichasVoltear  = []
     } else {
         for (var i = 0; i < fichasVoltear.length; i++) {
             var img = cuadrados[fichasVoltear[i]].children[0] as HTMLImageElement;
@@ -85,6 +86,7 @@ function voltearFichas(fichasVoltear: number[], color: string) {
             img.className = "Blanca";
             fichasBlancas++;
         }
+        fichasVoltear = []
     }
 
 }
@@ -245,7 +247,7 @@ function esMovimientoValido(cuadrado: HTMLDivElement, ficha: HTMLImageElement): 
                 const esBordeDe = (i % 8 === 0);
                 const esBordeIz = (i % 8 === 8 - 1);
                 //lado derecho
-                if (i < 63 && !esBordeDe && cuadrados[i + 1].children.length > 0 && cuadrados[i + 1].childNodes[0].className === "Blanca") { sonMovimientoValidos.push(  patronCompletado(ficha, i + 1,"de")) }
+                if (i < 63 && !esBordeDe && cuadrados[i + 1].children.length > 0 && cuadrados[i + 1].childNodes[0].className === "Blanca") { sonMovimientoValidos.push(patronCompletado(ficha, i + 1,"de")) }
                 //lado izquierdo
                 else if (i > 1 && !esBordeIz && cuadrados[i - 1].children.length > 0 && cuadrados[i - 1].childNodes[0].className === "Blanca") { sonMovimientoValidos.push ( patronCompletado(ficha, i - 1,"iz") )}
                 //hacia el noreste

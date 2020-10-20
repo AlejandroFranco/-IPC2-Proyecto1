@@ -69,6 +69,7 @@ function voltearFichas(fichasVoltear, color) {
             img.className = "Negra";
             fichasNegras++;
         }
+        fichasVoltear = [];
     }
     else {
         for (var i = 0; i < fichasVoltear.length; i++) {
@@ -77,6 +78,7 @@ function voltearFichas(fichasVoltear, color) {
             img.className = "Blanca";
             fichasBlancas++;
         }
+        fichasVoltear = [];
     }
 }
 var turnoJugador1 = true;

@@ -93,7 +93,7 @@ function patronCompletado(ficha, contador, direccion) {
         var patronEncontrado = true;
         while (patronEncontrado) {
             var esBordeDe = (contador % 8 === 0);
-            var esBordeIz = (contador % 8 === 8 - 1);
+            var esBordeIz = (contador % 8 === 1);
             if (direccion === "a") {
                 //hacia arriba
                 contador = contador - 8;
@@ -220,7 +220,7 @@ function patronCompletado(ficha, contador, direccion) {
         var patronEncontrado = true;
         while (patronEncontrado) {
             var esBordeDe = (contador % 8 === 0);
-            var esBordeIz = (contador % 8 === 8 - 1);
+            var esBordeIz = (contador % 8 === 1);
             //lado derecho
             if (direccion === "a") {
                 //hacia arriba
@@ -354,7 +354,7 @@ function esMovimientoValido(cuadrado, ficha) {
     if (ficha.className === "Negra") {
         for (var i = numCuadrado; i < cuadrados.length; i++) {
             var esBordeDe = (i % 8 === 0);
-            var esBordeIz = (i % 8 === 8 - 1);
+            var esBordeIz = (i % 8 === 1);
             //lado derecho
             if (i < 63 && !esBordeDe && cuadrados[i + 1].children.length > 0 && cuadrados[i + 1].childNodes[0].className === "Blanca") {
                 sonMovimientoValidos.push(patronCompletado(ficha, i, "de"));
@@ -400,7 +400,7 @@ function esMovimientoValido(cuadrado, ficha) {
     else {
         for (var i = numCuadrado; i < cuadrados.length; i++) {
             var esBordeDe = (i % 8 === 0);
-            var esBordeIz = (i % 8 === 8 - 1);
+            var esBordeIz = (i % 8 === 1);
             //lado derecho
             if (i < 64 && !esBordeDe && cuadrados[i + 1].children.length > 0 && cuadrados[i + 1].childNodes[0].className === "Negra") {
                 sonMovimientoValidos.push(patronCompletado(ficha, i, "de"));

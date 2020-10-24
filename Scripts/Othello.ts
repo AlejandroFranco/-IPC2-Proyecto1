@@ -104,7 +104,7 @@ function patronCompletado(ficha: HTMLImageElement, contador: number, direccion: 
         var patronEncontrado: boolean = true
         while (patronEncontrado) {
             const esBordeDe = (contador % 8 === 0);
-            const esBordeIz = (contador % 8 === 8 - 1);
+            const esBordeIz = (contador % 8 === 1);
             if (direccion === "a") {
                 //hacia arriba
                 contador = contador - 8
@@ -169,8 +169,8 @@ function patronCompletado(ficha: HTMLImageElement, contador: number, direccion: 
     }else {
     var patronEncontrado:boolean = true
         while (patronEncontrado) {
-                const esBordeDe = (contador % 8 === 0);
-                const esBordeIz = (contador % 8 === 8 - 1);
+            const esBordeDe = (contador % 8 === 0);
+            const esBordeIz = (contador % 8 === 1);
                 //lado derecho
                 if (direccion === "a") {
                     //hacia arriba
@@ -244,8 +244,8 @@ function esMovimientoValido(cuadrado: HTMLDivElement, ficha: HTMLImageElement): 
     numCuadrado -= 1;
     if (ficha.className === "Negra") {
         for (let i = numCuadrado; i < cuadrados.length; i++) {
-                const esBordeDe = (i % 8 === 0);
-                const esBordeIz = (i % 8 === 8 - 1);
+            const esBordeDe = (i % 8 === 0);
+            const esBordeIz = (i % 8 === 1);
                 
                 //lado derecho
                  if (i < 63 && !esBordeDe &&  cuadrados[i + 1].children.length > 0 && cuadrados[i + 1].childNodes[0].className === "Blanca") { sonMovimientoValidos.push(patronCompletado(ficha, i,"de")) }
@@ -273,7 +273,7 @@ function esMovimientoValido(cuadrado: HTMLDivElement, ficha: HTMLImageElement): 
     } else {
         for (let i = numCuadrado; i < cuadrados.length; i++) {
             const esBordeDe = (i % 8 === 0);
-            const esBordeIz = (i % 8 === 8 - 1);
+            const esBordeIz = (i % 8 === 1);
             //lado derecho
             if (i < 64 && !esBordeDe && cuadrados[i + 1].children.length > 0 && cuadrados[i + 1].childNodes[0].className === "Negra") { sonMovimientoValidos.push( patronCompletado(ficha, i,"de") )}
             //lado izquierdo

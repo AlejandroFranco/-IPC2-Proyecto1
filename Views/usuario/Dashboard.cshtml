@@ -14,11 +14,56 @@
 <body>
     @Html.Partial("_navBar")
 
-    <div class="container">
-        <label id="lblJugador2">Jugador2:</label>
-        <div class="grid"></div>
-        <label class="jugador">Jugador1:  @ViewBag.usuario</label>
-    </div>
+    <div class="contenedor">
+        <div class="fila">
+            <!--una columna con tres filas-->
+            <div class="col-4">
+                <div class="fila">
+                    <div class="col-12"></div>
+                    <label id="lblJugador2" class="lbl">Jugador2:</label>
+                </div>
+
+                <div class="fila">
+                    <div class="col-12"></div>
+                    <label id="labelTurnoJugador2" class="lbl">Turno:  </label>
+                </div>
+
+                <div class="fila">
+                    <div class="col-12"></div>
+                    <label id="labelFichasJugador2" class="lbl">Fichas:  </label>
+                </div>
+
+            </div>
+
+            <!--el tablero de juego-->
+            <div class="col-4">
+                <div class="grid"></div>
+            </div>
+
+            <div class="col-4">
+                <!--una columna con tres filas-->
+                    <div class="fila">
+                        <div class="col-12">
+                            <label class="lbl" id="lblJugador1">Jugador1: @ViewBag.usuario</label>
+                        </div>
+
+                    </div>
+                    <div class="fila">
+                        <div class="col-12">
+                            <label id="labelTurnoJugador1" class="lbl">Turno:  </label>
+                        </div>
+                    </div>
+                    <div class="fila">
+                        <div class="col-12">
+                            <label id="labelFichasJugador1" class="lbl">Fichas:  </label>
+                        </div>
+                    </div>
+            </div>
+
+
+        </div>
+</div>
+         
     <hr />
     <footer>
         <p>&copy; @DateTime.Now.Year -Othello IGameGT</p>

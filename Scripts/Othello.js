@@ -1,4 +1,5 @@
 var cuadrados = [];
+var audio = new Audio("../Sonidos/ficha.mp3");
 var ancho = 8;
 document.addEventListener('DOMContentLoaded', function () {
     var grid = document.querySelector('.grid');
@@ -33,6 +34,7 @@ function actualizarNombres() {
     var valSel = e.selectedIndex;
     var opc = e.options[valSel];
     var texto = document.getElementById("lblJugador2").innerText;
+    document.getElementById("lblJugador2").innerText = "";
     document.getElementById("lblJugador2").innerText = (texto + opc.text);
 }
 function click(cuadrado) {
@@ -41,8 +43,9 @@ function click(cuadrado) {
         ficha.src = "../Imagenes/FichaNegra.png";
         ficha.className = "Negra";
         if (!cuadrado.hasChildNodes() && esMovimientoValido(cuadrado, ficha)) {
+            audio.play();
             cuadrado.appendChild(ficha);
-            fichasNegras++;
+            fichasNegras += 1;
             ficha.setAttribute('id', "img" + String(contadorIdsFichas++));
             turnoJugador1 = false;
             turnoJugador2 = true;
@@ -53,11 +56,28 @@ function click(cuadrado) {
         ficha.src = "../Imagenes/FichaBlanca.png";
         ficha.className = "Blanca";
         if (!cuadrado.hasChildNodes() && esMovimientoValido(cuadrado, ficha)) {
+            audio.play();
             cuadrado.appendChild(ficha);
             ficha.setAttribute('id', "img" + String(contadorIdsFichas++));
-            fichasBlancas++;
+            fichasBlancas += 1;
             turnoJugador1 = true;
             turnoJugador2 = false;
+        }
+    }
+}
+function finDelJuego() {
+    var contador = 0;
+    for (var i = 0; i < cuadrados.length; i++) {
+        if (cuadrados[i].children.lengt > 0) {
+            contador++;
+        }
+    }
+    if (contador === 64) {
+        if (fichasBlancas > fichasNegras) {
+            console.log("ganana las blancas");
+        }
+        else {
+            console.log("ganana las negras");
         }
     }
 }
@@ -67,7 +87,8 @@ function voltearFichas(fichasVoltear, color) {
             var img = cuadrados[fichasVoltear[i]].children[0];
             img.src = "../Imagenes/FichaNegra.png";
             img.className = "Negra";
-            fichasNegras++;
+            fichasNegras += 1;
+            fichasBlancas -= 1;
         }
         fichasVoltear = [];
     }
@@ -76,15 +97,16 @@ function voltearFichas(fichasVoltear, color) {
             var img = cuadrados[fichasVoltear[i]].children[0];
             img.src = "../Imagenes/FichaBlanca.png";
             img.className = "Blanca";
-            fichasBlancas++;
+            fichasBlancas += 1;
+            fichasNegras -= 1;
         }
         fichasVoltear = [];
     }
 }
 var turnoJugador1 = true;
 var turnoJugador2 = false;
-var fichasNegras;
-var fichasBlancas;
+var fichasNegras = 0;
+var fichasBlancas = 0;
 var contadorIdsFichas = 1;
 //el patron se completa como negra blanca blanca ...negra o al revés
 function patronCompletado(ficha, contador, direccion) {
@@ -92,8 +114,8 @@ function patronCompletado(ficha, contador, direccion) {
     if (ficha.className === "Negra") {
         var patronEncontrado = true;
         while (patronEncontrado) {
-            var esBordeDe = (contador % 8 === 0);
-            var esBordeIz = (contador % 8 === 1);
+            var esBordeDe = (contador + 1 % 8 === 0);
+            var esBordeIz = (contador + 1 % 8 === 1);
             if (direccion === "a") {
                 //hacia arriba
                 contador = contador - 8;
@@ -124,7 +146,7 @@ function patronCompletado(ficha, contador, direccion) {
                     return false;
                 }
             }
-            if (direccion === "de") {
+            else if (direccion === "de") {
                 //lado derecho 
                 contador = contador + 1;
                 if (contador < 64 && !esBordeDe && cuadrados[contador].children.length > 0 && cuadrados[contador].childNodes[0].className === "Blanca") {
@@ -139,7 +161,7 @@ function patronCompletado(ficha, contador, direccion) {
                     return false;
                 }
             }
-            if (direccion === "iz") {
+            else if (direccion === "iz") {
                 //lado izquierdo
                 contador = contador - 1;
                 if (contador > 1 && !esBordeIz && cuadrados[contador].children.length > 0 && cuadrados[contador].childNodes[0].className === "Blanca") {
@@ -169,7 +191,7 @@ function patronCompletado(ficha, contador, direccion) {
                     return false;
                 }
             }
-            if (direccion === "no") {
+            else if (direccion === "no") {
                 //hacie el noroeste
                 contador = contador - 1 - 8;
                 if (contador > 9 && !esBordeIz && cuadrados[contador].children.length > 0 && cuadrados[contador].childNodes[0].className === "Blanca") {
@@ -199,7 +221,7 @@ function patronCompletado(ficha, contador, direccion) {
                     return false;
                 }
             }
-            if (direccion === "so") {
+            else if (direccion === "so") {
                 //hacia el suroeste
                 contador = contador - 1 + 8;
                 if (contador < 57 && !esBordeIz && cuadrados[contador].children.length > 0 && cuadrados[contador].childNodes[0].className === "Blanca") {
@@ -219,8 +241,8 @@ function patronCompletado(ficha, contador, direccion) {
     else {
         var patronEncontrado = true;
         while (patronEncontrado) {
-            var esBordeDe = (contador % 8 === 0);
-            var esBordeIz = (contador % 8 === 1);
+            var esBordeDe = (contador + 1 % 8 === 0);
+            var esBordeIz = (contador + 1 % 8 === 1);
             //lado derecho
             if (direccion === "a") {
                 //hacia arriba
@@ -252,7 +274,7 @@ function patronCompletado(ficha, contador, direccion) {
                     return false;
                 }
             }
-            if (direccion === "de") {
+            else if (direccion === "de") {
                 //lado derecho 
                 contador = contador + 1;
                 if (contador < 64 && !esBordeDe && cuadrados[contador].children.length > 0 && cuadrados[contador].childNodes[0].className === "Negra") {
@@ -267,7 +289,7 @@ function patronCompletado(ficha, contador, direccion) {
                     return false;
                 }
             }
-            if (direccion === "iz") {
+            else if (direccion === "iz") {
                 //lado izquierdo
                 contador = contador - 1;
                 if (contador > 1 && !esBordeIz && cuadrados[contador].children.length > 0 && cuadrados[contador].childNodes[0].className === "Negra") {
@@ -297,7 +319,7 @@ function patronCompletado(ficha, contador, direccion) {
                     return false;
                 }
             }
-            if (direccion === "no") {
+            else if (direccion === "no") {
                 //hacie el noroeste
                 contador = contador - 1 - 8;
                 if (contador > 9 && !esBordeIz && cuadrados[contador].children.length > 0 && cuadrados[contador].childNodes[0].className === "Negra") {
@@ -327,7 +349,7 @@ function patronCompletado(ficha, contador, direccion) {
                     return false;
                 }
             }
-            if (direccion === "so") {
+            else if (direccion === "so") {
                 //hacia el suroeste
                 contador = contador - 1 + 8;
                 if (contador < 57 && !esBordeIz && cuadrados[contador].children.length > 0 && cuadrados[contador].childNodes[0].className === "Negra") {
@@ -353,10 +375,10 @@ function esMovimientoValido(cuadrado, ficha) {
     numCuadrado -= 1;
     if (ficha.className === "Negra") {
         for (var i = numCuadrado; i < cuadrados.length; i++) {
-            var esBordeDe = (i % 8 === 0);
-            var esBordeIz = (i % 8 === 1);
+            var esBordeDe = (i + 1 % 8 === 0);
+            var esBordeIz = (i + 1 % 8 === 1);
             //lado derecho
-            if (i < 63 && !esBordeDe && cuadrados[i + 1].children.length > 0 && cuadrados[i + 1].childNodes[0].className === "Blanca") {
+            if (i < 64 && !esBordeDe && cuadrados[i + 1].children.length > 0 && cuadrados[i + 1].childNodes[0].className === "Blanca") {
                 sonMovimientoValidos.push(patronCompletado(ficha, i, "de"));
             }
             //lado izquierdo
@@ -399,8 +421,8 @@ function esMovimientoValido(cuadrado, ficha) {
     }
     else {
         for (var i = numCuadrado; i < cuadrados.length; i++) {
-            var esBordeDe = (i % 8 === 0);
-            var esBordeIz = (i % 8 === 1);
+            var esBordeDe = (i + 1 % 8 === 0);
+            var esBordeIz = (i + 1 % 8 === 1);
             //lado derecho
             if (i < 64 && !esBordeDe && cuadrados[i + 1].children.length > 0 && cuadrados[i + 1].childNodes[0].className === "Negra") {
                 sonMovimientoValidos.push(patronCompletado(ficha, i, "de"));
@@ -448,6 +470,8 @@ function turnos() {
     var fichas = ["negras", "blancas"];
     //El jugador 1 siempre va a ser el jugador loggeado
     //con este codigo decido quien mueve primero las fichas negras
+    var jugador1 = document.getElementById("lblJugador1").innerText;
+    var jugador2 = document.getElementById("lblJugador2").innerText;
 }
 function colocarTablero() {
     var celda28 = document.getElementById('28');
@@ -458,8 +482,8 @@ function colocarTablero() {
     var fichablanca = document.createElement("img");
     fichanegra.setAttribute('id', "img" + String(contadorIdsFichas++));
     fichablanca.setAttribute('id', "img" + String(contadorIdsFichas++));
-    fichasNegras++;
-    fichasBlancas++;
+    fichasNegras += 1;
+    fichasBlancas += 1;
     fichablanca.src = "../Imagenes/FichaBlanca.png";
     fichablanca.className = "Blanca";
     fichanegra.src = "../Imagenes/FichaNegra.png";
@@ -476,15 +500,15 @@ function colocarTablero() {
     fichanegra.className = "Negra";
     celda36.appendChild(fichanegra);
     celda37.appendChild(fichablanca);
-    fichasNegras++;
-    fichasBlancas++;
+    fichasNegras += 1;
+    fichasBlancas += 1;
 }
 function modoJuego(modo) {
     if (modo == "IA") {
     }
     else if (modo == "Vs") {
         colocarTablero();
-        //  turnos()
+        //turnos()
     }
     else if (modo == "Torneo") {
     }
@@ -498,4 +522,3 @@ function limpiarTablero() {
         imagenes[0].parentNode.removeChild(imagenes[0]);
     }
 }
-//# sourceMappingURL=Othello.js.map

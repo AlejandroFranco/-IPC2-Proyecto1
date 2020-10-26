@@ -127,6 +127,7 @@ function patronCompletado(ficha, contador, direccion) {
             var esBordeDe = (contador + 1 % 8 === 0);
             var esBordeIz = (contador + 1 % 8 === 1);
             if (direccion === "a") {
+                //el contador inicialmente es el numero dentro del array de cuadrados del cuadrado sobre el que se hizo click originalmente
                 //hacia arriba
                 contador = contador - 8;
                 if (contador > 8 && cuadrados[contador].children.length > 0 && cuadrados[contador].childNodes[0].className === "Blanca") {
@@ -388,35 +389,35 @@ function esMovimientoValido(cuadrado, ficha) {
             var esBordeDe = (i + 1 % 8 === 0);
             var esBordeIz = (i + 1 % 8 === 1);
             //lado derecho
-            if (i < 64 && !esBordeDe && cuadrados[i + 1].children.length > 0 && cuadrados[i + 1].childNodes[0].className === "Blanca") {
+            if (i + 1 < 64 && !esBordeDe && cuadrados[i + 1].children.length > 0 && cuadrados[i + 1].childNodes[0].className === "Blanca") {
                 sonMovimientoValidos.push(patronCompletado(ficha, i, "de"));
             }
             //lado izquierdo
-            if (i > 1 && !esBordeIz && cuadrados[i - 1].children.length > 0 && cuadrados[i - 1].childNodes[0].className === "Blanca") {
+            if (i + 1 > 1 && !esBordeIz && cuadrados[i - 1].children.length > 0 && cuadrados[i - 1].childNodes[0].className === "Blanca") {
                 sonMovimientoValidos.push(patronCompletado(ficha, i, "iz"));
             }
             //hacia el noreste
-            if (i > 8 && !esBordeDe && cuadrados[i + 1 - 8].children.length > 0 && cuadrados[i + 1 - 8].childNodes[0].className === "Blanca") {
+            if (i + 1 > 8 && !esBordeDe && cuadrados[i + 1 - 8].children.length > 0 && cuadrados[i + 1 - 8].childNodes[0].className === "Blanca") {
                 sonMovimientoValidos.push(patronCompletado(ficha, i, "ne"));
             }
             //hacia arriba
-            if (i > 8 && cuadrados[i - 8].children.length > 0 && cuadrados[i - 8].childNodes[0].className === "Blanca") {
+            if (i + 1 > 8 && cuadrados[i - 8].children.length > 0 && cuadrados[i - 8].childNodes[0].className === "Blanca") {
                 sonMovimientoValidos.push(patronCompletado(ficha, i, "a"));
             }
             //hacie el noroeste
-            if (i > 9 && !esBordeIz && cuadrados[i - 1 - 8].children.length > 0 && cuadrados[i - 1 - 8].childNodes[0].className === "Blanca") {
+            if (i + 1 > 9 && !esBordeIz && cuadrados[i - 1 - 8].children.length > 0 && cuadrados[i - 1 - 8].childNodes[0].className === "Blanca") {
                 sonMovimientoValidos.push(patronCompletado(ficha, i, "no"));
             }
             //hacia el suroeste
-            if (i < 57 && !esBordeIz && cuadrados[i - 1 + 8].children.length > 0 && cuadrados[i - 1 + 8].childNodes[0].className === "Blanca") {
+            if (i + 1 < 57 && !esBordeIz && cuadrados[i - 1 + 8].children.length > 0 && cuadrados[i - 1 + 8].childNodes[0].className === "Blanca") {
                 sonMovimientoValidos.push(patronCompletado(ficha, i, "so"));
             }
             // hacia el sureste
-            if (i < 56 && !esBordeDe && cuadrados[i + 1 + 8].children.length > 0 && cuadrados[i + 1 + 8].childNodes[0].className === "Blanca") {
+            if (i + 1 < 56 && !esBordeDe && cuadrados[i + 1 + 8].children.length > 0 && cuadrados[i + 1 + 8].childNodes[0].className === "Blanca") {
                 sonMovimientoValidos.push(patronCompletado(ficha, i, "se"));
             }
             //hacia abajo
-            if (i < 57 && !esBordeDe && cuadrados[i + 8].children.length > 0 && cuadrados[i + 8].childNodes[0].className === "Blanca") {
+            if (i + 1 < 57 && !esBordeDe && cuadrados[i + 8].children.length > 0 && cuadrados[i + 8].childNodes[0].className === "Blanca") {
                 sonMovimientoValidos.push(patronCompletado(ficha, i, "ab"));
                 break;
             }
@@ -434,35 +435,35 @@ function esMovimientoValido(cuadrado, ficha) {
             var esBordeDe = (i + 1 % 8 === 0);
             var esBordeIz = (i + 1 % 8 === 1);
             //lado derecho
-            if (i < 64 && !esBordeDe && cuadrados[i + 1].children.length > 0 && cuadrados[i + 1].childNodes[0].className === "Negra") {
+            if (i + 1 < 64 && !esBordeDe && cuadrados[i + 1].children.length > 0 && cuadrados[i + 1].childNodes[0].className === "Negra") {
                 sonMovimientoValidos.push(patronCompletado(ficha, i, "de"));
             }
             //lado izquierdo
-            if (i > 1 && !esBordeIz && cuadrados[i - 1].children.length > 0 && cuadrados[i - 1].childNodes[0].className === "Negra") {
+            if (i + 1 > 1 && !esBordeIz && cuadrados[i - 1].children.length > 0 && cuadrados[i - 1].childNodes[0].className === "Negra") {
                 sonMovimientoValidos.push(patronCompletado(ficha, i, "iz"));
             }
             //hacia el noreste
-            if (i > 8 && !esBordeDe && cuadrados[i + 1 - 8].children.length > 0 && cuadrados[i + 1 - 8].childNodes[0].className === "Negra") {
+            if (i + 1 > 8 && !esBordeDe && cuadrados[i + 1 - 8].children.length > 0 && cuadrados[i + 1 - 8].childNodes[0].className === "Negra") {
                 sonMovimientoValidos.push(patronCompletado(ficha, i, "ne"));
             }
             //hacia arriba
-            if (i > 8 && cuadrados[i - 8].children.length > 0 && cuadrados[i - 8].childNodes[0].className === "Negra") {
+            if (i + 1 > 8 && cuadrados[i - 8].children.length > 0 && cuadrados[i - 8].childNodes[0].className === "Negra") {
                 sonMovimientoValidos.push(patronCompletado(ficha, i, "a"));
             }
             //hacie el noroeste
-            if (i > 9 && !esBordeIz && cuadrados[i - 1 - 8].children.length > 0 && cuadrados[i - 1 - 8].childNodes[0].className === "Negra") {
+            if (i + 1 > 9 && !esBordeIz && cuadrados[i - 1 - 8].children.length > 0 && cuadrados[i - 1 - 8].childNodes[0].className === "Negra") {
                 sonMovimientoValidos.push(patronCompletado(ficha, i, "no"));
             }
             //hacia el suroeste
-            if (i < 57 && !esBordeIz && cuadrados[i - 1 + 8].children.length > 0 && cuadrados[i - 1 + 8].childNodes[0].className === "Negra") {
+            if (i + 1 < 57 && !esBordeIz && cuadrados[i - 1 + 8].children.length > 0 && cuadrados[i - 1 + 8].childNodes[0].className === "Negra") {
                 sonMovimientoValidos.push(patronCompletado(ficha, i, "so"));
             }
             // hacia el sureste
-            if (i < 56 && !esBordeDe && cuadrados[i + 1 + 8].children.length > 0 && cuadrados[i + 1 + 8].childNodes[0].className === "Negra") {
+            if (i + 1 < 56 && !esBordeDe && cuadrados[i + 1 + 8].children.length > 0 && cuadrados[i + 1 + 8].childNodes[0].className === "Negra") {
                 sonMovimientoValidos[i] = patronCompletado(ficha, i, "se");
             }
             //hacia abajo
-            if (i < 57 && !esBordeDe && cuadrados[i + 8].children.length > 0 && cuadrados[i + 8].childNodes[0].className === "Negra") {
+            if (i + 1 < 57 && !esBordeDe && cuadrados[i + 8].children.length > 0 && cuadrados[i + 8].childNodes[0].className === "Negra") {
                 sonMovimientoValidos.push(patronCompletado(ficha, i, "ab"));
                 break;
             }

@@ -53,8 +53,8 @@ function click(cuadrado: HTMLDivElement) {
             ficha.setAttribute('id', "img" + String(contadorIdsFichas++));
             turnoJugador1 = false;
             turnoJugador2 = true;
-            document.getElementById("labelTurnoJugador1").innerText = "Turno: No"
-            document.getElementById("labelTurnoJugador2").innerText = "Turno: Si"
+            document.getElementById("labelTurnoJugador1").innerText = "Turno: No";
+            document.getElementById("labelTurnoJugador2").innerText = "Turno: Si";
             actualizarPunteo();
         }
 
@@ -70,8 +70,8 @@ function click(cuadrado: HTMLDivElement) {
             fichasBlancas += 1;
             turnoJugador1 = true;
             turnoJugador2 = false;
-            document.getElementById("labelTurnoJugador1").innerText = "Turno: Si"
-            document.getElementById("labelTurnoJugador2").innerText = "Turno: No"
+            document.getElementById("labelTurnoJugador1").innerText = "Turno: Si";
+            document.getElementById("labelTurnoJugador2").innerText = "Turno: No";
             actualizarPunteo();
         }
     }
@@ -138,6 +138,7 @@ function patronCompletado(ficha: HTMLImageElement, contador: number, direccion: 
             const esBordeDe = (contador+1 % 8 === 0);
             const esBordeIz = (contador+1 % 8 === 1);
             if (direccion === "a") {
+            //el contador inicialmente es el numero dentro del array de cuadrados del cuadrado sobre el que se hizo click originalmente
                 //hacia arriba
                 contador = contador - 8
                 if (contador > 8 && cuadrados[contador].children.length > 0 && cuadrados[contador].childNodes[0].className === "Blanca") { fichasVoltear.push(contador ); continue }
@@ -279,21 +280,21 @@ function esMovimientoValido(cuadrado: HTMLDivElement, ficha: HTMLImageElement): 
             const esBordeDe = (i+1 % 8 === 0);
             const esBordeIz = (i+1 % 8 === 1);
                 //lado derecho
-                 if (i < 64 && !esBordeDe &&  cuadrados[i + 1].children.length > 0 && cuadrados[i + 1].childNodes[0].className === "Blanca") { sonMovimientoValidos.push(patronCompletado(ficha, i,"de")) }
+                 if (i+1 < 64 && !esBordeDe &&  cuadrados[i + 1].children.length > 0 && cuadrados[i + 1].childNodes[0].className === "Blanca") { sonMovimientoValidos.push(patronCompletado(ficha, i,"de")) }
                 //lado izquierdo
-                 if (i > 1 && !esBordeIz && cuadrados[i - 1].children.length > 0 && cuadrados[i - 1].childNodes[0].className === "Blanca") { sonMovimientoValidos.push ( patronCompletado(ficha, i,"iz") )}
+                 if (i+1 > 1 && !esBordeIz && cuadrados[i - 1].children.length > 0 && cuadrados[i - 1].childNodes[0].className === "Blanca") { sonMovimientoValidos.push ( patronCompletado(ficha, i,"iz") )}
                 //hacia el noreste
-                 if (i > 8 && !esBordeDe && cuadrados[i + 1 - 8].children.length > 0  && cuadrados[i + 1 - 8].childNodes[0].className === "Blanca") { sonMovimientoValidos.push (patronCompletado(ficha, i,"ne") )}
+                 if (i+1 > 8 && !esBordeDe && cuadrados[i + 1 - 8].children.length > 0  && cuadrados[i + 1 - 8].childNodes[0].className === "Blanca") { sonMovimientoValidos.push (patronCompletado(ficha, i,"ne") )}
                 //hacia arriba
-                 if (i > 8 && cuadrados[i - 8].children.length > 0 && cuadrados[i - 8].childNodes[0].className === "Blanca") { sonMovimientoValidos.push( patronCompletado(ficha, i,"a") )}
+                 if (i+1 > 8 && cuadrados[i - 8].children.length > 0 && cuadrados[i - 8].childNodes[0].className === "Blanca") { sonMovimientoValidos.push( patronCompletado(ficha, i,"a") )}
                 //hacie el noroeste
-                 if (i > 9 && !esBordeIz && cuadrados[i - 1 - 8].children.length > 0 && cuadrados[i - 1 - 8].childNodes[0].className === "Blanca") { sonMovimientoValidos.push( patronCompletado(ficha, i,"no") )}
+                 if (i+1 > 9 && !esBordeIz && cuadrados[i - 1 - 8].children.length > 0 && cuadrados[i - 1 - 8].childNodes[0].className === "Blanca") { sonMovimientoValidos.push( patronCompletado(ficha, i,"no") )}
                 //hacia el suroeste
-                 if (i < 57 && !esBordeIz && cuadrados[i - 1 + 8].children.length > 0 && cuadrados[i - 1 + 8].childNodes[0].className === "Blanca") { sonMovimientoValidos.push( patronCompletado(ficha, i,"so") )}
+                 if (i+1 < 57 && !esBordeIz && cuadrados[i - 1 + 8].children.length > 0 && cuadrados[i - 1 + 8].childNodes[0].className === "Blanca") { sonMovimientoValidos.push( patronCompletado(ficha, i,"so") )}
                 // hacia el sureste
-                 if (i < 56 && !esBordeDe && cuadrados[i + 1 + 8].children.length > 0 && cuadrados[i + 1 + 8].childNodes[0].className === "Blanca") { sonMovimientoValidos.push(patronCompletado(ficha, i ,"se")) }
+                 if (i+1 < 56 && !esBordeDe && cuadrados[i + 1 + 8].children.length > 0 && cuadrados[i + 1 + 8].childNodes[0].className === "Blanca") { sonMovimientoValidos.push(patronCompletado(ficha, i ,"se")) }
                 //hacia abajo
-                 if (i < 57 && !esBordeDe && cuadrados[i + 8].children.length > 0 && cuadrados[i + 8].childNodes[0].className === "Blanca") { sonMovimientoValidos.push(patronCompletado(ficha, i, "ab")); break; }
+                 if (i+1 < 57 && !esBordeDe && cuadrados[i + 8].children.length > 0 && cuadrados[i + 8].childNodes[0].className === "Blanca") { sonMovimientoValidos.push(patronCompletado(ficha, i, "ab")); break; }
             break;
         }
         if (sonMovimientoValidos.indexOf(true)>-1) {
@@ -306,21 +307,21 @@ function esMovimientoValido(cuadrado: HTMLDivElement, ficha: HTMLImageElement): 
             const esBordeDe = (i+1 % 8 === 0);
             const esBordeIz = (i+1 % 8 === 1);
             //lado derecho
-            if (i < 64 && !esBordeDe && cuadrados[i + 1].children.length > 0 && cuadrados[i + 1].childNodes[0].className === "Negra") { sonMovimientoValidos.push( patronCompletado(ficha, i,"de") )}
+            if (i+1 < 64 && !esBordeDe && cuadrados[i + 1].children.length > 0 && cuadrados[i + 1].childNodes[0].className === "Negra") { sonMovimientoValidos.push( patronCompletado(ficha, i,"de") )}
             //lado izquierdo
-             if (i > 1 && !esBordeIz && cuadrados[i - 1].children.length > 0 && cuadrados[i - 1].childNodes[0].className === "Negra") { sonMovimientoValidos.push( patronCompletado(ficha, i,"iz") )}
+             if (i+1 > 1 && !esBordeIz && cuadrados[i - 1].children.length > 0 && cuadrados[i - 1].childNodes[0].className === "Negra") { sonMovimientoValidos.push( patronCompletado(ficha, i,"iz") )}
             //hacia el noreste
-             if (i > 8 && !esBordeDe && cuadrados[i + 1 - 8].children.length > 0 && cuadrados[i + 1 - 8].childNodes[0].className === "Negra") { sonMovimientoValidos.push( patronCompletado(ficha, i,"ne") )}
+             if (i+1 > 8 && !esBordeDe && cuadrados[i + 1 - 8].children.length > 0 && cuadrados[i + 1 - 8].childNodes[0].className === "Negra") { sonMovimientoValidos.push( patronCompletado(ficha, i,"ne") )}
             //hacia arriba
-             if (i > 8 && cuadrados[i - 8].children.length > 0 && cuadrados[i - 8].childNodes[0].className === "Negra") { sonMovimientoValidos.push( patronCompletado(ficha, i,"a")) }
+             if (i+1 > 8 && cuadrados[i - 8].children.length > 0 && cuadrados[i - 8].childNodes[0].className === "Negra") { sonMovimientoValidos.push( patronCompletado(ficha, i,"a")) }
             //hacie el noroeste
-             if (i > 9 && !esBordeIz && cuadrados[i - 1 - 8].children.length > 0 && cuadrados[i - 1 - 8].childNodes[0].className === "Negra") { sonMovimientoValidos.push( patronCompletado(ficha, i,"no") )}
+             if (i+1 > 9 && !esBordeIz && cuadrados[i - 1 - 8].children.length > 0 && cuadrados[i - 1 - 8].childNodes[0].className === "Negra") { sonMovimientoValidos.push( patronCompletado(ficha, i,"no") )}
             //hacia el suroeste
-             if (i < 57 && !esBordeIz && cuadrados[i - 1 + 8].children.length > 0 && cuadrados[i - 1 + 8].childNodes[0].className === "Negra") { sonMovimientoValidos.push( patronCompletado(ficha, i,"so") )}
+             if (i+1 < 57 && !esBordeIz && cuadrados[i - 1 + 8].children.length > 0 && cuadrados[i - 1 + 8].childNodes[0].className === "Negra") { sonMovimientoValidos.push( patronCompletado(ficha, i,"so") )}
             // hacia el sureste
-             if (i < 56 && !esBordeDe && cuadrados[i + 1 + 8].children.length > 0 && cuadrados[i + 1 + 8].childNodes[0].className === "Negra") { sonMovimientoValidos[i] = patronCompletado(ficha, i,"se") }
+             if (i+1 < 56 && !esBordeDe && cuadrados[i + 1 + 8].children.length > 0 && cuadrados[i + 1 + 8].childNodes[0].className === "Negra") { sonMovimientoValidos[i] = patronCompletado(ficha, i,"se") }
             //hacia abajo
-             if (i < 57 && !esBordeDe && cuadrados[i + 8].children.length > 0 && cuadrados[i + 8].childNodes[0].className === "Negra") { sonMovimientoValidos.push(patronCompletado(ficha, i, "ab")); break }
+             if (i+1 < 57 && !esBordeDe && cuadrados[i + 8].children.length > 0 && cuadrados[i + 8].childNodes[0].className === "Negra") { sonMovimientoValidos.push(patronCompletado(ficha, i, "ab")); break }
             break;
         }
         if (sonMovimientoValidos.indexOf(true) > -1) {

@@ -49,28 +49,37 @@ function click(cuadrado: HTMLDivElement) {
         if (!cuadrado.hasChildNodes() && esMovimientoValido(cuadrado, ficha)) {
             audio.play();
             cuadrado.appendChild(ficha);
-            fichasNegras+=1;
+            fichasNegras += 1;
             ficha.setAttribute('id', "img" + String(contadorIdsFichas++));
             turnoJugador1 = false;
             turnoJugador2 = true;
+            document.getElementById("labelTurnoJugador1").innerText = "Turno: No"
+            document.getElementById("labelTurnoJugador2").innerText = "Turno: Si"
+            actualizarPunteo();
         }
-   
+
     }
     else {
         var ficha = document.createElement("img");
         ficha.src = "../Imagenes/FichaBlanca.png";
-        ficha.className =  "Blanca";
+        ficha.className = "Blanca";
         if (!cuadrado.hasChildNodes() && esMovimientoValido(cuadrado, ficha)) {
             audio.play();
             cuadrado.appendChild(ficha);
-            ficha.setAttribute('id',"img"+ String(contadorIdsFichas++));
-            fichasBlancas+=1;
+            ficha.setAttribute('id', "img" + String(contadorIdsFichas++));
+            fichasBlancas += 1;
             turnoJugador1 = true;
             turnoJugador2 = false;
+            document.getElementById("labelTurnoJugador1").innerText = "Turno: Si"
+            document.getElementById("labelTurnoJugador2").innerText = "Turno: No"
+            actualizarPunteo();
         }
- 
     }
+}
 
+function actualizarPunteo() {
+    document.getElementById("labelPunteoJ1").innerText = "Punteo: " + fichasNegras;
+    document.getElementById("labelPunteoJ2").innerText = "Punteo: " + fichasBlancas;
 }
 
 function finDelJuego() {
@@ -326,12 +335,24 @@ function esMovimientoValido(cuadrado: HTMLDivElement, ficha: HTMLImageElement): 
 
 
     function turnos() {
-        var fichas = ["negras", "blancas"];
         //El jugador 1 siempre va a ser el jugador loggeado
         //con este codigo decido quien mueve primero las fichas negras
-        var jugador1 = document.getElementById("lblJugador1").innerText;
-        var jugador2 = document.getElementById("lblJugador2").innerText;
-
+        var numeroJugador1: number = 1;
+        var numeroJugador2: number = 2;
+        var numeroJugadorInicia = Math.floor(Math.random() * (2 - 1 + 1)) + 1;
+        if (numeroJugadorInicia === numeroJugador1) {
+                //inicia el jugador 1
+            document.getElementById("labelFichasJugador1").innerText += " Negras"
+            document.getElementById("labelTurnoJugador1").innerText += " Si";
+            document.getElementById("labelFichasJugador2").innerText += "Blancas"
+            document.getElementById("labelTurnoJugador2").innerText += "No";
+        } else {
+                //inicia el jugador 2
+            document.getElementById("labelFichasJugador1").innerText += "Blancas"
+            document.getElementById("labelTurnoJugador1").innerText += " No";
+            document.getElementById("labelFichasJugador2").innerText += "Negras"
+            document.getElementById("labelTurnoJugador2").innerText += " Si";
+        }
     }
 
 
@@ -374,7 +395,7 @@ function colocarTablero() {
         }
         else if (modo == "Vs") {
             colocarTablero();
-            //turnos()
+            turnos()
         }
         else if (modo == "Torneo") {
 

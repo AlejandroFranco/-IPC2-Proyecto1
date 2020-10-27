@@ -54,21 +54,21 @@ function click(cuadrado) {
                 document.getElementById("labelTurnoJugador2").innerText = "Turno: Si";
                 actualizarPunteo();
             }
-            else {
-                var ficha = document.createElement("img");
-                ficha.src = "../Imagenes/FichaBlanca.png";
-                ficha.className = "Blanca";
-                if (!cuadrado.hasChildNodes() && esMovimientoValido(cuadrado, ficha)) {
-                    audio.play();
-                    cuadrado.appendChild(ficha);
-                    fichasBlancas += 1;
-                    ficha.setAttribute('id', "img" + String(contadorIdsFichas++));
-                    turnoJugador1 = false;
-                    turnoJugador2 = true;
-                    document.getElementById("labelTurnoJugador1").innerText = "Turno: No";
-                    document.getElementById("labelTurnoJugador2").innerText = "Turno: Si";
-                    actualizarPunteo();
-                }
+        }
+        else {
+            var ficha = document.createElement("img");
+            ficha.src = "../Imagenes/FichaBlanca.png";
+            ficha.className = "Blanca";
+            if (!cuadrado.hasChildNodes() && esMovimientoValido(cuadrado, ficha)) {
+                audio.play();
+                cuadrado.appendChild(ficha);
+                fichasBlancas += 1;
+                ficha.setAttribute('id', "img" + String(contadorIdsFichas++));
+                turnoJugador1 = false;
+                turnoJugador2 = true;
+                document.getElementById("labelTurnoJugador1").innerText = "Turno: No";
+                document.getElementById("labelTurnoJugador2").innerText = "Turno: Si";
+                actualizarPunteo();
             }
         }
     }

@@ -43,7 +43,7 @@ function actualizarNombres() {
 
 function click(cuadrado: HTMLDivElement) {
     if (turnoJugador1 == true) {
-        if (document.getElementById("labelFichasJugador1").innerText.search("Negras")>-1) {
+        if (document.getElementById("labelFichasJugador1").innerText.search("Negras") > -1) {
             var ficha = document.createElement("img");
             ficha.src = "../Imagenes/FichaNegra.png";
             ficha.className = "Negra";
@@ -57,8 +57,9 @@ function click(cuadrado: HTMLDivElement) {
                 document.getElementById("labelTurnoJugador1").innerText = "Turno: No";
                 document.getElementById("labelTurnoJugador2").innerText = "Turno: Si";
                 actualizarPunteo();
-              
-        } else {
+
+            }
+        }else {
             
                 var ficha = document.createElement("img");
                 ficha.src = "../Imagenes/FichaBlanca.png";
@@ -78,7 +79,7 @@ function click(cuadrado: HTMLDivElement) {
         }
 
        
-        }
+        
     }
     else {
         if (document.getElementById("labelFichasJugador2").innerText.search("Negras")>-1) {

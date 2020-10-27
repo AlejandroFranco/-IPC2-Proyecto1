@@ -38,71 +38,73 @@ function actualizarNombres() {
     document.getElementById("lblJugador2").innerText = (texto + opc.text);
 }
 function click(cuadrado) {
-    if (turnoJugador1 == true) {
-        if (document.getElementById("labelFichasJugador1").innerText.search("Negras") > -1) {
-            var ficha = document.createElement("img");
-            ficha.src = "../Imagenes/FichaNegra.png";
-            ficha.className = "Negra";
-            if (!cuadrado.hasChildNodes() && esMovimientoValido(cuadrado, ficha)) {
-                audio.play();
-                cuadrado.appendChild(ficha);
-                fichasNegras += 1;
-                ficha.setAttribute('id', "img" + String(contadorIdsFichas++));
-                turnoJugador1 = false;
-                turnoJugador2 = true;
-                document.getElementById("labelTurnoJugador1").innerText = "Turno: No";
-                document.getElementById("labelTurnoJugador2").innerText = "Turno: Si";
-                actualizarPunteo();
+    if (!finDelJuego()) {
+        if (turnoJugador1 == true) {
+            if (document.getElementById("labelFichasJugador1").innerText.search("Negras") > -1) {
+                var ficha = document.createElement("img");
+                ficha.src = "../Imagenes/FichaNegra.png";
+                ficha.className = "Negra";
+                if (!cuadrado.hasChildNodes() && esMovimientoValido(cuadrado, ficha)) {
+                    audio.play();
+                    cuadrado.appendChild(ficha);
+                    fichasNegras += 1;
+                    ficha.setAttribute('id', "img" + String(contadorIdsFichas++));
+                    turnoJugador1 = false;
+                    turnoJugador2 = true;
+                    document.getElementById("labelTurnoJugador1").innerText = "Turno: No";
+                    document.getElementById("labelTurnoJugador2").innerText = "Turno: Si";
+                    actualizarPunteo();
+                }
+            }
+            else {
+                var ficha = document.createElement("img");
+                ficha.src = "../Imagenes/FichaBlanca.png";
+                ficha.className = "Blanca";
+                if (!cuadrado.hasChildNodes() && esMovimientoValido(cuadrado, ficha)) {
+                    audio.play();
+                    cuadrado.appendChild(ficha);
+                    fichasBlancas += 1;
+                    ficha.setAttribute('id', "img" + String(contadorIdsFichas++));
+                    turnoJugador1 = false;
+                    turnoJugador2 = true;
+                    document.getElementById("labelTurnoJugador1").innerText = "Turno: No";
+                    document.getElementById("labelTurnoJugador2").innerText = "Turno: Si";
+                    actualizarPunteo();
+                }
             }
         }
         else {
-            var ficha = document.createElement("img");
-            ficha.src = "../Imagenes/FichaBlanca.png";
-            ficha.className = "Blanca";
-            if (!cuadrado.hasChildNodes() && esMovimientoValido(cuadrado, ficha)) {
-                audio.play();
-                cuadrado.appendChild(ficha);
-                fichasBlancas += 1;
-                ficha.setAttribute('id', "img" + String(contadorIdsFichas++));
-                turnoJugador1 = false;
-                turnoJugador2 = true;
-                document.getElementById("labelTurnoJugador1").innerText = "Turno: No";
-                document.getElementById("labelTurnoJugador2").innerText = "Turno: Si";
-                actualizarPunteo();
+            if (document.getElementById("labelFichasJugador2").innerText.search("Negras") > -1) {
+                var ficha = document.createElement("img");
+                ficha.src = "../Imagenes/FichaNegra.png";
+                ficha.className = "Negra";
+                if (!cuadrado.hasChildNodes() && esMovimientoValido(cuadrado, ficha)) {
+                    audio.play();
+                    cuadrado.appendChild(ficha);
+                    ficha.setAttribute('id', "img" + String(contadorIdsFichas++));
+                    fichasNegras += 1;
+                    turnoJugador1 = true;
+                    turnoJugador2 = false;
+                    document.getElementById("labelTurnoJugador1").innerText = "Turno: Si";
+                    document.getElementById("labelTurnoJugador2").innerText = "Turno: No";
+                    actualizarPunteo();
+                }
             }
-        }
-    }
-    else {
-        if (document.getElementById("labelFichasJugador2").innerText.search("Negras") > -1) {
-            var ficha = document.createElement("img");
-            ficha.src = "../Imagenes/FichaNegra.png";
-            ficha.className = "Negra";
-            if (!cuadrado.hasChildNodes() && esMovimientoValido(cuadrado, ficha)) {
-                audio.play();
-                cuadrado.appendChild(ficha);
-                ficha.setAttribute('id', "img" + String(contadorIdsFichas++));
-                fichasNegras += 1;
-                turnoJugador1 = true;
-                turnoJugador2 = false;
-                document.getElementById("labelTurnoJugador1").innerText = "Turno: Si";
-                document.getElementById("labelTurnoJugador2").innerText = "Turno: No";
-                actualizarPunteo();
-            }
-        }
-        else {
-            var ficha = document.createElement("img");
-            ficha.src = "../Imagenes/FichaBlanca.png";
-            ficha.className = "Blanca";
-            if (!cuadrado.hasChildNodes() && esMovimientoValido(cuadrado, ficha)) {
-                audio.play();
-                cuadrado.appendChild(ficha);
-                ficha.setAttribute('id', "img" + String(contadorIdsFichas++));
-                fichasBlancas += 1;
-                turnoJugador1 = true;
-                turnoJugador2 = false;
-                document.getElementById("labelTurnoJugador1").innerText = "Turno: Si";
-                document.getElementById("labelTurnoJugador2").innerText = "Turno: No";
-                actualizarPunteo();
+            else {
+                var ficha = document.createElement("img");
+                ficha.src = "../Imagenes/FichaBlanca.png";
+                ficha.className = "Blanca";
+                if (!cuadrado.hasChildNodes() && esMovimientoValido(cuadrado, ficha)) {
+                    audio.play();
+                    cuadrado.appendChild(ficha);
+                    ficha.setAttribute('id', "img" + String(contadorIdsFichas++));
+                    fichasBlancas += 1;
+                    turnoJugador1 = true;
+                    turnoJugador2 = false;
+                    document.getElementById("labelTurnoJugador1").innerText = "Turno: Si";
+                    document.getElementById("labelTurnoJugador2").innerText = "Turno: No";
+                    actualizarPunteo();
+                }
             }
         }
     }
@@ -114,17 +116,23 @@ function actualizarPunteo() {
 function finDelJuego() {
     var contador = 0;
     for (var i = 0; i < cuadrados.length; i++) {
-        if (cuadrados[i].children.lengt > 0) {
+        if (cuadrados[i].children.length > 0) {
             contador++;
         }
     }
     if (contador === 64) {
         if (fichasBlancas > fichasNegras) {
-            console.log("ganana las blancas");
+            console.log("ganan las blancas");
+            return true;
         }
         else {
-            console.log("ganana las negras");
+            console.log("ganan las negras");
+            return true;
         }
+    }
+    else {
+        console.log("Juego no terminado");
+        return false;
     }
 }
 function voltearFichas(fichasVoltear, color) {

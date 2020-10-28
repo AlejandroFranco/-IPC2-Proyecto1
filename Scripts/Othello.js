@@ -38,6 +38,7 @@ function actualizarNombres() {
     document.getElementById("lblJugador2").innerText = (texto + opc.text);
 }
 function click(cuadrado) {
+    temporizador();
     if (!finDelJuego()) {
         if (turnoJugador1 == true) {
             if (document.getElementById("labelFichasJugador1").innerText.search("Negras") > -1) {
@@ -108,6 +109,8 @@ function click(cuadrado) {
             }
         }
     }
+    else {
+    }
 }
 function actualizarPunteo() {
     document.getElementById("labelPunteoJ1").innerText = "Punteo: " + fichasNegras;
@@ -122,11 +125,12 @@ function finDelJuego() {
     }
     if (contador === 64) {
         if (fichasBlancas > fichasNegras) {
-            console.log("ganan las blancas");
+            window.alert("Ganan las blancas");
             return true;
         }
         else {
-            console.log("ganan las negras");
+            window.alert("Ganan las negras");
+            document.getElementById("ganador");
             return true;
         }
     }
@@ -134,6 +138,32 @@ function finDelJuego() {
         console.log("Juego no terminado");
         return false;
     }
+}
+var cronometro;
+function detener() {
+    clearInterval(cronometro);
+}
+function temporizador() {
+    var contadorSegundos = 0;
+    cronometro = setInterval(function () {
+        if (contadorSegundos == 25) {
+            contadorSegundos = 0;
+            if (document.getElementById("labelTurnoJugador1").innerText.search("si") > -1) {
+                turnoJugador1 = false;
+                turnoJugador2 = true;
+                document.getElementById("labelTurnoJugador1").innerText = "Turno: No";
+                document.getElementById("labelTurnoJugador2").innerText = "Turno: Si";
+            }
+            else {
+                turnoJugador1 = true;
+                turnoJugador2 = false;
+                document.getElementById("labelTurnoJugador1").innerText = "Turno: Si";
+                document.getElementById("labelTurnoJugador2").innerText = "Turno: No";
+            }
+        }
+        document.getElementById("segundos").innerHTML = "Temporizador: 00:" + contadorSegundos.toString();
+        contadorSegundos += 1;
+    }, 1000);
 }
 function voltearFichas(fichasVoltear, color) {
     if (color === "Negra") {

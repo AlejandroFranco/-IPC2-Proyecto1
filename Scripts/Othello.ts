@@ -42,9 +42,9 @@ function actualizarNombres() {
 }
 
 function click(cuadrado: HTMLDivElement) {
-    temporizador();
     if (!finDelJuego()) {
         if (turnoJugador1 == true) {
+            iniciarTemporizador();
             if (document.getElementById("labelFichasJugador1").innerText.search("Negras") > -1) {
                 var ficha = document.createElement("img");
                 ficha.src = "../Imagenes/FichaNegra.png";
@@ -80,6 +80,7 @@ function click(cuadrado: HTMLDivElement) {
             }
         }
         else {
+            iniciarTemporizador();
             if (document.getElementById("labelFichasJugador2").innerText.search("Negras") > -1) {
                 var ficha = document.createElement("img");
                 ficha.src = "../Imagenes/FichaNegra.png";
@@ -97,7 +98,6 @@ function click(cuadrado: HTMLDivElement) {
                 }
 
             } else {
-
                 var ficha = document.createElement("img");
                 ficha.src = "../Imagenes/FichaBlanca.png";
                 ficha.className = "Blanca";
@@ -115,8 +115,6 @@ function click(cuadrado: HTMLDivElement) {
             }
 
         }
-    } else {
-            
     }
 
  
@@ -149,36 +147,69 @@ function finDelJuego():boolean {
     return false
     }
 }
-var cronometro:number
+var cronometroJugador1;
+var cronometroJugador2;
+var contadorMinutosJugador1:number = 0;
+var contadorSegundosJugador1: number = 0;
+var contadorMinutosJugador2: number = 0;
+var contadorSegundosJugador2: number = 0;
+var cronometroEncendidoJugador1: boolean = false;
+var cronometroEncendidoJugador2: boolean = false;
 
-function detener() {
-    clearInterval(cronometro);
+
+
+
+function detenerTemporizador(jugador:string) {
+    if (jugador === "jugador1") {
+        clearTimeout(cronometroJugador1)
+        cronometroEncendidoJugador1 = false;
+    } else {
+        clearTimeout(cronometroJugador2)
+        cronometroEncendidoJugador2 = false;
+    }
 }
 
-function temporizador() {
-   var contadorSegundos:number = 0;
-    cronometro  = setInterval(function () {
-        if (contadorSegundos == 25)
-        {
-            contadorSegundos = 0
-            if (document.getElementById("labelTurnoJugador1").innerText.search("si") > -1) {
-                turnoJugador1 = false;
-                turnoJugador2 = true;
-                document.getElementById("labelTurnoJugador1").innerText = "Turno: No";
-                document.getElementById("labelTurnoJugador2").innerText = "Turno: Si";
-            } else {
-                turnoJugador1 = true;
-                turnoJugador2 = false;
-                document.getElementById("labelTurnoJugador1").innerText = "Turno: Si";
-                document.getElementById("labelTurnoJugador2").innerText = "Turno: No";
+function iniciarTemporizador() {
+    //si el cronometro no está inciado entonces lo inicio
+    // si es el turno del jugador 1 y su cronometro no está corriendo
+    if (!cronometroEncendidoJugador1 || !cronometroEncendidoJugador2) {
+        var jugador = document.getElementById("labelTurnoJugador1").innerText;
+        if (jugador.search("Si") > -1) {
+            detenerTemporizador("jugador2");
+            cronometroEncendidoJugador1 = true;
+            cronometroEncendidoJugador2 = false;
+            //ejecuto este codigo cada 1 segundo a menos que se detenga
+            if (contadorSegundosJugador1 == 60) {
+                contadorSegundosJugador1 = 0;
+                contadorMinutosJugador1++;
+                document.getElementById("minutosJugador1").innerHTML = contadorMinutosJugador1.toString();
+                if (contadorMinutosJugador1 == 60) {
+                    contadorMinutosJugador1 = 0;
+                }
             }
+            document.getElementById("segundosJugador1").innerHTML = contadorSegundosJugador1.toString();
+            contadorSegundosJugador1 += 1;
+            cronometroJugador1 = setTimeout(iniciarTemporizador, 1000)
+        } else {
+            detenerTemporizador("jugador1")
+            cronometroEncendidoJugador2 = true;
+            if (contadorSegundosJugador2 == 60) {
+                contadorSegundosJugador2 = 0;
+                contadorMinutosJugador2++;
+                document.getElementById("minutosJugador2").innerHTML = contadorMinutosJugador2.toString();
+                if (contadorMinutosJugador2 == 60) {
+                    contadorMinutosJugador2 = 0;
+                }
+            }
+            document.getElementById("segundosJugador2").innerHTML = contadorSegundosJugador2.toString();
+            contadorSegundosJugador2 += 1;
+            cronometroJugador2 = setTimeout(iniciarTemporizador, 1000)
 
         }
-        document.getElementById("segundos").innerHTML = "Temporizador: 00:"+contadorSegundos.toString();
-        contadorSegundos+=1;
-    },
-    1000);
-}
+    }
+  }
+
+
 
 function voltearFichas(fichasVoltear: number[], color: string) {
     if(color === "Negra") {
@@ -429,6 +460,7 @@ function esMovimientoValido(cuadrado: HTMLDivElement, ficha: HTMLImageElement): 
             document.getElementById("labelFichasJugador2").innerText += "Blancas"
             document.getElementById("labelTurnoJugador2").innerText += "No";
             turnoJugador1 = true;
+            iniciarTemporizador();
         } else {
                 //inicia el jugador 2
             document.getElementById("labelFichasJugador1").innerText += "Blancas"
@@ -436,12 +468,12 @@ function esMovimientoValido(cuadrado: HTMLDivElement, ficha: HTMLImageElement): 
             document.getElementById("labelFichasJugador2").innerText += "Negras"
             document.getElementById("labelTurnoJugador2").innerText += " Si";
             turnoJugador2 = true;
+            iniciarTemporizador();
         }
     }
 
 
 function colocarTablero() {
-
         let celda28 = document.getElementById('28');
         let celda29 = document.getElementById('29');
         let celda36 = document.getElementById('36');

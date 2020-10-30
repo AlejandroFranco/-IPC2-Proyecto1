@@ -119,6 +119,24 @@ function click(cuadrado: HTMLDivElement) {
 
  
 }
+function guardarArchivo() {
+    var entrada = document.getElementById("cargarArchivo") as HTMLInputElement
+    entrada.addEventListener('change', function (e) {
+
+    },false)
+
+}
+function cargarArchivo() {
+    var entrada = document.getElementById("cargarArchivo") as HTMLInputElement
+    entrada.addEventListener('change', function (e) {
+        const lector = new FileReader();
+        lector.onload = function () {
+            var xmlEntrada = lector.result;
+        }
+        lector.readAsText(entrada.files[0])
+
+    },false)
+}
 
 function actualizarPunteo() {
     document.getElementById("labelPunteoJ1").innerText = "Punteo: " + fichasNegras;
@@ -443,9 +461,6 @@ function esMovimientoValido(cuadrado: HTMLDivElement, ficha: HTMLImageElement): 
         }
     }
 }
-
-
-
 
     function turnos() {
         //El jugador 1 siempre va a ser el jugador loggeado

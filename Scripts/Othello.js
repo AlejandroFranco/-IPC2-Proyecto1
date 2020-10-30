@@ -111,6 +111,21 @@ function click(cuadrado) {
         }
     }
 }
+function guardarArchivo() {
+    var entrada = document.getElementById("cargarArchivo");
+    entrada.addEventListener('change', function (e) {
+    }, false);
+}
+function cargarArchivo() {
+    var entrada = document.getElementById("cargarArchivo");
+    entrada.addEventListener('change', function (e) {
+        var lector = new FileReader();
+        lector.onload = function () {
+            var xmlEntrada = lector.result;
+        };
+        lector.readAsText(entrada.files[0]);
+    }, false);
+}
 function actualizarPunteo() {
     document.getElementById("labelPunteoJ1").innerText = "Punteo: " + fichasNegras;
     document.getElementById("labelPunteoJ2").innerText = "Punteo: " + fichasBlancas;

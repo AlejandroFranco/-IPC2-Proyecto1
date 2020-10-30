@@ -15,6 +15,7 @@
     @Html.Partial("_navBar")
 
     <div class="contenedor">
+
         <div class="fila">
             <!--una columna con tres filas-->
             <div class="col-4">
@@ -42,7 +43,7 @@
                 <div class="fila">
                     <div class="col-12"></div>
                     <p>
-                        <span id="minutosJugador2"></span>:<span id="segundosJugador2">Temporizador: 00:00</span>
+                        Temporizador:   <span id="minutosJugador2"></span>:<span id="segundosJugador2">00:00</span>
                     </p>
                 </div>
             </div>
@@ -79,14 +80,31 @@
                 <div class="fila">
                     <div class="col-12"></div>
                     <p>
-                        <span id="minutosJugador1"></span>:<span id="segundosJugador1">Temporizador: 00:00</span>
+                      Temporizador:  <span id="minutosJugador1"></span>:<span id="segundosJugador1">00:00</span>
                     </p>
                 </div>
             </div>
 
         </div>
+        <div class="fila">
+            <div class="col-4">
+            </div>
+            <div class="col-4">
+                <input type="file" class="custom-file-input" id="cargarArchivo"onclick="cargarArchivo()" lang="es">
+                <label class="custom-file-label" data-browse="Seleccionar" for="cargarArchivo">Cargar partida</label>
+            </div>
+            <div class="col-4"></div>
+        </div>
 
-
+        <div class="fila">
+            <div class="col-4">
+            </div>
+            <div class="col-4">
+                <input type="file" class="custom-file-input" id="guardarArchivo" onclick="guardarArchivo()" lang="es">
+                <label class="custom-file-label" for="guardarArchivo"  data-browse="Seleccionar">Guardar partida</label>
+            </div>
+            <div class="col-4"></div>
+        </div>
     </div>
     <hr />
     <footer>

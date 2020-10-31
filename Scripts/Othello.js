@@ -243,8 +243,8 @@ function patronCompletado(ficha, contador, direccion) {
     if (ficha.className === "Negra") {
         var patronEncontrado = true;
         while (patronEncontrado) {
-            var esBordeDe = (contador + 1 % 8 === 0);
-            var esBordeIz = (contador + 1 % 8 === 1);
+            var esBordeDe = ((contador + 1) % 8 === 0);
+            var esBordeIz = ((contador + 1) % 8 === 1);
             if (direccion === "a") {
                 //el contador inicialmente es el numero dentro del array de cuadrados del cuadrado sobre el que se hizo click originalmente
                 //hacia arriba
@@ -371,8 +371,8 @@ function patronCompletado(ficha, contador, direccion) {
     else {
         var patronEncontrado = true;
         while (patronEncontrado) {
-            var esBordeDe = (contador + 1 % 8 === 0);
-            var esBordeIz = (contador + 1 % 8 === 1);
+            var esBordeDe = ((contador + 1) % 8 === 0);
+            var esBordeIz = ((contador + 1) % 8 === 1);
             //lado derecho
             if (direccion === "a") {
                 //hacia arriba
@@ -505,8 +505,8 @@ function esMovimientoValido(cuadrado, ficha) {
     numCuadrado -= 1;
     if (ficha.className === "Negra") {
         for (var i = numCuadrado; i < cuadrados.length; i++) {
-            var esBordeDe = (i + 1 % 8 === 0);
-            var esBordeIz = (i + 1 % 8 === 1);
+            var esBordeDe = ((i + 1) % 8 === 0);
+            var esBordeIz = ((i + 1) % 8 === 1);
             //lado derecho
             if (i + 1 < 64 && !esBordeDe && cuadrados[i + 1].children.length > 0 && cuadrados[i + 1].childNodes[0].className === "Blanca") {
                 sonMovimientoValidos.push(patronCompletado(ficha, i, "de"));
@@ -550,9 +550,10 @@ function esMovimientoValido(cuadrado, ficha) {
         }
     }
     else {
+        //numCuadrado es el numero de div clickeado dentro del array de divs
         for (var i = numCuadrado; i < cuadrados.length; i++) {
-            var esBordeDe = (i + 1 % 8 === 0);
-            var esBordeIz = (i + 1 % 8 === 1);
+            var esBordeDe = ((i + 1) % 8 === 0);
+            var esBordeIz = ((i + 1) % 8 === 1);
             //lado derecho
             if (i + 1 < 64 && !esBordeDe && cuadrados[i + 1].children.length > 0 && cuadrados[i + 1].childNodes[0].className === "Negra") {
                 sonMovimientoValidos.push(patronCompletado(ficha, i, "de"));

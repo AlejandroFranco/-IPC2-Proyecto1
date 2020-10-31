@@ -132,9 +132,9 @@ function cargarArchivo() {
         const lector = new FileReader();
         lector.onload = function () {
             var xmlEntrada = lector.result;
+
         }
         lector.readAsText(entrada.files[0])
-
     },false)
 }
 
@@ -266,8 +266,8 @@ function patronCompletado(ficha: HTMLImageElement, contador: number, direccion: 
     if (ficha.className === "Negra") {
         var patronEncontrado: boolean = true
         while (patronEncontrado) {
-            const esBordeDe = (contador+1 % 8 === 0);
-            const esBordeIz = (contador+1 % 8 === 1);
+            const esBordeDe = ((contador + 1) % 8 === 0);
+            const esBordeIz = ((contador + 1) % 8 === 1);
             if (direccion === "a") {         
             //el contador inicialmente es el numero dentro del array de cuadrados del cuadrado sobre el que se hizo click originalmente
                 //hacia arriba
@@ -333,8 +333,8 @@ function patronCompletado(ficha: HTMLImageElement, contador: number, direccion: 
     }else {
     var patronEncontrado:boolean = true
         while (patronEncontrado) {
-            const esBordeDe = (contador+1 % 8 === 0);
-            const esBordeIz = (contador+1 % 8 === 1);
+            const esBordeDe = ((contador+1) % 8 === 0);
+            const esBordeIz = ((contador+1) % 8 === 1);
                 //lado derecho
                 if (direccion === "a") {
                     //hacia arriba
@@ -407,8 +407,8 @@ function esMovimientoValido(cuadrado: HTMLDivElement, ficha: HTMLImageElement): 
     numCuadrado -= 1;
     if (ficha.className === "Negra") {
         for (let i = numCuadrado; i < cuadrados.length; i++) {
-            const esBordeDe = (i+1 % 8 === 0);
-            const esBordeIz = (i+1 % 8 === 1);
+            const esBordeDe = ((i + 1) % 8 === 0);
+            const esBordeIz = ((i + 1) % 8 === 1);
                 //lado derecho
                  if (i+1 < 64 && !esBordeDe &&  cuadrados[i + 1].children.length > 0 && cuadrados[i + 1].childNodes[0].className === "Blanca") { sonMovimientoValidos.push(patronCompletado(ficha, i,"de")) }
                 //lado izquierdo
@@ -433,9 +433,10 @@ function esMovimientoValido(cuadrado: HTMLDivElement, ficha: HTMLImageElement): 
         return false
         }
     } else {
+        //numCuadrado es el numero de div clickeado dentro del array de divs
         for (let i = numCuadrado; i < cuadrados.length; i++) {
-            const esBordeDe = (i+1 % 8 === 0);
-            const esBordeIz = (i+1 % 8 === 1);
+            const esBordeDe = ((i+1) % 8 === 0);
+            const esBordeIz = ((i+1) % 8 === 1);
             //lado derecho
             if (i+1 < 64 && !esBordeDe && cuadrados[i + 1].children.length > 0 && cuadrados[i + 1].childNodes[0].className === "Negra") { sonMovimientoValidos.push( patronCompletado(ficha, i,"de") )}
             //lado izquierdo

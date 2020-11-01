@@ -19,14 +19,6 @@ namespace _IPC2_IGameOthello.Controllers
         // GET: usuario
         public ActionResult Dashboard()
         {
-         //   int idUsuario = (int)Session["idUsuario"];
-            /*  var totalFilas = db.Usuario.Where(x => x.rol == 2 ).ToList();
-              int aleatorio = numeroRandom(0,totalFilas.Count);
-              if (aleatorio == idUsuario){
-                  aleatorio = numeroRandom(0, totalFilas.Count);
-              }
-              var usr2 =  db.Usuario.FirstOrDefault(u => u.id_usuario == aleatorio);
-              ViewBag.usuario2 = usr2.nombre_usuario;*/
             return View();
         }
         public int numeroRandom(int min, int max)
@@ -60,5 +52,10 @@ namespace _IPC2_IGameOthello.Controllers
   
             return View();     
         }
+
+     /*   [HttpPost]
+        public ActionResult guardarJuego() {
+        
+        }*/
     }
 }

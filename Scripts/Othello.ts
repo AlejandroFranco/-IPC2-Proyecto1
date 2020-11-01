@@ -41,6 +41,23 @@ function actualizarNombres() {
     document.getElementById("lblJugador2").innerText =  (texto + opc.text);
 }
 
+function cederElTurno(jugador:string) {
+    if (jugador === "jugador1") {
+        iniciarTemporizador();
+        turnoJugador2 = true;
+        turnoJugador1 = false;
+        document.getElementById("labelTurnoJugador2").innerText = "Turno: Si";
+        document.getElementById("labelTurnoJugador1").innerText = "Turno: No";
+    } else {
+        iniciarTemporizador();
+        turnoJugador1 = true;
+        turnoJugador2 = false;
+        document.getElementById("labelTurnoJugador1").innerText = "Turno: Si";
+        document.getElementById("labelTurnoJugador2").innerText = "Turno: No";
+    }
+    
+
+}
 function click(cuadrado: HTMLDivElement) {
     if (!finDelJuego()) {
         if (turnoJugador1 == true) {
@@ -116,9 +133,8 @@ function click(cuadrado: HTMLDivElement) {
 
         }
     }
-
- 
 }
+
 function guardarArchivo() {
     var entrada = document.getElementById("cargarArchivo") as HTMLInputElement
     entrada.addEventListener('change', function (e) {
@@ -143,6 +159,9 @@ function actualizarPunteo() {
     document.getElementById("labelPunteoJ2").innerText = "Punteo: " + fichasBlancas;
 }
 
+var posiblesMovimientosJugador1 = true;
+var posiblesMovimientosJugador2 = true;
+
 function finDelJuego():boolean {
     var contador:number = 0
     for (var i = 0; i < cuadrados.length; i++) {
@@ -150,7 +169,7 @@ function finDelJuego():boolean {
             contador++;
         }
     }
-    if (contador === 64) {
+    if (contador === 64 || (!posiblesMovimientosJugador1 || !posiblesMovimientosJugador2 )) {
         if (fichasBlancas > fichasNegras) {
             window.alert("Ganan las blancas")
             return true;
@@ -173,8 +192,6 @@ var contadorMinutosJugador2: number = 0;
 var contadorSegundosJugador2: number = 0;
 var cronometroEncendidoJugador1: boolean = false;
 var cronometroEncendidoJugador2: boolean = false;
-
-
 
 
 function detenerTemporizador(jugador:string) {

@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
     //esto es el numero de cuadros de ancho que tiene el tablero
     //create Board
     function crearTablero() {
+        console.log("En el metodo");
         var _loop_1 = function (i) {
             var cuadrado = document.createElement('div');
             //este es el identificador unico para mis 64 divs
@@ -163,18 +164,7 @@ function finDelJuego() {
         }
         else if (fichasBlancas === fichasNegras) {
             window.alert("Empate!");
-            var juego = { id_juego: '', ganador: '1', fecha_creacion: '2020/11/01', tipo_juego: '1', empate: '0' };
-            $.ajax({
-                type: "POST",
-                dataType: "json",
-                data: JSON.stringify(juego),
-                url: "/usuario/GuardarJuego",
-                success: function (msg) {
-                    alert('Juego guardado exitosamente');
-                }, error: function () {
-                    alert("Ocurrió un error al guardar la partida");
-                }
-            });
+            var juego = { id_juego: '', ganador: 'pcursio', fecha_creacion: '01/11/2020', tipo_juego: 'vs', empate: 'no' };
             return true;
         }
         else {

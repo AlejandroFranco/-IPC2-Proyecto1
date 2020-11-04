@@ -10,9 +10,11 @@
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/Othello")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/Jquery")
 </head>
 <body>
     @Html.Partial("_navBar")
+
 
     <div class="contenedor">
 
@@ -82,7 +84,7 @@
 
                 <div class="fila">
                     <div class="col-12"></div>
-                    <button  id="btnCederTurnoJugador1" class="btn-danger" onclick="cederElTurno('jugador1')">Ceder el turno</button>
+                    <button id="btnCederTurnoJugador1" class="btn-danger" onclick="cederElTurno('jugador1')">Ceder el turno</button>
                 </div>
 
                 <div class="fila">
@@ -98,7 +100,7 @@
             <div class="col-4">
             </div>
             <div class="col-4">
-                <input type="file" class="custom-file-input" id="cargarArchivo"onclick="cargarArchivo()" lang="es">
+                <input type="file" class="custom-file-input" id="cargarArchivo" onclick="cargarArchivo()" lang="es">
                 <label class="custom-file-label" data-browse="Seleccionar" for="cargarArchivo">Cargar partida</label>
             </div>
             <div class="col-4"></div>
@@ -109,11 +111,12 @@
             </div>
             <div class="col-4">
                 <input type="file" class="custom-file-input" id="guardarArchivo" onclick="guardarArchivo()" lang="es">
-                <label class="custom-file-label" for="guardarArchivo"  data-browse="Seleccionar">Guardar partida</label>
+                <label class="custom-file-label" for="guardarArchivo" data-browse="Seleccionar">Guardar partida</label>
             </div>
             <div class="col-4"></div>
         </div>
     </div>
+    
     <hr />
     <footer>
         <p>&copy; @DateTime.Now.Year -Othello IGameGT</p>

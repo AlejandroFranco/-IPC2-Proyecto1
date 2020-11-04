@@ -1,13 +1,12 @@
 ﻿let cuadrados = [];
 var audio = new Audio("../Sonidos/ficha.mp3");
-
 let ancho: number = 8;
+
 document.addEventListener('DOMContentLoaded', () => {
     const grid = document.querySelector('.grid');
     //esto es el numero de cuadros de ancho que tiene el tablero
     //create Board
-    function crearTablero() {
-        console.log("En el metodo");
+    function crearTablero() { 
         for (let i = 0; i < ancho * ancho; i++) {
             const cuadrado = document.createElement('div');
             //este es el identificador unico para mis 64 divs
@@ -15,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
             cuadrado.classList.add("celda");
             grid.appendChild(cuadrado);
             cuadrados.push(cuadrado);
+        
             //click normal
             cuadrado.addEventListener("click", e => {
                 click(cuadrado);
@@ -43,17 +43,19 @@ function actualizarNombres() {
 
 function cederElTurno(jugador:string) {
     if (jugador === "jugador1") {
-        iniciarTemporizador();
+        posiblesMovimientosJugador1 = false;
         turnoJugador2 = true;
         turnoJugador1 = false;
         document.getElementById("labelTurnoJugador2").innerText = "Turno: Si";
         document.getElementById("labelTurnoJugador1").innerText = "Turno: No";
-    } else {
         iniciarTemporizador();
+    } else {
         turnoJugador1 = true;
         turnoJugador2 = false;
         document.getElementById("labelTurnoJugador1").innerText = "Turno: Si";
         document.getElementById("labelTurnoJugador2").innerText = "Turno: No";
+        iniciarTemporizador();
+        posiblesMovimientosJugador2 = false;
     }
     
 
@@ -169,9 +171,24 @@ function finDelJuego():boolean {
             contador++;
         }
     }
-    if (contador === 64 || (!posiblesMovimientosJugador1 || !posiblesMovimientosJugador2 )) {
+    if ((!posiblesMovimientosJugador1 || !posiblesMovimientosJugador2 )) {
         if (fichasBlancas > fichasNegras) {
             window.alert("Ganan las blancas")
+            return true;
+        } else if (fichasBlancas === fichasNegras) {
+            window.alert("Empate!");
+            var juego = { id_juego: '', ganador: '1', fecha_creacion: '2020/11/01', tipo_juego: '1', empate: '0' }
+            $.ajax({
+                type: "POST",
+                dataType:"json",
+                data: JSON.stringify(juego),
+                url: "/usuario/GuardarJuego",
+                success: function (msg) {
+                    alert('Juego guardado exitosamente');
+                }, error: function () {
+                    alert("Ocurrió un error al guardar la partida")
+                }
+            });
             return true;
         } else {
             window.alert("Ganan las negras")
@@ -274,8 +291,6 @@ let turnoJugador2: boolean = false;
 var fichasNegras: number = 0;
 var fichasBlancas: number = 0;
 var contadorIdsFichas:number = 1
-
-
 
 //el patron se completa como negra blanca blanca ...negra o al revés
 function patronCompletado(ficha: HTMLImageElement, contador: number, direccion: string): boolean{
@@ -547,6 +562,9 @@ function colocarTablero() {
             turnos()
         }
         else if (modo == "Torneo") {
+
+        }
+        else if (modo=="Xtream") {
 
         }
         else {

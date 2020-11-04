@@ -7,7 +7,7 @@ using System.Xml.Schema;
 using _IPC2_IGameOthello.Models;
 using _IPC2_IGameOthello.Models.ViewModels;
 using _IPC2_IGameOthello.Othello;
-
+using Microsoft.Ajax.Utilities;
 
 namespace _IPC2_IGameOthello.Controllers
 {
@@ -53,9 +53,17 @@ namespace _IPC2_IGameOthello.Controllers
             return View();     
         }
 
-     /*   [HttpPost]
-        public ActionResult guardarJuego() {
-        
-        }*/
+        [HttpPost]
+        public JsonResult GuardarJuego(Juego juegoGuardar) {
+            if (ModelState.IsValid)
+            {
+              //  db.Juego.Add(juegoGuardar);
+         //       db.SaveChanges();
+           //     ModelState.Clear();
+            }
+            //return Json("ok");
+            return Json(juegoGuardar,JsonRequestBehavior.AllowGet);
+
+        }
     }
 }

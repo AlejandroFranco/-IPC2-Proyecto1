@@ -1,4 +1,5 @@
-﻿using System;
+﻿using _IPC2_IGameOthello.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,5 +14,6 @@ namespace _IPC2_IGameOthello.Controllers
         {
             return View();
         }
+
     }
 }

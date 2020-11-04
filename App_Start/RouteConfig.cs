@@ -13,10 +13,17 @@ namespace _IPC2_IGameOthello
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+
+            routes.MapRoute(
+                name: "ReglaUsuario",
+                url: "usuario/guardarJuego",
+                defaults: new { controller = "usuario", action = "guardarJuego", id = UrlParameter.Optional }
+            );
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "LoginController", action = "Login", id = UrlParameter.Optional }
+                defaults: new { controller = "Login", action = "Login", id = UrlParameter.Optional }
             );
         }
     }

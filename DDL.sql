@@ -23,7 +23,7 @@ FOREIGN KEY(rol)REFERENCES Rol(id_rol)
 
 CREATE TABLE TipoJuego(
 id_tipoJuego INT IDENTITY(1,1) PRIMARY KEY,
-descripcion_tipo VARCHAR(255)
+descripcion_tipo VARCHAR(255) 
 );
 
 CREATE TABLE Juego(
@@ -31,7 +31,7 @@ id_juego INT IDENTITY(1,1) PRIMARY KEY,
 ganador INT,
 fecha_creacionjuego DATETIME,
 tipo_juego INT,
-empate bit,
+empate INT,
 FOREIGN KEY (tipo_juego) REFERENCES TipoJuego(id_tipoJuego),
 FOREIGN KEY (ganador)   REFERENCES Usuario(id_usuario)
 );

@@ -177,12 +177,21 @@ function finDelJuego():boolean {
             return true;
         } else if (fichasBlancas === fichasNegras) {
             window.alert("Empate!");
-            var juego = { id_juego: '', ganador: '1', fecha_creacion: '2020/11/01', tipo_juego: '1', empate: '0' }
+            var juego = {
+                id_juego: '',
+                ganador: '1',
+                fecha_creacionjuego: '',
+                tipo_juego: '1',
+                empate: '0'
+            };
+
             $.ajax({
                 type: "POST",
-                dataType:"json",
-                data: JSON.stringify(juego),
-                url: "/usuario/GuardarJuego",
+               
+                contentType: "application/json; charset=utf-8",             
+                data: JSON.stringify({ juegoGuardar: juego }), 
+                dataType: "json",
+                url: "/usuario/GuardarJuego",  
                 success: function (msg) {
                     alert('Juego guardado exitosamente');
                 }, error: function () {

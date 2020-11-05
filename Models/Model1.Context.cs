@@ -13,10 +13,10 @@ namespace _IPC2_IGameOthello.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class OthelloIGameEntities3 : DbContext
+    public partial class OthelloIGameEntities4 : DbContext
     {
-        public OthelloIGameEntities3()
-            : base("name=OthelloIGameEntities3")
+        public OthelloIGameEntities4()
+            : base("name=OthelloIGameEntities4")
         {
         }
     

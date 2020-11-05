@@ -14,7 +14,7 @@ namespace _IPC2_IGameOthello.Controllers
     public class usuarioController : Controller
     {
         private readonly Random _random = new Random();
-        public OthelloIGameEntities3 db = new OthelloIGameEntities3();
+        public OthelloIGameEntities4 db = new OthelloIGameEntities4();
 
         // GET: usuario
         public ActionResult Dashboard()
@@ -55,14 +55,16 @@ namespace _IPC2_IGameOthello.Controllers
 
         [HttpPost]
         public JsonResult GuardarJuego(Juego juegoGuardar) {
+            // return juegoGuardar != null;
+            juegoGuardar.fecha_creacionjuego = DateTime.Now;
             if (ModelState.IsValid)
             {
-              //  db.Juego.Add(juegoGuardar);
-         //       db.SaveChanges();
-           //     ModelState.Clear();
+               db.Juego.Add(juegoGuardar);
+               db.SaveChanges();
+               ModelState.Clear();
             }
             //return Json("ok");
-            return Json(juegoGuardar,JsonRequestBehavior.AllowGet);
+            return Json(juegoGuardar);
 
         }
     }

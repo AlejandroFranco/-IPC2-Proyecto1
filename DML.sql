@@ -31,13 +31,17 @@ SELECT * FROM Usuario;
 delete from Usuario where id_usuario = 4
 delete from Juego
 
-INSERT INTO Juego (id_juego,ganador, fecha_creacionjuego,tipo_juego,empate)
-VALUES('2','3','vs');
+INSERT INTO TipoJuego
+Values('VS');
 
-INSERT INTO Juego (id_juego,ganador, fecha_creacionjuego,tipo_juego,empate)
-VALUES('2','4','torneo');
+INSERT INTO TipoJuego
+Values('IA');
 
-SELECT * FROM Juego
+INSERT INTO TipoJuego
+Values('Torneo');
+
+SELECT * FROM TipoJuego
+
 
 SELECT tipo_partida as 'Tipo de partida', (SELECT nombre_usuario from Usuario WHERE id_usuario = jugador1) as 'jugador 1' , 
 (SELECT nombre_usuario from Usuario WHERE id_usuario = jugador2) as 'jugador 2' 

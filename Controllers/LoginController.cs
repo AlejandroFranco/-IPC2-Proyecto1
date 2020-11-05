@@ -10,7 +10,7 @@ namespace _IPC2_IGameOthello.Controllers
     public class LoginController : Controller
     {
 
-        public OthelloIGameEntities3 db = new OthelloIGameEntities3();
+        public OthelloIGameEntities4 db = new OthelloIGameEntities4();
 
         // GET: Login
         public ActionResult Login()

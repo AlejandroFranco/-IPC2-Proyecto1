@@ -57,12 +57,9 @@ namespace _IPC2_IGameOthello.Controllers
         public JsonResult GuardarJuego(Juego juegoGuardar) {
             // return juegoGuardar != null;
             juegoGuardar.fecha_creacionjuego = DateTime.Now;
-            if (ModelState.IsValid)
-            {
                db.Juego.Add(juegoGuardar);
                db.SaveChanges();
                ModelState.Clear();
-            }
             //return Json("ok");
             return Json(juegoGuardar);
 

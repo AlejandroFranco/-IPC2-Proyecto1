@@ -164,6 +164,78 @@ function actualizarPunteo() {
 var posiblesMovimientosJugador1 = true;
 var posiblesMovimientosJugador2 = true;
 
+function guardarJuego(resultado: string ) {
+    var tipoJuego: number;
+    var ganador: number;
+    var empate: number;
+
+    if (modalidad == "VS") {
+        tipoJuego = 1;
+    }
+    else if (modalidad == "IA") {
+        tipoJuego = 2;
+    }
+    else if (modalidad == "Torneo") {
+        tipoJuego = 3;
+    } else { }
+
+
+    if (resultado == "empate") {
+        empate = 1
+        ganador = -1;
+    } else if (resultado == "negras") {
+        empate = 0;
+        var usrname: string;
+        
+        if (document.getElementById("labelFichasJugador1").innerText.search("Negras")>-1) {
+            usrname = document.getElementById("lblJugador1").innerText.replace("Jugador1:", "");
+        } else {
+            usrname = document.getElementById("lblJugador2").innerText.replace("Jugador2:","");
+        }
+
+        $.ajax({
+            url: "/usuario/GetIdJugador",
+            type: "POST",
+            dataType: "json",
+            data: { nombreUsuario: usrname.trim()},
+            success: function (datos) {
+            alert("datos")
+             ganador = datos
+            }, error: function () {
+                alert("Ocurrió un error")
+            }
+        });
+    } else {
+       //ganan las blancas
+        empate = 0;
+            
+    }
+
+
+
+    var juego = {
+        id_juego: '',
+        ganador: ganador.toString(),
+        fecha_creacionjuego: '',
+        tipo_juego: tipoJuego.toString(),
+        empate: empate.toString()
+    };
+
+    $.ajax({
+        type: "POST",
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify({ juegoGuardar: juego }),
+        dataType: "json",
+        url: "/usuario/GuardarJuego",
+        success: function (msg) {
+            alert('Juego guardado exitosamente');
+        }, error: function () {
+            alert("Ocurrió un error al guardar la partida")
+        }
+    });
+}
+
+
 function finDelJuego():boolean {
     var contador:number = 0
     for (var i = 0; i < cuadrados.length; i++) {
@@ -174,39 +246,19 @@ function finDelJuego():boolean {
     if ((!posiblesMovimientosJugador1 || !posiblesMovimientosJugador2 )) {
         if (fichasBlancas > fichasNegras) {
             window.alert("Ganan las blancas")
+            guardarJuego("blancas");
             return true;
         } else if (fichasBlancas === fichasNegras) {
             window.alert("Empate!");
-            var juego = {
-                id_juego: '',
-                ganador: '1',
-                fecha_creacionjuego: '',
-                tipo_juego: '1',
-                empate: '0'
-            };
-
-            $.ajax({
-                type: "POST",
-               
-                contentType: "application/json; charset=utf-8",             
-                data: JSON.stringify({ juegoGuardar: juego }), 
-                dataType: "json",
-                url: "/usuario/GuardarJuego",  
-                success: function (msg) {
-                    alert('Juego guardado exitosamente');
-                }, error: function () {
-                    alert("Ocurrió un error al guardar la partida")
-                }
-            });
+            guardarJuego("empate");
             return true;
         } else {
             window.alert("Ganan las negras")
-            document.getElementById("ganador");
+            guardarJuego("negras");
             return true;
         }
     } else {
-
-        console.log("Juego no terminado")
+            console.log("Juego no terminado")
     return false
     }
 }
@@ -561,8 +613,10 @@ function colocarTablero() {
         fichasBlancas += 1;
 
     }
+var modalidad:string = "";
 
-    function modoJuego(modo: string) {
+function modoJuego(modo: string) {
+    modalidad += modo;
         if (modo == "IA") {
 
         }

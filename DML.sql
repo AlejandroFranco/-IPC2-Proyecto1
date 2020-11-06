@@ -43,6 +43,9 @@ Values('Torneo');
 SELECT * FROM TipoJuego
 
 
+
+
+
 SELECT tipo_partida as 'Tipo de partida', (SELECT nombre_usuario from Usuario WHERE id_usuario = jugador1) as 'jugador 1' , 
 (SELECT nombre_usuario from Usuario WHERE id_usuario = jugador2) as 'jugador 2' 
 FROM Juego

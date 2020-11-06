@@ -54,13 +54,13 @@ namespace _IPC2_IGameOthello.Controllers
         }
 
 
-        [HttpPost]
+        [HttpGet]
         public JsonResult GetIdJugador(string nombreUsuario)
         {
             var usr = db.Usuario.FirstOrDefault(u => u.nombre_usuario == nombreUsuario);
             if (usr != null)
             {
-                return Json(usr.id_usuario,JsonRequestBehavior.AllowGet);
+                return Json(usr.id_usuario ,JsonRequestBehavior.AllowGet);
             }
             else {
                 return Json("No encontrado",JsonRequestBehavior.AllowGet);

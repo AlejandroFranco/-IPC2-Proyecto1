@@ -164,10 +164,20 @@ function actualizarPunteo() {
 var posiblesMovimientosJugador1 = true;
 var posiblesMovimientosJugador2 = true;
 
+
 function guardarJuego(resultado: string ) {
     var tipoJuego: number;
     var ganador: number;
     var empate: number;
+
+
+    var juego = {
+        id_juego: '',
+        ganador: '',
+        fecha_creacionjuego: '',
+        tipo_juego: '',
+        empate: ''
+    };
 
     if (modalidad == "VS") {
         tipoJuego = 1;
@@ -184,7 +194,9 @@ function guardarJuego(resultado: string ) {
         empate = 1
         ganador = -1;
     } else if (resultado == "negras") {
+
         empate = 0;
+      
         var usrname: string;
         
         if (document.getElementById("labelFichasJugador1").innerText.search("Negras")>-1) {
@@ -192,47 +204,51 @@ function guardarJuego(resultado: string ) {
         } else {
             usrname = document.getElementById("lblJugador2").innerText.replace("Jugador2:","");
         }
+   
 
         $.ajax({
             url: "/usuario/GetIdJugador",
-            type: "POST",
+            type: "GET",
             dataType: "json",
             data: { nombreUsuario: usrname.trim()},
-            success: function (datos) {
-            alert("datos")
-             ganador = datos
-            }, error: function () {
+            success: myCallback,
+            error: function () {
                 alert("Ocurrió un error")
             }
         });
+        function myCallback(datos) {
+            //guardo los datos del juego
+            juego.ganador = JSON.parse(datos);
+            juego.empate = empate.toString();
+            juego.tipo_juego = '1';
+
+            alert(juego.ganador)
+            $.ajax({
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({ juegoGuardar: juego }),
+                dataType: "json",
+                url: "/usuario/GuardarJuego",
+                success: function (msg) {
+                    alert('Juego guardado exitosamente');
+                }, error: function () {
+                    alert("Ocurrió un error al guardar la partida")
+                }
+            });
+
+
+        }
+        
+   
+      
+    
+
     } else {
        //ganan las blancas
         empate = 0;
             
     }
 
-
-
-    var juego = {
-        id_juego: '',
-        ganador: ganador.toString(),
-        fecha_creacionjuego: '',
-        tipo_juego: tipoJuego.toString(),
-        empate: empate.toString()
-    };
-
-    $.ajax({
-        type: "POST",
-        contentType: "application/json; charset=utf-8",
-        data: JSON.stringify({ juegoGuardar: juego }),
-        dataType: "json",
-        url: "/usuario/GuardarJuego",
-        success: function (msg) {
-            alert('Juego guardado exitosamente');
-        }, error: function () {
-            alert("Ocurrió un error al guardar la partida")
-        }
-    });
 }
 
 
